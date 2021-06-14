@@ -18,8 +18,7 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 - Orientação a objetos
 - Integração com banco de dados
 - [FastAPI](https://fastapi.tiangolo.com/)
-- [Docker](https://www.docker.com/)
-- [Docker-compose](https://docs.docker.com/compose/install/)
+- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/)
 - [Ngrok](https://ngrok.com/)
 
 #### Como começar?
