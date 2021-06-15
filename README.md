@@ -6,7 +6,7 @@ O desafio consiste em implementar um CRUD de filmes, utilizando [python](https:/
 
 Rotas da API:
 
- - `/filmes` - [GET] eve retornar todos os filmes cadastrados.
+ - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
  - `/filmes` - [POST] deve cadastrar um novo filme.
  - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
 
