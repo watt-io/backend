@@ -17,8 +17,9 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 
 - Orientação a objetos (utilizar objetos, classes para manipular os filmes)
 - [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- Integração com banco de dados (persistir as informações em json /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / 
 - [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
+- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+
 
 #### Como começar?
 
