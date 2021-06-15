@@ -19,10 +19,9 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 - Integração com banco de dados
 - [FastAPI](https://fastapi.tiangolo.com/)
 - [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/)
-- [Ngrok](https://ngrok.com/)
 
 #### Como começar?
 
 - Fork do repositório
 - Criar branch com seu nome
-- após concluir, faça o Pull Request para a branch **```main```**
+- Após concluir, faça o Pull Request para a branch **```main```**
