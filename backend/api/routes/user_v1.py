@@ -9,8 +9,6 @@ router = APIRouter()
 class UserOut(BaseModel):
     id: int
     username: str
-    password: str
-    is_active: bool
     inserted_on: datetime
 
 
