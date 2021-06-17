@@ -1,15 +1,35 @@
 version: '3.8'
 
 services:
+  db:
+      image: postgres:11
+      ports:
+         -  "5432:5432"
+      environment: 
+         - POSTGRES_USER=postgres
+         - POSTGRES_PASSWORD=postgres
+         - POSTGRES_DB=test_db
   server:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    volumes:
-      - ./backend/:/backend/
-    command: uvicorn server:app --reload --host 0.0.0.0 --port 8000
-    env_file:
-      - ./backend/src/.env
-    ports:
-      - 8000:8000
+      build:
+        context: ./
+        dockerfile: Dockerfile
+      volumes:
+        - ./backend/:/backend/
+      command: alembic upgrade head && uvicorn server:app --reload --host 0.0.0.0 --port 8000
+      depends_on: 
+        - db
+      env_file:
+        - ./src/.env
+      ports:
+        - 8000:8000
+  pgadmin:
+      container_name: pgadmin
+      image: dpage/pgadmin4
+      environment: 
+        - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+        - PGADMIN_DEFAULT_PASSWORD=admin
+      ports: 
+        - "5050:80"
+      depends_on: 
+        - db
 
