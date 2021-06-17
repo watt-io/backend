@@ -41,10 +41,12 @@ Salve!
 ### Documentação
 
 [Documentação das Rotas da API via OpenAPI3](http://localhost/docs)
+[Conventional Commits na padronização dos comentários do GIT](https://www.conventionalcommits.org/pt-br/v1.0.0/)
 
 | Username | Password |
 | -------- | -------- |
 | admin  | admin  |
+
 
 ##### Build e execução dos containeres
 ```sh
@@ -58,7 +60,7 @@ pytest
 ```
 ![image](https://user-images.githubusercontent.com/40257388/122339046-ee596c00-cf16-11eb-8652-6d69cea4f821.png)
 
-##### Estrutura do .env no diretório /backend 
+### Estrutura do arquivo .env no diretório /backend 
 
 ```sh
 DEBUG=True
