@@ -10,7 +10,7 @@ film_id = 1
 def test_login():
     global auth_token
     response = client.post(
-        '/api/auth/token/',
+        '/auth/token/',
         headers={'accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
         data={'username': 'admin', 'password': 'admin'}
     )
@@ -21,7 +21,7 @@ def test_login():
 def test_create_film():
     global film_id
     response = client.post(
-        '/api/filmes/',
+        '/filmes/',
         headers={
             'accept': 'application/json',
             'Authorization': f'Bearer {auth_token}'
@@ -34,7 +34,7 @@ def test_create_film():
 
 def test_read_all_films():
     response = client.get(
-        '/api/filmes/', 
+        '/filmes/', 
         headers={
             'accept': 'application/json',
             'Authorization': f'Bearer {auth_token}'
@@ -46,7 +46,7 @@ def test_read_all_films():
 
 def test_read_film():
     response = client.get(
-        f'/api/filmes/{film_id}',
+        f'/filmes/{film_id}',
         headers={
             'accept': 'application/json',
             'Authorization': f'Bearer {auth_token}'
@@ -57,7 +57,7 @@ def test_read_film():
 
 def test_update_film():
     response = client.put(
-        f'/api/filmes/{film_id}',
+        f'/filmes/{film_id}',
         headers={
             'accept': 'application/json',
             'Authorization': f'Bearer {auth_token}'
@@ -70,14 +70,14 @@ def test_update_film():
 def test_delete_film():
     # ! Deletar filme recem criado durante a exec deste teste
     client.delete(
-        f'/api/filmes/{film_id}',
+        f'/filmes/{film_id}',
         headers={
             'accept': 'application/json',
             'Authorization': f'Bearer {auth_token}'
         },
     )
     response = client.get(
-        f'/api/filmes/{film_id}',
+        f'/filmes/{film_id}',
         headers={
             'accept': 'application/json',
             'Authorization': f'Bearer {auth_token}'

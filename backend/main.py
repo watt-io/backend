@@ -6,4 +6,4 @@ VERSION = '0.0.2'
 
 app = FastAPI(title=PROJECT_NAME, debug=DEBUG, version=VERSION)
 
-app.include_router(api_router, prefix='/api')
+app.include_router(api_router, prefix='')
