@@ -1,40 +1,39 @@
-from typing import List
-
 import fastapi
+from fastapi.encoders import jsonable_encoder
 
-import app.models as models
-import app.db.mongo as mongo
+from app.db.operations.filmes import (
+	add_movie,
+	retrieve_movie,
+	retrieve_movies
+)
+
+from app.models.movie import (
+	MovieSchema,
+	ResponseModel,
+	ErrorResponseModel
+)
 
 router = fastapi.APIRouter()
 
-@router.get('/filmes/')
+@router.get('/filmes/', response_description="Movies retrieved")
 async def read_movies():
-	database = mongo.dbLayer()
-	movies_mongo_cursor = database.db['movies'].find({})
+	movies = await retrieve_movies()
+	if movies:
+		return ResponseModel(movies, "Movies data retrieved successfully.")
 
-	movies: List[models.Movie] = list()
+	return ResponseModel(movies, "Empty list returned")
 
-	for movie in movies_mongo_cursor:
-		del movie['_id'] 
-		movies.append(movie)
-
-	return movies
-
-@router.get('/filmes/{id}')
+@router.get('/filmes/{id}', response_description="Movie data retrieved")
 async def read_movie(id: str):
-	database = mongo.dbLayer()
-	movie: models.Movie
+	movie = await retrieve_movie(id)
+	if movie:
+		return ResponseModel(movie, "Movie data retrieved successfully.")
 
-	if movie := database.db['movies'].find_one({ 'id': id }):
-		del movie['_id']
-	else:
-		raise fastapi.HTTPException(status_code=404, detail="Item not found")
+	return ErrorResponseModel("An error occurred.", 404, "Movie not found.")
 
-	return movie
+@router.post('/filmes/', response_description="Movie data added into the database")
+async def create_movie(item: MovieSchema = fastapi.Body(...)):
+	movie = jsonable_encoder(item)
+	new_movie = await add_movie(movie)
 
-@router.post('/filmes/')
-async def create_movie(item: models.Movie):
-	database = mongo.dbLayer()
-	database.db['movies'].insert_one(item.dict())
-
-	return item
+	return ResponseModel(new_movie, "Movie added successfully.")
