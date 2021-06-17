@@ -1,3 +1,0 @@
-from .movie import (
-	Movie
-)
