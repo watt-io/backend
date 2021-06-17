@@ -56,3 +56,17 @@ docker-compose up --build -d
 cd /home/src/
 pytest
 ```
+
+##### Estrutura do .env no diretório /backend 
+
+```sh
+DEBUG=True
+PROJECT_NAME=API Luiz
+SECRET_KEY=l1d2b99ae9f502cd9bbb3c345337c0ca4e708b1c9e9fe1dbbcf30156c3630565a
+
+MARIADB_USER=user
+MARIADB_PASS=123456
+MARIADB_HOST=db
+MARIADB_DB=db
+
+```
