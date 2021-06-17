@@ -25,8 +25,12 @@ async def read_movies():
 @router.get('/filmes/{id}')
 async def read_movie(id: str):
 	database = mongo.dbLayer()
-	movie = database.db['movies'].find_one({ 'id': id })
-	movie = json.dumps(movie, cls=serializer.JSONEncoder)
+	movie: models.Movie
+
+	if movie := database.db['movies'].find_one({ 'id': id }):
+		movie = json.dumps(movie, cls=serializer.JSONEncoder)
+	else:
+		raise fastapi.HTTPException(status_code=404, detail="Item not found")
 
 	return json.loads(movie)
 
