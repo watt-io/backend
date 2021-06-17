@@ -18,6 +18,15 @@ def test_add_movie_invalid_json(test_app):
 	assert response.status_code == 422
 	assert response.json() == test_response_payload
 
+def test_add_movie_already_exists(test_app):
+	test_request_payload = {"id": "9207", "title": "Click", "genre": "comedy/romance", "release": "2006", "imdb": 6.4}
+	test_response_payload = {"error": "An error occurred.", "code": 403, "message": "Movie ID already exists."}
+
+	response = test_app.post("/filmes/", json=test_request_payload)
+
+	assert response.status_code == 403
+	assert response.json() == test_response_payload
+
 def test_retrieve_movies(test_app):
 	test_response_payload = {
 		"data": [

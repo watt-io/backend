@@ -36,4 +36,7 @@ async def create_movie(item: MovieSchema = fastapi.Body(...)):
 	movie = jsonable_encoder(item)
 	new_movie = await add_movie(movie)
 
+	if new_movie.get('error'):
+		return ErrorResponseModel(new_movie["error"], new_movie["code"], new_movie["message"])
+
 	return ResponseModel(new_movie, "Movie added successfully.")

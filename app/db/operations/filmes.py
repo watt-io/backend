@@ -3,8 +3,14 @@ from .. import mongo
 # define the MongoDB Instance globally into the module
 mongo = mongo.dbLayer()
 
-# add a new movie into to the database
 async def add_movie(movie_data: dict) -> dict:
+	if await mongo.db.get_collection('movies').find_one({'id': movie_data['id']}):
+		return {
+			"error": "An error occurred.",
+			"code": 403,
+			"message": "Movie ID already exists."
+		}
+
 	movie = await mongo.db.get_collection('movies').insert_one(movie_data)
 	inserted_movie = await mongo.db.get_collection('movies').find_one({'_id': movie.inserted_id}, projection={'_id': False})
 
