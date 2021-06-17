@@ -56,6 +56,7 @@ docker-compose up --build -d
 cd /home/src/
 pytest
 ```
+![image](https://user-images.githubusercontent.com/40257388/122339046-ee596c00-cf16-11eb-8652-6d69cea4f821.png)
 
 ##### Estrutura do .env no diretório /backend 
 
