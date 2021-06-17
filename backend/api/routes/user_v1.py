@@ -12,7 +12,7 @@ class UserOut(BaseModel):
     inserted_on: datetime
 
 
-@router.get('/me/', response_model=UserOut)
+@router.get('/me', response_model=UserOut)
 async def read_users_me(current_user=Depends(get_current_user)):
     """
     Return current user info

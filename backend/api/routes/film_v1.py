@@ -25,7 +25,7 @@ class FilmOut(BaseModel):
     updated_on: Optional[datetime]=None
 
 
-@router.post('/')
+@router.post('')
 async def create_film(data: FilmIn, user=Depends(get_current_user)):
     """
     Cadastrar um novo filme
@@ -46,7 +46,7 @@ async def create_film(data: FilmIn, user=Depends(get_current_user)):
         raise HTTPException(400, 'Bad Request')
 
 
-@router.get('/', response_model=List[FilmOut])
+@router.get('', response_model=List[FilmOut])
 async def read_all_films(user=Depends(get_current_user)):
     """
     Retornar dados de todos os filmes cadastrados
