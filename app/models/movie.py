@@ -1,3 +1,5 @@
+from fastapi.responses import JSONResponse
+
 from pydantic import (
 	BaseModel,
 	Field
@@ -12,14 +14,17 @@ class MovieSchema(BaseModel):
 
 def ResponseModel(data, message):
 	return {
-		"data": [data],
+		"data": [_data for _data in data] if isinstance(data, list) else [data],
 		"code": 200,
 		"message": message
 	}
 
 def ErrorResponseModel(error, code, message):
-	return {
-		"error": error,
-		"code": code,
-		"message": message
-	}
+	return JSONResponse(
+		status_code=code,
+		content={
+			"error": error,
+			"code": code,
+			"message": message
+		}
+	)
