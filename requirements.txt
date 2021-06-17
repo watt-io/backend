@@ -1,3 +1,7 @@
 fastapi
 uvicorn
-pymongo
+motor
+
+# dev
+pytest
+requests
