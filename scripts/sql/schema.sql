@@ -14,6 +14,7 @@ CREATE TABLE film (
   title VARCHAR(100) NOT NULL,
   director VARCHAR(100) NOT NULL,
   release_on DATETIME NOT NULL,
+  is_deleted TINYINT NOT NULL DEFAULT 0,
   inserted_on DATETIME NOT NULL DEFAULT NOW(),
   updated_on DATETIME,
   PRIMARY KEY(id)
