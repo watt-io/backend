@@ -1,12 +1,24 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8
+# pull official base image
+FROM python:3.9.4-alpine
 
-COPY ./requirements.txt /app
-
+# set work directory
 WORKDIR /app
 
-RUN pip install --upgrade pip \
-	&& pip install --trusted-host pypi.python.org --requirement requirements.txt
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
+# copy requirements file
+COPY ./requirements.txt /app/requirements.txt
+
+# install dependencies
+RUN set -eux \
+	&& apk add --no-cache --virtual .build-deps build-base \
+		libressl-dev libffi-dev gcc musl-dev python3-dev \
+	&& pip install --upgrade pip setuptools wheel \
+	&& pip install --trusted-host pypi.python.org --requirement requirements.txt \
+	&& rm -rf /root/.cache/pip
+
+# copy project
 COPY ./app /app/app
-
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+COPY ./tests /app/tests
