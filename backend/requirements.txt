@@ -6,3 +6,6 @@ python-multipart
 passlib
 bcrypt
 python-jose
+pytest
+pytest-dotenv
+requests

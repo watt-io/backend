@@ -34,3 +34,25 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
 
 Salve!
+
+# Resolução
+
+
+### Documentação
+
+[Documentação das Rotas da API via OpenAPI3](http://localhost/docs)
+
+| Username | Password |
+| -------- | -------- |
+| admin  | admin  |
+
+##### Build e execução dos containeres
+```sh
+docker-compose up --build -d
+```
+
+##### Execução dos testes iniciais(dentro do container)
+```sh
+cd /home/src/
+pytest
+```

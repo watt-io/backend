@@ -37,9 +37,11 @@ async def create_film(data: FilmIn, user=Depends(get_current_user)):
                 INSERT INTO film
                 (title, director, release_on) VALUES 
                 (%s, %s, %s)
+                RETURNING id
             '''
-            db.execute(sql, args)
-        return {'ok': True}
+            result = db.query_dict(sql, args)
+            id = result[0].get('id') if result else None
+        return {'ok': True, 'id': id}
     except:
         raise HTTPException(400, 'Bad Request')
 

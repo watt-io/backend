@@ -1,6 +1,9 @@
-from dotenv import dotenv_values
+from dotenv import load_dotenv
+import os
 
-config = dotenv_values('.env')
+load_dotenv()
+
+config = os.environ
 
 SECRET_KEY = config.get('SECRET_KEY', None)
 PROJECT_NAME = config.get('PROJECT_NAME', None)
