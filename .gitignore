@@ -1,4 +1,3 @@
 .venv/*
 .env
-!.venv/requirements
 */__pycache__

@@ -1,12 +1,11 @@
 FROM python:3.8.5-slim-buster
 
-COPY ./src /backend/src
+COPY . backend/
 
 WORKDIR /backend
 
 # install python dependencies
 RUN pip install --upgrade pip
-COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
 
