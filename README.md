@@ -33,4 +33,37 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 
 Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
 
-Salve!
+### Documentação
+
+#### Como iniciar a `API`
+
+Abra o diretório do projeto e depois rode o seguinte comando:
+
+```bash
+docker-compose up
+```
+
+Ele vai fazer a build da imagem do `app`, baixar a imagem do `mongodb` e depois iniciar os containers, após isso está pronto para ser acessada em `http://0.0.0.0`, `http://localhost` ou `http://127.0.0.1`.
+
+### Testar a aplicação
+
+Para fazer os testes é necessário rodar o comando específicado em `Como iniciar a API`, e para testar utilizasse o comando:
+
+```bash
+docker exec backend_api pytest -vv .
+```
+
+Lembrando: é recomendado que você rode os testes sem ter adicionado nenhum filme novo no banco, pois isso pode quebrar o teste `test_retrieve_movies` dado que terá um valor diferente na hora da comparação.
+
+
+
+
+
+
+
+
+
+
+
+
+
