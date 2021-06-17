@@ -5,7 +5,6 @@ CREATE TABLE user (
   username VARCHAR(30) UNIQUE NOT NULL,
   password VARCHAR(70) NOT NULL,
   is_active TINYINT(1) NOT NULL DEFAULT 1,
-  last_login DATETIME DEFAULT NULL,
   inserted_on DATETIME DEFAULT NOW(),
   PRIMARY KEY(id)
 );
