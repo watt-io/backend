@@ -1,0 +1,33 @@
+version: '3'
+services:
+  api:
+    restart: on-failure
+    build: .
+    container_name: backend_api
+    depends_on:
+      - database
+    networks:
+      backend_network:
+        ipv4_address: 172.16.238.11
+    ports:
+      - 80:80
+  database:
+    image: mongo
+    restart: unless-stopped
+    container_name: backend_database
+    environment:
+      - MONGO_INITDB_DATABASE=backend
+      - MONGO_INITDB_ROOT_USERNAME=adam
+      - MONGO_INITDB_ROOT_PASSWORD=BADPRACTICEHEREFOLKS
+    networks:
+      backend_network:
+        ipv4_address: 172.16.238.10
+    ports:
+      - 27017:27017
+
+networks:
+  backend_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.238.0/24"
