@@ -1,6 +1,8 @@
 
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from scr.api.routes import router as api_router
+
 def get_application():
     app = FastAPI(title="Phresh", version="1.0.0")
     app.add_middleware(
@@ -10,5 +12,6 @@ def get_application():
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    app.include_router(api_router, prefix="/api")
     return app
 app = get_application()
