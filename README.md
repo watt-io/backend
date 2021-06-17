@@ -54,16 +54,3 @@ docker exec backend_api pytest -vv .
 ```
 
 Lembrando: é recomendado que você rode os testes sem ter adicionado nenhum filme novo no banco, pois isso pode quebrar o teste `test_retrieve_movies` dado que terá um valor diferente na hora da comparação.
-
-
-
-
-
-
-
-
-
-
-
-
-
