@@ -41,6 +41,8 @@ Salve!
 ### Documentação
 
 [Documentação das Rotas da API via OpenAPI3](http://localhost/docs)
+
+
 [Conventional Commits na padronização dos comentários do GIT](https://www.conventionalcommits.org/pt-br/v1.0.0/)
 
 | Username | Password |
