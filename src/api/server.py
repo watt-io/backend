@@ -1,11 +1,9 @@
 
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
-print("File:server.py Before imports")
 from src.core import config,tasks
 from src.api.routes import router as api_router
 
-print("File:server.py After imports")
 def get_application():
   
     app = FastAPI(title=config.PROJECT_NAME, version=config.VERSION)
