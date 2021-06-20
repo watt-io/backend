@@ -57,7 +57,7 @@ This is an example of how to list things you need to use the software and how to
   ```
 * ENV
   ```sh
-  You will have to create a .inv in the root directory(/backend) with the following
+  You will have to create a .env in the root directory(/backend) with the following
   
   SECRET_KEY=supersecret
   POSTGRES_USER=postgres 
