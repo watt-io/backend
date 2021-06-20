@@ -1,36 +1,85 @@
 ![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
 
-#### Descrição
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+<br />
+<p align="center">
+  <a href="https://github.com/JoaoVitorAmorim/backend">
+  </a>
 
-Rotas da API:
+  <h3 align="center">MOVIE API</h3>
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+  <p align="center">
+    MOVIE API
+  </p>
+</p>
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+<details open="open">
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+   
+  </ol>
+</details>
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
-
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+## About The Project
 
 
-#### Como começar?
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
+This wis a simple API to store & fecth Movies 
 
-#### Dúvidas?
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+### Built With
 
-Salve!
+* [FASTAPI]
+* [POSTREGES-SQL]
+* [DOCKER]
+
+
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+* DOCKER
+  ```sh
+  In order to run this project you need to install docker & docker-compose
+  ```
+* ENV
+  ```sh
+  You will have to create a .inv in the root directory(/backend) with the following
+  SECRET_KEY=supersecret
+
+  POSTGRES_USER=postgres 
+  POSTGRES_PASSWORD=postgres
+  POSTGRES_SERVER=db
+  POSTGRES_PORT=5432
+  POSTGRES_DB=postgres
+  ```
+  
+### Installation & Running
+
+1. Clone the Backend
+   ```sh
+   git clone https://github.com/JoaoVitorAmorim/backend.git
+   ```
+2. Run docker-compose
+   ```sh
+   docker-compose up 
+   ```
