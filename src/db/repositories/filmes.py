@@ -26,11 +26,11 @@ class FilmeRepository(BaseRepository):
 		if filme_query:
 			return filme_query
 		else:
-			return ("CLEAN_TABLE")
+			return None
 
-	async def get_filme_by_id(self, *, id:int) -> FilmeInDB:
+	async def get_filme_by_id(self, *, id:int) -> FilmeBase:
 		filme_query = await self.db.fetch_one(query=GET_BY_ID_FILME_QUERY, values={"id":id})
 		if filme_query:
 			return FilmeInDB(**filme_query)
 		else:
-			return("FILME_NAO_ENCONTRADO")
+			return None
