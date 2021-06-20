@@ -7,10 +7,6 @@
   </a>
 
   <h3 align="center">MOVIE API</h3>
-
-  <p align="center">
-    MOVIE API
-  </p>
 </p>
 
 <details open="open">
@@ -29,8 +25,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
    
   </ol>
@@ -83,3 +77,8 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    docker-compose up 
    ```
+ ## Contact
+
+João Vitor Amorim- @jv_amorrr- almeidaamorimjoaovitor@gmail.com
+
+Project Link: [https://github.com/JoaoVitorAmorim/backends://github.com/JoaoVitorAmorim/backend)
