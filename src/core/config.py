@@ -2,7 +2,7 @@ from databases import DatabaseURL
 from starlette.config import Config
 from starlette.datastructures import Secret
 
-config = Config("src/.env")
+config = Config(".env")
 
 PROJECT_NAME = "phresh"
 VERSION = "1.0.0"
