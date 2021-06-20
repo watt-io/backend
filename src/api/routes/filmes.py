@@ -1,3 +1,4 @@
+
 from typing import List
 from fastapi import APIRouter, Body, Depends
 from starlette.status import HTTP_201_CREATED
@@ -9,13 +10,12 @@ from src.api.dependencies.database import get_repository
 
 router = APIRouter()
 
-@router.get("/")
-async def get_all_filmes() -> List[dict]:
-	filmes = [
-		{"id": 1, "tittle":"A VERY PYTHONIC MOVIE"},
-		{"id": 2, "tittle":"Bee Movie"}
-	]
-	return filmes
+@router.get("/", response_model=List[FilmePublic])
+async def get_all_filmes(
+	filme_repo: FilmeRepository = Depends(get_repository(FilmeRepository)),
+) -> FilmePublic:
+	get_filme = await filme_repo.get_filme()
+	return get_filme
 
 @router.post("/", response_model=FilmePublic, name="filmes:create-filme", status_code=HTTP_201_CREATED)
 async def create_new_filme(

@@ -1,5 +1,7 @@
-from typing import Optional
+from typing import Optional, List
 from enum import Enum
+
+from sqlalchemy.sql.visitors import traverse_depthfirst
 from src.models.core import IDModelMixin, CoreModel
 
 class FilmeBase(CoreModel):
@@ -9,7 +11,7 @@ class FilmeCreate(FilmeBase):
 	tittle: str
 
 class FilmeInDB(IDModelMixin, FilmeBase):
-	name: str
+	tittle: str
 
 class FilmePublic(IDModelMixin, FilmeBase):
 	pass
