@@ -71,7 +71,7 @@ This is an example of how to list things you need to use the software and how to
 
 1. Clone the Backend
    ```sh
-   git clone https://github.com/JoaoVitorAmorim/backend.git
+   git clone git@github.com:JoaoVitorAmorim/backend.git
    ```
 2. Run docker-compose
    ```sh
@@ -81,4 +81,4 @@ This is an example of how to list things you need to use the software and how to
 
 João Vitor Amorim- @jv_amorrr- almeidaamorimjoaovitor@gmail.com
 
-Project Link: [https://github.com/JoaoVitorAmorim/backends://github.com/JoaoVitorAmorim/backend)
+Project Link: [https://github.com/JoaoVitorAmorim/backend/tree/feature/JoaoVitorAmorim](https://github.com/JoaoVitorAmorim/backend/tree/feature/JoaoVitorAmorim)
