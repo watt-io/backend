@@ -34,7 +34,7 @@
 
 
 
-This wis a simple API to store & fecth Movies 
+This is a simple API to store & fecth Movies 
 
 
 ### Built With
