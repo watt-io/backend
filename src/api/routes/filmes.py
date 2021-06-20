@@ -17,6 +17,13 @@ async def get_all_filmes(
 	get_filme = await filme_repo.get_filme()
 	return get_filme
 
+@router.get("/{id}/", response_model=FilmePublic)
+async def get_filme_by_id(
+	id: int,filme_repo: FilmeRepository = Depends(get_repository(FilmeRepository)),
+) -> FilmePublic:
+	get_filme_by_id = await filme_repo.get_filme_by_id(id=id)
+	return get_filme_by_id
+
 @router.post("/", response_model=FilmePublic, name="filmes:create-filme", status_code=HTTP_201_CREATED)
 async def create_new_filme(
 	new_filme: FilmeCreate = Body(..., embed=True),
