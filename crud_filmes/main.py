@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import FastAPI, Depends, status, Response, HTTPException
 from . import schemas, models
 from .database import engine, SessionLocal
@@ -19,7 +20,7 @@ def get_all_movies(db: Session = Depends(get_db)):
     films = db.query(models.Filme).all()
     return films
 
-@app.post('/filmes',  status_code=status.HTTP_201_CREATED)
+@app.post('/filmes',  status_code=status.HTTP_201_CREATED, response_model=schemas.ShowFilme)
 def insert_movie(request: schemas.Filme, db: Session = Depends(get_db)):
     new_film = models.Filme(
         nome=request.nome, 
