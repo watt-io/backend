@@ -14,6 +14,11 @@ def get_db():
     finally:
         db.close()
 
+@app.get('/filmes')
+def get_all_movies(db: Session = Depends(get_db)):
+    films = db.query(models.Filme).all()
+    return films
+
 @app.post('/filmes')
 def insert_movie(request: schemas.Filme, db: Session = Depends(get_db)):
     new_film = models.Filme(
@@ -26,3 +31,8 @@ def insert_movie(request: schemas.Filme, db: Session = Depends(get_db)):
     db.refresh(new_film)
 
     return new_film
+
+@app.get('/filmes/{id}')
+def get_a_movie(id:int, db: Session = Depends(get_db)):
+    film_id = db.query(models.Filme).filter(models.Filme.id == id).first()
+    return film_id
