@@ -41,3 +41,11 @@ def get_a_movie(id:int, response: Response, db: Session = Depends(get_db)):
         detail=f"Filme com id {id} indisponível!")
 
     return film_id
+
+@app.delete('/filmes/{id}', status_code=status.HTTP_204_NO_CONTENT)
+def delete_movie(id: int, db: Session = Depends(get_db)):
+    db.query(models.Filme).filter(models.Filme.id == id).delete(synchronize_session=False)
+    db.commit()
+    return {'detail':'Done'}
+    
+
