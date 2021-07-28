@@ -19,7 +19,9 @@ Rotas da API:
 
 - Orientação a objetos (utilizar objetos, classes para manipular os filmes)
 - [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
+- XXX
 - XXX - [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ``` - XXX
+- XXX
 - Integração com banco de dados (persistir as informações em [SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases)
 
 
@@ -27,4 +29,4 @@ Rotas da API:
 
 Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para alysonhenrique26@gmail.com
 
-Salve!
+Valeu!
