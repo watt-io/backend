@@ -16,12 +16,13 @@ def get_db():
     finally:
         db.close()
 
-@app.get('/filmes')
+@app.get('/filmes', tags=['Filme'])
 def get_all_movies(db: Session = Depends(get_db)):
     films = db.query(models.Filme).all()
     return films
 
-@app.post('/filmes',  status_code=status.HTTP_201_CREATED, response_model=schemas.ShowFilme)
+@app.post('/filmes',  status_code=status.HTTP_201_CREATED,
+            response_model=schemas.ShowFilme, tags=['Filme'])
 def insert_movie(request: schemas.Filme, db: Session = Depends(get_db)):
     new_film = models.Filme(
         nome=request.nome, 
@@ -34,7 +35,8 @@ def insert_movie(request: schemas.Filme, db: Session = Depends(get_db)):
 
     return new_film
 
-@app.get('/filmes/{id}', status_code=status.HTTP_200_OK, response_model=schemas.ShowFilme)
+@app.get('/filmes/{id}', status_code=status.HTTP_200_OK,
+            response_model=schemas.ShowFilme, tags=['Filme'])
 def get_a_movie(id:int, db: Session = Depends(get_db)):
     film_id = db.query(models.Filme).filter(models.Filme.id == id).first()
     if not film_id:
@@ -43,7 +45,8 @@ def get_a_movie(id:int, db: Session = Depends(get_db)):
 
     return film_id
 
-@app.delete('/filmes/{id}', status_code=status.HTTP_204_NO_CONTENT)
+@app.delete('/filmes/{id}', status_code=status.HTTP_204_NO_CONTENT,
+                tags=['Filme'])
 def delete_movie(id: int, db: Session = Depends(get_db)):
     filme_del = db.query(models.Filme).filter(models.Filme.id == id)
     if not filme_del.first():
@@ -56,7 +59,7 @@ def delete_movie(id: int, db: Session = Depends(get_db)):
     
 
 
-@app.post('/user', response_model=schemas.ShowUser)
+@app.post('/user', response_model=schemas.ShowUser, tags=['User'])
 def create_user(request: schemas.User, db: Session = Depends(get_db)):
     new_user = models.User(name=request.name, password=Hash.bcrypt(
         request.password))
@@ -67,7 +70,7 @@ def create_user(request: schemas.User, db: Session = Depends(get_db)):
     return new_user
 
 
-@app.get('/user/{id}', response_model=schemas.ShowUser)
+@app.get('/user/{id}', response_model=schemas.ShowUser, tags=['User'])
 def get_user(id: int, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.id == id).first()
     if not user:
