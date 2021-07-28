@@ -33,8 +33,8 @@ def insert_movie(request: schemas.Filme, db: Session = Depends(get_db)):
 
     return new_film
 
-@app.get('/filmes/{id}', status_code=status.HTTP_200_OK)
-def get_a_movie(id:int, response: Response, db: Session = Depends(get_db)):
+@app.get('/filmes/{id}', status_code=status.HTTP_200_OK, response_model=schemas.ShowFilme)
+def get_a_movie(id:int, db: Session = Depends(get_db)):
     film_id = db.query(models.Filme).filter(models.Filme.id == id).first()
     if not film_id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -53,4 +53,11 @@ def delete_movie(id: int, db: Session = Depends(get_db)):
     db.commit()
     return {'detail':'Done'}
     
+@app.post('/user')
+def create_user(request: schemas.User, db: Session = Depends(get_db)):
+    new_user = models.User(name=request.name, password=request.password)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
 
+    return new_user

@@ -1,3 +1,4 @@
+from crud_filmes.database import Base
 from pydantic import BaseModel
 
 class Filme(BaseModel):
@@ -8,3 +9,7 @@ class Filme(BaseModel):
 class ShowFilme(Filme):
     class Config():
         orm_mode = True
+
+class User(BaseModel):
+    name: str
+    password: str
