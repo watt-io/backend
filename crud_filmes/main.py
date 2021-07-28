@@ -27,7 +27,8 @@ def insert_movie(request: schemas.Filme, db: Session = Depends(get_db)):
     new_film = models.Filme(
         nome=request.nome, 
         ano=request.ano, 
-        categoria=request.categoria
+        categoria=request.categoria,
+        user_id=1
         )
     db.add(new_film)
     db.commit()
