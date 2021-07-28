@@ -2,48 +2,29 @@ from fastapi import APIRouter, Depends, status, HTTPException
 from .. import schemas, database, models
 from typing import List
 from sqlalchemy.orm import Session
+from ..repository import filmes
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/filmes",
+    tags=["Filmes"]
+)
+
 get_db = database.get_db
 
-@router.get('/filmes', response_model=List[schemas.ShowFilme],tags=['Filme'])
+@router.get('/', response_model=List[schemas.ShowAllFilme])
 def get_all_movies(db: Session = Depends(get_db)):
-    films = db.query(models.Filme).all()
-    return films
+    return filmes.get_all(db)
 
-@router.post('/filmes',  status_code=status.HTTP_201_CREATED,
-            response_model=schemas.ShowFilme, tags=['Filme'])
+@router.post('/',  status_code=status.HTTP_201_CREATED,
+            response_model=schemas.ShowFilme)
 def insert_movie(request: schemas.Filme, db: Session = Depends(get_db)):
-    new_film = models.Filme(
-        nome=request.nome, 
-        ano=request.ano, 
-        categoria=request.categoria,
-        user_id=1
-        )
-    db.add(new_film)
-    db.commit()
-    db.refresh(new_film)
+    return filmes.insert(request, db)
 
-    return new_film
-
-@router.get('/filmes/{id}', status_code=status.HTTP_200_OK,
-            response_model=schemas.ShowFilme, tags=['Filme'])
+@router.get('/{id}', status_code=status.HTTP_200_OK,
+            response_model=schemas.ShowFilme)
 def get_a_movie(id:int, db: Session = Depends(get_db)):
-    film_id = db.query(models.Filme).filter(models.Filme.id == id).first()
-    if not film_id:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Filme com id {id} indisponível!")
+    return filmes.get(id, db)
 
-    return film_id
-
-@router.delete('/filmes/{id}', status_code=status.HTTP_204_NO_CONTENT,
-                tags=['Filme'])
+@router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_movie(id: int, db: Session = Depends(get_db)):
-    filme_del = db.query(models.Filme).filter(models.Filme.id == id)
-    if not filme_del.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Filme com id {id} indisponível!")
-
-    filme_del.delete(synchronize_session=False)
-    db.commit()
-    return {'detail':'Done'}
+    return filmes.delete(id, db)

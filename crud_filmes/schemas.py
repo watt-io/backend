@@ -23,6 +23,17 @@ class ShowUser(BaseModel):
     class Config():
         orm_mode = True
 
+class ShowAllFilme(BaseModel):
+    nome: str
+    ano: int
+    categoria: str
+    id: int
+    
+    creator: ShowUser
+    
+    class Config():
+        orm_mode = True
+
 class ShowFilme(BaseModel):
     nome: str
     ano: int
