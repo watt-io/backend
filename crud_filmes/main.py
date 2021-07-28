@@ -44,7 +44,12 @@ def get_a_movie(id:int, response: Response, db: Session = Depends(get_db)):
 
 @app.delete('/filmes/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_movie(id: int, db: Session = Depends(get_db)):
-    db.query(models.Filme).filter(models.Filme.id == id).delete(synchronize_session=False)
+    filme_del = db.query(models.Filme).filter(models.Filme.id == id)
+    if not filme_del.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+        detail=f"Filme com id {id} indisponível!")
+
+    filme_del.delete(synchronize_session=False)
     db.commit()
     return {'detail':'Done'}
     
