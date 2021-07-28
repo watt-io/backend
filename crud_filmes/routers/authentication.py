@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
 from fastapi.param_functions import Depends
 from starlette import status
-from .. import schemas, database, models, hashing
+from .. import schemas, database, models, hashing, token
 from sqlalchemy.orm import Session
 
 Hash = hashing.Hash
@@ -23,4 +23,6 @@ def login(request: schemas.Login, db: Session = Depends(database.get_db)):
         detail="Incorrect password")
     
     # gera um chave jwt e retorna
-    return user
+    
+    access_token = token.create_access_token(data={"sub": user.email})
+    return {"access_token": access_token, "token_type": "bearer"}
