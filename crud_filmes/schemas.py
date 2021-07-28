@@ -18,7 +18,7 @@ class User(BaseModel):
 
 class ShowUser(BaseModel):
     name: str
-    filmes: List[Filme] = []
+    # filmes: List[Filme] = []
     
     class Config():
         orm_mode = True
