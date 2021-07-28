@@ -13,11 +13,13 @@ class Filme(FilmeBase):
 
 class User(BaseModel):
     name: str
+    email: str
     password: str
 
 
 class ShowUser(BaseModel):
     name: str
+    email: str
     # filmes: List[Filme] = []
     
     class Config():
@@ -43,3 +45,7 @@ class ShowFilme(BaseModel):
     
     class Config():
         orm_mode = True
+
+class Login(BaseModel):
+    username: str
+    password: str

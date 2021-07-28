@@ -1,5 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from .. import database, schemas, models, hashing
+from fastapi import APIRouter, Depends
+from .. import database, schemas, hashing
 from sqlalchemy.orm import Session
 from ..repository import user
 
@@ -19,4 +19,4 @@ def create_user(request: schemas.User, db: Session = Depends(get_db)):
 
 @router.get('/{id}', response_model=schemas.ShowUser)
 def get_user(id: int, db: Session = Depends(get_db)):
-    return user.get(db)
+    return user.get(id, db)
