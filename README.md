@@ -9,6 +9,10 @@ Para cadastrar, obter ou excluir filmes, é necessário que o usuário esteja au
 Caso não queira realizar a autenticação comente a  variavel current_user passada como parâmetro nas funções presentes no arquivo
 do seguinte caminho: crud_filmes\routers\filmes.py
 
+##### Para inicializar a aplicação 
+ - Instale os requirements.txt: pip install -r requirements.txt
+ - Execute: uvicorn crud_filmes.main:app --reload
+
 Rotas da API:
 
  - `/filmes` - [GET] Retorna todos os filmes cadastrados.
