@@ -5,6 +5,10 @@
 CRUD de filmes, com autenticação de usuário.
 Para cadastrar, obter ou excluir filmes, é necessário que o usuário esteja autenticado para que então seu acesso seja liberado.
 
+##### Para acessar as rotas é necessário fazer a autentição!
+Caso não queira realizar a autenticação comente a  variavel current_user passada como parâmetro nas funções presentes no arquivo
+do seguinte caminho: crud_filmes\routers\filmes.py
+
 Rotas da API:
 
  - `/filmes` - [GET] Retorna todos os filmes cadastrados.
