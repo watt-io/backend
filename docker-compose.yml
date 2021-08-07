@@ -1,0 +1,9 @@
+version : "3.8"
+services:
+  crud:
+    build: .
+    container_name: my-api
+    ports: 
+      - "8000:8000"
+    volumes:
+      - "./:/backend/"
