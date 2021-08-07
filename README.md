@@ -34,3 +34,21 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
 
 Salve!
+
+#### Como rodar a API?
+
+Para testar a API será necessário o download e instalação do Docker e Docker-compose, disponíveis no Docker Desktop em: https://www.docker.com/products/docker-desktop
+
+Após download e instalação, será necessário o download dos arquivos deste repositório ou sua clonagem com:
+```sh
+git clone git@github.com:RuaN-debug/backend.git
+```
+O próximo passo é abrir um terminal na pasta contendo todos os arquivos e digitar o seguinte:
+```sh
+docker-compose up
+```
+Isso irá iniciar a aplicação, sendo que ela pode ser manipulada utilizando o seguinte link em algum navegador: http://localhost:8000/
+
+#### Contato
+
+Ruan Marcos -> ruanmbalbino@gmail.com
