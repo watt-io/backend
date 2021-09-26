@@ -7,5 +7,5 @@ class MoviesTable(Base):
     __tablename__ = "movies"
 
     id = Column(Integer, primary_key=True,autoincrement=True)
-    name = Column(String)
+    name = Column(String, unique=True)
     year = Column(Integer)

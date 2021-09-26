@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> API Filmes </title>
+        <link href="static/style.css" rel="stylesheet"/>
+        <script>
+            function getId(){
+                var url = '/filmes/' + document.getElementById('search').value;
+                var forms = document.getElementById('form');
+                forms.action = url;
+                
+            }
+        </script>
+
+        <script>
+            async function postMovie(){
+                const xhttp = new XMLHttpRequest();
+                var name = document.getElementById('name').value;
+                var year = document.getElementById('year').value;
+                xhttp.open('POST','/filmes');
+                xhttp.setRequestHeader('Content-Type','application/json;')
+                xhttp.send(JSON.stringify({"name":name, "year":year}));
+                window.location.reload()
+            }
+        </script>
+    </head>
+    <body>
+       
+            <table>
+                <tr>
+                    <th> ID </th>
+                    <th> Nome </th>
+                    <th> Ano de Lançamento </th>
+                </tr>
+                {% for mv in mv_table %}
+                <tr>
+                    <td> {{mv.id}} </td>
+                    <td> {{mv.name}} </td>
+                    <td> {{mv.year}} </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <p> Cadastrar novo filme: </p>
+            <form id="add" style="text-align: center;"  onsubmit="postMovie()">
+                <input id="name" type="text" placeholder="Nome" required/>
+                <input id="year" type="number" placeholder="Ano de lançamento" required/>
+                <input type="submit" value="Adicionar"/>
+            </form>
+            <p> Buscar filme pelo ID: </p>
+            <form id="form" style="text-align: center;"  onsubmit="getId()">
+                <input id="search" type="search" placeholder="Id"/>
+                <input type="submit" value="Buscar"/>
+            </form>
+       <a href="/docs"> Realizar operações em "/docs" </a>
+    </body>
+
+</html>

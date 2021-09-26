@@ -1,0 +1,25 @@
+p{
+    text-align: center;
+}
+
+table{
+    margin: auto;
+    border-style: solid;
+    border: 0px;
+}
+table th{
+    background-color: gray;
+    border-style: solid;
+}
+table td {
+    text-align: center;
+    border-style: solid;
+   
+}
+input {
+    display: block;
+    margin: auto;
+}
+
+
+
