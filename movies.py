@@ -1,7 +1,6 @@
-from pydantic import BaseModel as bm
 from pydantic import BaseModel
-
+from typing import Optional
 class Movies(BaseModel):
     name : str
-    year : int
-    id   : int
+    year : Optional[int] = 0
+    
