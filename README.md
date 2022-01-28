@@ -1,37 +1,111 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+<h1 align="center">
+    CRUD de filmes - Python
+</h1>
+<h4 align="center">
+    Teste backend da Inowatt
+</h4>
 
-#### Descrição
+**Dev:** [Vinícius Zamariola](https://github.com/Zamariolo)
+**Vaga:** Estagíario de backend
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+Contato:
 
-Rotas da API:
+<a href="https://www.linkedin.com/in/vin%C3%ADcius-zamariola/">
+  <img align="left" alt="Abhishek's Discord" width="22px" src="https://cdn-icons-png.flaticon.com/512/174/174857.png" />
+</a>
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+<a href="mailto:viniciuszamariola@gmail.com">
+  <img align="left" alt="Abhishek's Discord" width="22px" src="https://cdn-icons-png.flaticon.com/512/281/281769.png" />
+</a>
+<br>
+<hr />
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+CRUD de filmes com informações de nota do [IMDB](https://www.imdb.com/) e se é recomendado para todas as idades feito em Python com persistência de informações em banco de dados SQLite.
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+#### Ferramentas utilizadas
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+- Python POO
+- [FastAPI](https://fastapi.tiangolo.com/)
+- Banco de dados [SQLite](https://www.sqlite.org/index.html) manipulado via [SQLAlchemy](https://www.sqlalchemy.org/)
+- Ambiente virtual venv
+- [uvicorn](https://www.uvicorn.org/) (como servidor)
+- [pydantic](https://pydantic-docs.helpmanual.io/) (Para validação de dados)
 
+Acabei não utilizando o Docker :/
 
-#### Como começar?
+#### Modelagem de dados
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+Colunas:
 
-#### Dúvidas?
+- **id:** Chave primária e única identificador do filme `int`
+- **nome:** Nome do filme `str`
+- **nota_imdb:** Nota do Filme no [IMDB](https://www.imdb.com/) `float`
+- **family_friendly:** Se o filme é recomendado para todas as idades `bool`
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+#### Subindo a API
 
-Salve!
+1. Acessar a branch `git checkout feature/vinicius-zamariola`
+
+2. Ativar o ambiente virtual `source environment/bin/activate`
+
+3. Inicializar a API/servidor via uvicorn `uvicorn main:app`
+
+4. Armazenar novos filmes e consultar os filmes registrados no ip gerado na porta `:8000` =)
+
+5. Documentação em `<ip-da-aplicacao>/docs` ou `<ip-da-aplicacao>/redoc`
+
+#### Funcionalidades
+
+- Validação de tipos de dados
+- Validação se a nota no imdb está no range esperado (0-10) ao inserir novo filme
+
+- Rotas:
+  - `/estoufuncionando` - [GET] Verifica se a API esta funcionando retornando 'sim'
+  - `/filmes` - [GET] retorna todos os filmes cadastrados.
+  - `/filmes` - [POST] cadastra um novo filme.
+  - `/filmes/{id}` - [GET] retorna o filme com ID especificado.
+
+#### Obrigado!
+
+- Vinícius Zamariola
+
+<hr />
+
+#### Exemplos de resposta e payloads
+
+**Rota**: `get /estoufuncionando`
+Response:
+
+```json
+"sim"
+```
+
+**Rota**: `get /filmes`
+Response:
+
+```json
+[
+  { "nota_imdb": 7.8, "id": 1, "nome": "Avatar", "family_friendly": true },
+  { "nota_imdb": 7.8, "id": 2, "nome": "Titanic", "family_friendly": true }
+]
+```
+
+**Rota**: `get /filmes/1`
+Response:
+
+```json
+  { "nota_imdb": 7.8, "id": 1, "nome": "Avatar", "family_friendly": true }
+```
+
+**Rota**: `post /filmes/`:
+Payload:
+
+```json
+  { "nome": "Avatar", "nota_imdb": 7.8, "family_friendly": true }
+```
+
+Response:
+```json
+  { "id": X, "nome": "Avatar", "nota_imdb": 7.8, "family_friendly": true }
+```
+
