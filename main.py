@@ -3,11 +3,15 @@ from multiprocessing import dummy
 from typing import Dict
 from fastapi import FastAPI, HTTPException, status
 from typing import Dict, List, Optional, Union
+
+from schemas import filmesBaseSchema, addFilmeSchema
 # from fastapi_pagination import Page, add_pagination, paginate
 
 # Dummy imports
 import json
-dummyDB = json.load(open("dummyDatabase.json", "r"))
+
+from schemas import addFilmeSchema
+listaFilmes = json.load(open("dummyDatabase.json", "r"))
 
 # Descricao da documentacao
 tags_metadata = [
@@ -39,7 +43,7 @@ def amIWorking() -> Dict[str, datetime]:
 
 @app.get("/filmes", tags=['filmes'])
 def get_all_filmes() -> List[Dict[str, Union[float, int, str, bool]]]:
-    if response := dummyDB:
+    if response := listaFilmes:
         return response
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
@@ -50,17 +54,24 @@ def get_all_filmes() -> List[Dict[str, Union[float, int, str, bool]]]:
 @app.get("/filmes/{id}/", tags=['filmes'])
 def get_filme(id: int) -> Dict[str, Union[float, int, str, bool]]:
     if response := list(
-        filter(lambda i: i.get("id") == id, dummyDB)
+        filter(lambda i: i.get("id") == id, listaFilmes)
     ):
         return response[0]
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
         detail=f"Filme com id {id} não encontrado.",
     )
+
+
+def get_max() -> int:
+    max_id_filme = max(listaFilmes, key=lambda i: i.get("id", 0))
+    return max_id_filme.get("id", 0)
+
+
 @app.post('/filmes/', tags=['filmes'])
-def post_filme(filme: Dict):
-    dummyDB.append(filme)
-    return filme
+def post_filme(filme: addFilmeSchema):
+    listaFilmes.append(novoFilme := {**{"id": get_max()+1}, **filme.dict()})
+    return novoFilme
 
 
 # add_pagination(app)
