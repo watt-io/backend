@@ -58,7 +58,7 @@ def estouFuncionando() -> Dict[str, datetime]:
     return "sim"
 
 
-@app.get("/filmes", tags=['filmes'], status_code=status.HTTP_200_OK, response_model=List[getFilmesSchema])
+@app.get("/filmes", tags=['filmes'], status_code=status.HTTP_200_OK)
 def get_all_filmes(db: Session = Depends(get_db)):
     if result := lista_todos_filmes(db):
         return result
@@ -69,7 +69,7 @@ def get_all_filmes(db: Session = Depends(get_db)):
     )
 
 
-@app.get("/filmes/{id}/", tags=['filmes'], status_code=status.HTTP_200_OK, response_model=getFilmesSchema)
+@app.get("/filmes/{id}/", tags=['filmes'], status_code=status.HTTP_200_OK)
 def get_filme_especifico(id: int, db: Session = Depends(get_db)) -> Dict[str, Union[float, int, str]]:
     if response := get_filme(db, id):
         return response
@@ -84,7 +84,7 @@ def get_max() -> int:
     return max_id_filme.get("id", 0)
 
 
-@app.post('/filmes/', tags=['filmes'], status_code=status.HTTP_201_CREATED,response_model=getFilmesSchema)
+@app.post('/filmes/', tags=['filmes'], status_code=status.HTTP_201_CREATED)
 def post_filme(filme: addFilmeSchema, db: Session = Depends(get_db),):
     if result := cria_filme(db, filme):
         return result
