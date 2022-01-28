@@ -16,7 +16,7 @@ listaFilmes = json.load(open("dummyDatabase.json", "r"))
 # Descricao da documentacao
 tags_metadata = [
     {
-        "name": "seraQueEstouFuncionando",
+        "name": "estouFuncionando",
         "description": "Checa se a API está funcionando retornando uma string 'sim'",
     },
     {
@@ -36,8 +36,8 @@ app = FastAPI(title="InnoWatflix API",
               openapi_tags=tags_metadata)
 
 
-@app.get("/seraQueEstouFuncionando/", tags=["seraQueEstouFuncionando"])
-def amIWorking() -> Dict[str, datetime]:
+@app.get("/estoufuncionando/", tags=["estouFuncionando"])
+def estouFuncionando() -> Dict[str, datetime]:
     return "sim"
 
 
