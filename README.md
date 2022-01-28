@@ -71,6 +71,13 @@ Colunas:
 
 <hr />
 
+#### Todo-list para melhorar este projeto
+
+- [ ] Implementar imagem docker
+- [ ] Inserir testes automatizados (TDD)
+- [ ] Rota para deletar filmes
+- [ ] Rota para atualizar filmes
+
 #### Exemplos de resposta e payloads
 
 **Rota**: `get /estoufuncionando`
