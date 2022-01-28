@@ -21,7 +21,15 @@ tags_metadata = [
     }
 ]
 
-app = FastAPI(openapi_tags=tags_metadata)
+app = FastAPI(title="InnoWatflix API",
+              description="Documentação das rotas de listagem e adição de filmes na InnoWatFlix. Teste de admissão estágio em Python back-end.",
+              version="1.0",
+              contact={
+                  "name": "Vinícius Zamariola",
+                  "url": "https://github.com/Zamariolo/",
+                  "email": "viniciuszamariola@gmail.com"
+              },
+              openapi_tags=tags_metadata)
 
 
 @app.get("/seraQueEstouFuncionando/", tags=["seraQueEstouFuncionando"])
@@ -38,6 +46,7 @@ def get_all_filmes() -> List[Dict[str, Union[float, int, str, bool]]]:
         detail="Nenhum filme encontrado"
     )
 
+
 @app.get("/filmes/{id}/", tags=['filmes'])
 def get_filme(id: int) -> Dict[str, Union[float, int, str, bool]]:
     if response := list(
@@ -48,6 +57,10 @@ def get_filme(id: int) -> Dict[str, Union[float, int, str, bool]]:
         status_code=status.HTTP_404_NOT_FOUND,
         detail=f"Filme com id {id} não encontrado.",
     )
+@app.post('/filmes/', tags=['filmes'])
+def post_filme(filme: Dict):
+    dummyDB.append(filme)
+    return filme
 
 
 # add_pagination(app)
