@@ -48,7 +48,7 @@ Colunas:
 
 2. Ativar o ambiente virtual `source environment/bin/activate`
 
-3. Inicializar a API/servidor via uvicorn `uvicorn main:app`
+3. Inicializar a API/servidor via uvicorn `uvicorn main:app` ou em modo de desenvolvimento `uvicorn main:app --reload`
 
 4. Armazenar novos filmes e consultar os filmes registrados no ip gerado na porta `:8000` =)
 
