@@ -8,6 +8,9 @@ class filmesBaseSchema(BaseModel):
     nota_imdb: float
     family_friendly: bool
 
+class getFilmesSchema(filmesBaseSchema):
+    id: int
+
 
 class addFilmeSchema(filmesBaseSchema):
     @validator("nota_imdb")

@@ -1,8 +1,8 @@
+from urllib import response
 from schemas import addFilmeSchema
 import json
 from datetime import datetime
 from multiprocessing import dummy
-from typing import Dict
 from fastapi import Depends, FastAPI, HTTPException, Response, status
 from typing import Dict, List, Union, Generator
 from sqlalchemy.orm import Session
@@ -12,8 +12,8 @@ from crud import (
     get_filme
 )
 from database import Base, SessionLocal, engine
-from schemas import filmesBaseSchema, addFilmeSchema
-# from fastapi_pagination import Page, add_pagination, paginate
+from schemas import filmesBaseSchema, getFilmesSchema, addFilmeSchema
+from fastapi_pagination import Page, add_pagination, paginate
 
 
 def get_db() -> Generator:
@@ -53,13 +53,13 @@ app = FastAPI(title="InnoWatflix API",
               openapi_tags=tags_metadata)
 
 
-@app.get("/estoufuncionando/", tags=["estouFuncionando"])
+@app.get("/estoufuncionando/", tags=["estouFuncionando"], response_model=str)
 def estouFuncionando() -> Dict[str, datetime]:
     return "sim"
 
 
-@app.get("/filmes", tags=['filmes'], status_code=status.HTTP_200_OK)
-def get_all_filmes(db: Session = Depends(get_db)) -> List[Dict[str, Union[float, int, str, bool]]]:
+@app.get("/filmes", tags=['filmes'], status_code=status.HTTP_200_OK, response_model=List[getFilmesSchema])
+def get_all_filmes(db: Session = Depends(get_db)):
     if result := lista_todos_filmes(db):
         return result
 
@@ -69,8 +69,8 @@ def get_all_filmes(db: Session = Depends(get_db)) -> List[Dict[str, Union[float,
     )
 
 
-@app.get("/filmes/{id}/", tags=['filmes'], status_code=status.HTTP_200_OK)
-def get_filme_especifico(id: int, db: Session = Depends(get_db)) -> Dict[str, Union[float, int, str, bool]]:
+@app.get("/filmes/{id}/", tags=['filmes'], status_code=status.HTTP_200_OK, response_model=getFilmesSchema)
+def get_filme_especifico(id: int, db: Session = Depends(get_db)) -> Dict[str, Union[float, int, str]]:
     if response := get_filme(db, id):
         return response
     raise HTTPException(
@@ -84,7 +84,7 @@ def get_max() -> int:
     return max_id_filme.get("id", 0)
 
 
-@app.post('/filmes/', tags=['filmes'], status_code=status.HTTP_201_CREATED,)
+@app.post('/filmes/', tags=['filmes'], status_code=status.HTTP_201_CREATED,response_model=getFilmesSchema)
 def post_filme(filme: addFilmeSchema, db: Session = Depends(get_db),):
     if result := cria_filme(db, filme):
         return result
