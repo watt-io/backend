@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "As Vantagens de ser invisivel",
+    "nota_imdb": 6.7,
+    "family_friendly": false
+  },
+  {
+    "id": 2,
+    "name": "Não olhe para cima",
+    "nota_imdb": 7.3,
+    "family_friendly": true
+  },
+  {
+    "id": 3,
+    "name": "Homem Aranha sem Volta pra casa",
+    "nota_imdb": 8.7,
+    "family_friendly": true
+  },
+  {
+    "id": 4,
+    "name": "Encanto",
+    "nota_imdb": 7.3,
+    "family_friendly": true
+  },
+  {
+    "id": 5,
+    "name": "Ataque dos Titãs",
+    "nota_imdb": 9.0,
+    "family_friendly": true
+  },
+  {
+    "id": 6,
+    "name": "Pânico",
+    "nota_imdb": 7.1,
+    "family_friendly": false
+  }
+]
