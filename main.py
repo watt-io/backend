@@ -1,9 +1,7 @@
-from urllib import response
 from schemas import addFilmeSchema
-import json
 from datetime import datetime
 from multiprocessing import dummy
-from fastapi import Depends, FastAPI, HTTPException, Response, status
+from fastapi import Depends, FastAPI, HTTPException, status
 from typing import Dict, List, Union, Generator
 from sqlalchemy.orm import Session
 from crud import (
@@ -12,8 +10,7 @@ from crud import (
     get_filme
 )
 from database import Base, SessionLocal, engine
-from schemas import filmesBaseSchema, getFilmesSchema, addFilmeSchema
-from fastapi_pagination import Page, add_pagination, paginate
+from schemas import addFilmeSchema
 
 
 def get_db() -> Generator:
@@ -25,10 +22,6 @@ def get_db() -> Generator:
 
 
 Base.metadata.create_all(bind=engine)
-
-# Dummy imports
-
-listaFilmes = json.load(open("dummyDatabase.json", "r"))
 
 # Descricao da documentacao
 tags_metadata = [
@@ -42,8 +35,8 @@ tags_metadata = [
     }
 ]
 
-app = FastAPI(title="InnoWatflix API",
-              description="Documentação das rotas de listagem e adição de filmes na InnoWatFlix. Teste de admissão estágio em Python back-end.",
+app = FastAPI(title="InoWattflix API",
+              description="Documentação das rotas de listagem e adição de filmes na InoWattFlix. Teste de admissão estágio em Python back-end.",
               version="1.0",
               contact={
                   "name": "Vinícius Zamariola",
@@ -59,7 +52,7 @@ def estouFuncionando() -> Dict[str, datetime]:
 
 
 @app.get("/filmes", tags=['filmes'], status_code=status.HTTP_200_OK)
-def get_all_filmes(db: Session = Depends(get_db)):
+async def get_all_filmes(db: Session = Depends(get_db)):
     if result := lista_todos_filmes(db):
         return result
 
@@ -92,6 +85,3 @@ def post_filme(filme: addFilmeSchema, db: Session = Depends(get_db),):
     raise HTTPException(
         status_code=status.HTTP_400_BAD_REQUEST
     )
-
-
-# add_pagination(app)
