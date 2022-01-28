@@ -1,11 +1,25 @@
 from datetime import datetime
 from multiprocessing import dummy
 from typing import Dict
-from fastapi import FastAPI, HTTPException, status
-from typing import Dict, List, Optional, Union
-
+from fastapi import Depends, FastAPI, HTTPException, Response, status
+from typing import Dict, List, Union, Generator
+from sqlalchemy.orm import Session
+from crud import (
+    cria_filme,
+    lista_todos_filmes,
+)
+from database import Base, SessionLocal, engine
 from schemas import filmesBaseSchema, addFilmeSchema
 # from fastapi_pagination import Page, add_pagination, paginate
+
+def get_db() -> Generator:
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+Base.metadata.create_all(bind=engine)
 
 # Dummy imports
 import json
@@ -41,13 +55,14 @@ def estouFuncionando() -> Dict[str, datetime]:
     return "sim"
 
 
-@app.get("/filmes", tags=['filmes'])
-def get_all_filmes() -> List[Dict[str, Union[float, int, str, bool]]]:
-    if response := listaFilmes:
-        return response
+@app.get("/filmes", tags=['filmes'], status_code=status.HTTP_200_OK)
+def get_all_filmes(db: Session = Depends(get_db)) -> List[Dict[str, Union[float, int, str, bool]]]:
+    if result := lista_todos_filmes(db):
+        return result
+
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
-        detail="Nenhum filme encontrado"
+        detail="Nenhum filme encontrado",
     )
 
 
@@ -68,10 +83,14 @@ def get_max() -> int:
     return max_id_filme.get("id", 0)
 
 
-@app.post('/filmes/', tags=['filmes'])
-def post_filme(filme: addFilmeSchema):
-    listaFilmes.append(novoFilme := {**{"id": get_max()+1}, **filme.dict()})
-    return novoFilme
+@app.post('/filmes/', tags=['filmes'], status_code=status.HTTP_201_CREATED,)
+def post_filme(filme: addFilmeSchema, db: Session = Depends(get_db),):
+    if result := cria_filme(db, filme):
+        return result
+
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST
+    )
 
 
 # add_pagination(app)
