@@ -1,3 +1,5 @@
+from schemas import addFilmeSchema
+import json
 from datetime import datetime
 from multiprocessing import dummy
 from typing import Dict
@@ -7,10 +9,12 @@ from sqlalchemy.orm import Session
 from crud import (
     cria_filme,
     lista_todos_filmes,
+    get_filme
 )
 from database import Base, SessionLocal, engine
 from schemas import filmesBaseSchema, addFilmeSchema
 # from fastapi_pagination import Page, add_pagination, paginate
+
 
 def get_db() -> Generator:
     db = SessionLocal()
@@ -19,12 +23,11 @@ def get_db() -> Generator:
     finally:
         db.close()
 
+
 Base.metadata.create_all(bind=engine)
 
 # Dummy imports
-import json
 
-from schemas import addFilmeSchema
 listaFilmes = json.load(open("dummyDatabase.json", "r"))
 
 # Descricao da documentacao
@@ -66,12 +69,10 @@ def get_all_filmes(db: Session = Depends(get_db)) -> List[Dict[str, Union[float,
     )
 
 
-@app.get("/filmes/{id}/", tags=['filmes'])
-def get_filme(id: int) -> Dict[str, Union[float, int, str, bool]]:
-    if response := list(
-        filter(lambda i: i.get("id") == id, listaFilmes)
-    ):
-        return response[0]
+@app.get("/filmes/{id}/", tags=['filmes'], status_code=status.HTTP_200_OK)
+def get_filme_especifico(id: int, db: Session = Depends(get_db)) -> Dict[str, Union[float, int, str, bool]]:
+    if response := get_filme(db, id):
+        return response
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
         detail=f"Filme com id {id} não encontrado.",

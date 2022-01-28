@@ -13,6 +13,10 @@ def lista_todos_filmes(db: Session) -> Generator:
     return db.query(filmes).all()
 
 # Get filme especifico
+def get_filme(db: Session, id: int):
+    return db.query(filmes).filter(
+        filmes.id == id
+    ).first()
 
 
 # Post filme no bd
