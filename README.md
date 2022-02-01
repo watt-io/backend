@@ -41,7 +41,7 @@ Salve!
 Na pasta raiz do projeto rodar o comando
 
 ```
-sudo docker-compose up
+docker-compose up
 ```
 
 Acessar o endereço
