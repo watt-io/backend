@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  db:
+    build: ./db
+    volumes:
+      - '.db/start_up.sql:/docker-entrypoint-initdb.d/'
+    ports:
+      - '5432:5432'
+
+  api:
+    build: .
+    volumes:
+      - './requirements.txt:/app'
+    ports:
+      - '8000:8000'
