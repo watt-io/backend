@@ -19,3 +19,7 @@ class Movie(_BaseMovie):
 
 class CreateMovie(_BaseMovie):
     pass
+
+
+def hello():
+    pass

@@ -1,6 +1,6 @@
 import datetime as _dt
 import sqlalchemy as _sql
-import database as _db
+import src.database as _db
 
 
 class Movies(_db.Base):

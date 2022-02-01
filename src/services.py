@@ -1,8 +1,9 @@
 from typing import TYPE_CHECKING, List
-import database as _db
-import models as _models
-import schemas as _schemas
 import sqlalchemy.orm as _orm
+import src.database as _db
+import src.models as _models
+import src.schemas as _schemas
+
 
 if TYPE_CHECKING:
     from sqlalchemy.orm import Session
