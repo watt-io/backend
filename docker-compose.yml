@@ -1,17 +1,20 @@
-version: '3.3'
+version: '2.2'
 
 services:
-  db:
-    build: ./db
-    # volumes:
-    #   - './db/start_up.sql:/docker-entrypoint-initdb.d/'
-    ports:
-      - '5432:5432'
-
   api:
     build: .
     volumes:
       - './requirements.txt:/app'
     network_mode: 'host'
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+  db:
+    build: ./db
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - '5432:5432'
