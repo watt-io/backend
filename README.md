@@ -44,6 +44,18 @@ Na pasta raiz do projeto rodar o comando
 sudo docker-compose up
 ```
 
+Acessar o endereço
+
+```
+localhost:8000/docs
+```
+
+ou
+
+```
+0.0.0.0:8000/docs
+```
+
 #### Dependências
 
 - docker >= 20.10.7
