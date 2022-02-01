@@ -7,7 +7,6 @@ DATABASE_URL = f"postgresql://postgres:12345@localhost:5432/postgres"
 
 
 engine = _sql.create_engine(DATABASE_URL)
-print(engine)
 
 SessionLocal = _orm.sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
