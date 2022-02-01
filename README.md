@@ -58,8 +58,8 @@ ou
 
 #### Dependências
 
-- docker >= 20.10.7
-- docker-compose >= 1.25.0
+- docker = 20.10.7
+- docker-compose = 1.25.0
 
 ```
 sudo apt-get install docker docker-compose -y
