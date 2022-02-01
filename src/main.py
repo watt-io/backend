@@ -8,11 +8,9 @@ import src.services as _services
 if TYPE_CHECKING:
     from sqlalchemy.orm import Session
 
+_services._add_tables()
 
 app = _fastapi.FastAPI()
-
-
-_services._add_tables()
 
 
 @app.get("/movies", response_model=List[_schemas.Movie])

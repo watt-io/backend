@@ -1,1 +1,1 @@
-create database movies-db
+create database movies_db
