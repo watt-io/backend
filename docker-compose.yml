@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  movie-service:
+    build: .
+    ports:
+      - "8000:8000"
+      - "8080:8080"
+    command: bash -C /api/start.sh
