@@ -2,7 +2,8 @@
 
 #### Descrição
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+Implementação de uma CRUD de filmes para avaliação no processo seletivo de estágio na INOWATT.
+
 
 Rotas da API:
 
@@ -10,15 +11,21 @@ Rotas da API:
  - `/filmes` - [POST] deve cadastrar um novo filme.
  - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+Todas as rotas anteriormente foram implementas.
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+#### Como rodar a aplicação? 
+Primeiro é preciso baixar a aplicação do GitHub. Após baixar para rodar a aplicação deve se
+as dependencias em `.`:
+`docker build -t mybackend .`
+Criada a imagem da aplicação, agora é só utilizar o `docker-compose up` e a aplicação estará
+rodando. Para ir ao o swagger basta acessar: http://0.0.0.0:8000/docs#/
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+- A aplicação utiliza de integração com banco de dados SqLite
+
+
+#### Como começar?
+
+Qualquer sugestão de melhoria, dúvida. Favor entrar em contato
 
 
 #### Como começar?
