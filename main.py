@@ -5,6 +5,7 @@ from movie_model import Movie
 
 app = FastAPI()
 repository = Repository()
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
