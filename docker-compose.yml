@@ -1,0 +1,9 @@
+version: '2.2'
+
+services:
+  api:
+    build: .
+    volumes:
+      - './requirements.txt:/app'
+    ports:
+      - "8000:8000"
