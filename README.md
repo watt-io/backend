@@ -26,4 +26,6 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 - Clone o repositório
 - Navegue até a pasta raiz do projeto
 - No Prompt de Comando rode o comando  ``` docker-compose up ```
-- Agora já pode acessar o endereço ``` http://127.0.0.1:8000 ``` e testar minha aplicação :)
+- Agora já pode acessar o endereço ``` http://127.0.0.1:8000/docs ``` e testar minha aplicação :)
+- Obs: Eu criei duas rotas adicionais. Uma para atualizar um filme que já existe, e outra para deletar um filme pelo ID.
+- Obs2: Quando criar um filme novo, o parâmetro "cast" recebe uma lista. No endereço ``` http://127.0.0.1:8000/docs ``` o método "Save Item" possui uma caixa na qual você pode escrever um lista para o parâmetro 'cast'
