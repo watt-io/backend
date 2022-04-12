@@ -12,7 +12,7 @@ Rotas da API:
 
 O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
 
-#### Sugestão de Ferramentas 
+#### Sugestão de Ferramentas
 Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
 
 - Orientação a objetos (utilizar objetos, classes para manipular os filmes)
@@ -21,17 +21,9 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 - Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
 
 
-#### Como começar?
+#### Como Rodar? (Quem sou eu para te ensinar, mas vamos lá)
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
-
-#### Dúvidas?
-
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
-
-Salve!
+- Clone o repositório
+- Navegue até a pasta raiz do projeto
+- No Prompt de Comando rode o comando  ``` docker-compose up ```
+- Agora já pode acessar o endereço ``` http://127.0.0.1:8000 ``` e testar minha aplicação :)
