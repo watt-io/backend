@@ -6,4 +6,4 @@ services:
     volumes:
       - './requirements.txt:/app'
     ports:
-      - "8000:8000"
+      - 8000:8000
