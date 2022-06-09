@@ -44,6 +44,10 @@ Na pasta principal do projeto rodar o seguinte comando no prompt.
 
 ``` docker-compose up ```
 
+Front End que se comunica com o Back End
+
+Front End: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
 Após o build, e criação do container pode-se acessar a API e sua documentação em:
 
 API: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)

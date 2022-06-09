@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container text-center m-4 p-5">
    <ul class="nav nav-pills">
       <li class="nav-item">
          <a class="nav-link active" href="/docs">Back End - Docs - Fast Api</a>
@@ -22,11 +22,10 @@
    </ul>
 </div>
 
-
-   <div class="container">
-
-
-
+<hr class="solid">
+<h1 class="text-center">Robinson Enedino - Desafio Back End - Watt</h1>
+<hr class="solid">
+   <div class="container m-4 p-5">
       <h2>Todos os Filmes - /filmes GET</h2>
 
       <table class="table">
@@ -47,62 +46,48 @@
       </table>
       <button type="button" class="btn btn-info" id="btn-todos">Todos os Filmes</button>
       <br>
-                  
    </div>
-
-
-
-
-
-
-   <div class="container">
-      <div class="row">
-         <div class="col">
-            <h2>Consulta de Filme por ID</h2>
-            <form>
-                  <div class="form-group">
-                     <label for="id">ID</label>
-                     <input type="text" class="form-control" maxlength="9" id="id">
-                     <small>Integer ID</small>
-                     <br>
-                     <button type="button" class="btn btn-info" id="btn-por-id">Consulta filme por ID</button>
-                  </div>
-                  <div class="form-group">
-                     <label for="nome">Nome</label>
-                     <input type="text" class="form-control" id="movie_name">
-                     <small>movie_name</small>
-                  </div>
-                  <div class="form-group">
-                     <label for="ano">Ano</label>
-                     <input type="text" class="form-control" id="movie_year">
-                     <small>movie_year</small>
-                  </div>
-            </form>
-         </div>
-
-         <div class="col">
-            <h2>Inserir Novo Filme</h2>
-
-
-
-            <form>
-                  <div class="form-group">
-                     <label for="nome_ins">Nome</label>
-                     <input type="text" class="form-control" id="movie_name_ins">
-                  </div>
-                  <div class="form-group">
-                     <label for="ano_ins">Ano</label>
-                     <input type="text" class="form-control" id="movie_year_ins">
-                  </div>
-                  <button type="button" class="btn btn-info" id="btn-insere-filme">Insere Filme</button>
-            </form>
-
-
-
-         </div>
-      </div>
+<br>
+<hr class="solid">
+   <div class="container m-4 p-5">
+      <h2>Consulta de Filme por ID</h2>
+      <form>
+            <div class="form-group">
+               <label for="id">ID</label>
+               <input type="text" class="form-control" maxlength="9" id="id">
+               <small>Integer ID</small>
+               <br>
+            </div>
+            <div class="form-group">
+               <label for="nome">Nome</label>
+               <input type="text" class="form-control" id="movie_name">
+               <small>movie_name</small>
+            </div>
+            <div class="form-group">
+               <label for="ano">Ano</label>
+               <input type="text" class="form-control" id="movie_year">
+               <small>movie_year</small>
+            </div>
+            <button type="button" class="btn btn-info" id="btn-por-id">Consulta filme por ID</button>
+      </form>
    </div>
-   <br>
+<br>
+<hr class="solid">
+   <div class="container  m-4 p-5">
+      <h2>Inserir Novo Filme</h2>
+      <form>
+            <div class="form-group">
+               <label for="nome_ins">Nome</label>
+               <input type="text" class="form-control" id="movie_name_ins">
+            </div>
+            <div class="form-group">
+               <label for="ano_ins">Ano</label>
+               <input type="text" class="form-control" id="movie_year_ins">
+            </div>
+            <button type="button" class="btn btn-info" id="btn-insere-filme">Insere Filme</button>
+      </form>
+   </div>
+   <hr class="solid">
 
 
 
@@ -171,13 +156,6 @@
             })
             .then(response => response.json()) 
             .then(json => console.log(json));
-            /*
-            .catch(err => console.log(err));
-            
-            
-            */
-            
-            
             // document.location.reload(true);
          }
 
@@ -195,5 +173,8 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
 </body>
 </html>
