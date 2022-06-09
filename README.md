@@ -35,3 +35,30 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
 
 Salve!
+
+___________________________
+
+# Instruções para subir a applicação
+
+Na pasta principal do projeto rodar o seguinte comando no prompt.
+
+``` docker-compose up ```
+
+Após o build, e criação do container pode-se acessar a API e sua documentação em:
+
+API: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+Documentação redoc [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+
+<br>
+
+
+
+
+Sou muito grato,
+
+<br>
+
+Robinson Enedino
+
+[https://www.enedino.com.br/portfolio](https://www.enedino.com.br/portfolio)
