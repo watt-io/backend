@@ -34,6 +34,7 @@ def add_movie_details_to_db(db: Session, movie: schema.MovieAdd):
     """
     mv_details = model.Movies(
         movie_name=movie.movie_name,
+        movie_year=movie.movie_year,
     )
     db.add(mv_details)
     db.commit()

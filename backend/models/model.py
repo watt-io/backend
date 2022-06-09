@@ -6,3 +6,4 @@ class Movies(Base):
     __tablename__ = "movie"
     id = Column(Integer, primary_key=True, autoincrement=True, index=True, nullable=False)
     movie_name = Column(String(255), index=True, nullable=False)
+    movie_year = Column(Integer, unique=True, index=True, nullable=False)

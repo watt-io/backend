@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 class MovieBase(BaseModel):
     movie_name: str
+    movie_year: int
 
 
 class MovieAdd(MovieBase):
@@ -20,5 +21,6 @@ class Movie(MovieAdd):
 
 class UpdateMovie(BaseModel):
     movie_name: str
+    movie_year: int
     class Config:
         orm_mode = True
