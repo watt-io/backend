@@ -2,7 +2,10 @@
 from typing import List
 
 import uvicorn
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 
 import crud
@@ -23,12 +26,22 @@ app = FastAPI(
     },
 )
 
+templates = Jinja2Templates(directory="templates")
+
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
+
+# Root path - Interface Front End
+@app.get("/", response_class=HTMLResponse)
+def root(request:Request , db: Session = Depends(get_db)):
+    filmes = crud.get_movies(db=db, skip=0, limit=1000)
+    context = {'request': request, "filmes":filmes}
+    return templates.TemplateResponse("index.html", context)
 
 
 @app.get('/filmes', response_model=List[schema.Movie])
@@ -44,7 +57,7 @@ def recupera_filme_por_id(id: str, db: Session = Depends(get_db)):
 
 
 @app.post('/add_filme', response_model=schema.MovieAdd)
-def adiciona_filme_por_id(movie: schema.MovieAdd, db: Session = Depends(get_db)):
+def adiciona_filme(movie: schema.MovieAdd, db: Session = Depends(get_db)):
     return crud.add_movie_details_to_db(db=db, movie=movie)
 
 
