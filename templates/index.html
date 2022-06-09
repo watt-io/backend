@@ -4,12 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Api Filmes</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 <body>
 
+<div class="container">
+   <ul class="nav nav-pills">
+      <li class="nav-item">
+         <a class="nav-link active" href="/docs">Back End - Docs - Fast Api</a>
+      </li>
+      <li class="nav-item">
+         <a class="nav-link"  href="/redoc">Back End - Redocs - Fast Api</a>
+      </li>
+      <li class="nav-item">
+         <a class="nav-link " href="https://www.enedino.com.br">Web Site Pessoal</a>
+      </li>
+   </ul>
+</div>
+
 
    <div class="container">
+
+
+
       <h2>Todos os Filmes - /filmes GET</h2>
 
       <table class="table">
@@ -85,6 +102,7 @@
          </div>
       </div>
    </div>
+   <br>
 
 
 
@@ -129,13 +147,53 @@
       })
 
 
+      const botao_insere = document.querySelector("#btn-insere-filme")
+      botao_insere.addEventListener("click",(e)=>{
+
+         let ano = parseInt(document.querySelector("#movie_year_ins").value);
+         let nome_filme = document.querySelector("#movie_name_ins").value;
+
+         if(isNaN(ano)||(nome_filme === "")) {
+            console.log("vazio");
+            console.log(ano);
+            console.log(nome_filme);
+            alert(`Por favor! \nPreencha todos os campos.\nAnos devem ser inteiros!`);
+         } else{
+               let _data = {
+               movie_name: nome_filme,
+               movie_year: ano,
+            }
+            
+            fetch('/add_filme', {
+               method: "POST",
+               body: JSON.stringify(_data),
+               headers: {"Content-type": "application/json; charset=UTF-8"}
+            })
+            .then(response => response.json()) 
+            .then(json => console.log(json));
+            /*
+            .catch(err => console.log(err));
+            
+            
+            */
+            
+            
+            // document.location.reload(true);
+         }
+
+
+
+      })
 
 
 
 
 
 </script>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
