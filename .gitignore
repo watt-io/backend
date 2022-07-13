@@ -1,0 +1,16 @@
+# IDEs
+.vs-code
+.idea
+
+# Binaries & Envs
+.venv/
+venv/
+.python-version
+
+# Databases
+db.sqlite3
+data/
+
+# Cache
+__pycache__/
+*/__pycache__/
