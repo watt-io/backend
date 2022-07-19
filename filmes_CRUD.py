@@ -32,18 +32,14 @@ class crud():
 
     def create(self, id: int, nome: str, ano: int, genero: str, duracao: str):
         filme = Filme(id, nome, ano, genero, duracao)
-
-
+        dict_filme_novo = filme.set_dict()
+        with open('db.json', 'r+') as f:
+            dict_atual = json.load(f)
+            dict_atual.update(dict_filme_novo)
+            dict_novo = json.dumps(dict_atual, indent=2)
+        with open('db.json', 'w+') as file:
+            file.write(dict_novo)
+            
 if __name__ == '__main__':
-    
-    dict_filmes = {
-    1: {'nome': 'forrest gump', 'ano': 1994, 'genero': 'drama', 'duracao': '142 min'},
-    2: {'nome': 'drive', 'ano': 2011, 'genero': 'acao', 'duracao': '100 min'},
-    3: {'nome': 'blade runner 2049', 'ano': 2017, 'genero': 'ficcao cientifica', 'duracao': '163 min'},
-    4: {'nome': 'se7en', 'ano': 1995, 'genero': 'crime', 'duracao': '127 min'},
-    5: {'nome': '1917', 'ano': 2019, 'genero': 'guerra', 'duracao': '119 min'},
-}
-
-string_json = json.dumps(dict_filmes, indent=2)
-with open ('db.json', 'w') as f:
-    f.write(string_json)
+    c = crud()  
+    c.create(6, 'jdjd', 2012, 'acao', '120 min')              
