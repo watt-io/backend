@@ -37,8 +37,13 @@ class crud():
             dict_atual = json.load(f)
             dict_atual.update(dict_filme_novo)
             dict_novo = json.dumps(dict_atual, indent=2)
+            f.close()
         with open('db.json', 'w+') as file:
             file.write(dict_novo)
+            file.close()
+    
+    def read(self):
+                
             
 if __name__ == '__main__':
     c = crud()  
