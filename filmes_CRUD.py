@@ -1,6 +1,8 @@
 # CRUD -> Create Read Update Delete
 import json
 
+from requests import delete
+
 class Filme():
     def __init__(self, id: int, nome: str, ano: int, genero: str, duracao: str):
         self.__id = id
@@ -43,8 +45,44 @@ class crud():
             file.close()
     
     def read(self):
-                
+        with open('db.json', 'r') as f:
+            dict_atual = json.load(f)
+            f.close()
+        return dict_atual
+    
+    def read_by_id(self, id: int):
+        with open('db.json', 'r') as f:
+            dict_atual = json.load(f)
+            f.close()
+        for ids in dict_atual:
+            if ids == id:
+                return ids[id]
+            
+    def update(self, id: int):
+        with open('db.json', 'r') as f:
+            dict_atual = json.load(f)
+            f.close()
+        for ids in dict_atual:
+            if ids == id:
+                pass
+    
+    def delete(self, id: int):
+        with open('db.json', 'r') as f:
+            dict_atual = json.load(f)
+            f.close()
+        for ids in dict_atual:
+            if ids == id:
+                del ids[id]
+                del ids
+                break 
+        with open('db.json', 'w+') as f:
+            dict_novo = json.dumps(dict_atual, indent=2)
+            f.write(dict_novo)
+            f.close()    
+                                 
             
 if __name__ == '__main__':
     c = crud()  
-    c.create(6, 'jdjd', 2012, 'acao', '120 min')              
+    #c.create(6, 'jdjd', 2012, 'acao', '120 min')
+    #c.create(7, 'lolo', 2014, 'acao', '156 min') 
+    c.delete(5)                
