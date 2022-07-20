@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from requests import delete
 
 class Filme():
-    def __init__(self, id: int, nome: str, ano: int, genero: str, duracao: str):
+    def __init__(self, id: str, nome: str, ano: int, genero: str, duracao: str):
         self.__id = id
         self.__nome = nome
         self.__ano = ano
@@ -33,7 +33,7 @@ class Filme():
     
 class Crud():
 
-    def create(self, id: int, nome: str, ano: int, genero: str, duracao: str):
+    def create(self, id: str, nome: str, ano: int, genero: str, duracao: str):
         filme = Filme(id, nome, ano, genero, duracao)
         dict_filme_novo = filme.set_dict()
         with open('db.json', 'r+') as f:
@@ -51,26 +51,32 @@ class Crud():
             f.close()
         return dict_atual
     
-    def read_by_id(self, id: int):
+    def read_by_id(self, id: str):
         with open('db.json', 'r') as f:
             dict_atual = json.load(f)
             f.close()
-        if str(id) not in dict_atual:
+        if id not in dict_atual:
             return {"Falha": "id desconhecida"}
         else:
-            return dict_atual[str(id)]
+            return dict_atual[id]
             
-    def update(self, id: int, nome: str, ano: int, genero: str, duracao: str):
+    def update(self, id: str, nome: str, ano: int, genero: str, duracao: str):
         with open('db.json', 'r') as f:
             dict_atual = json.load(f)
             f.close()
+        dict_atual[id] = {'nome': nome, 'ano': ano, 'genero': genero, 'duracao': duracao} 
+        with open('db.json', 'w+') as f:
+            dict_atualizado = json.dumps(dict_atual, indent=2)
+            f.write(dict_atualizado)
+            f.close()
+        return "ok"    
         
     
-    def delete(self, id: int):
+    def delete(self, id: str):
         with open('db.json', 'r') as f:
             dict_atual = json.load(f)
-            if str(id) in dict_atual:
-                dict_atual.pop(str(id))
+            if id in dict_atual:
+                dict_atual.pop(id)
                 f.close()
             else:
                 f.close()
