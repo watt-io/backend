@@ -17,16 +17,16 @@
     "genero": "ficcao cientifica",
     "duracao": "163 min"
   },
-  "4": {
-    "nome": "se7en",
-    "ano": 1995,
-    "genero": "crime",
-    "duracao": "127 min"
-  },
   "5": {
     "nome": "1917",
     "ano": 2019,
     "genero": "guerra",
     "duracao": "119 min"
+  },
+  "9": {
+    "nome": "O farol",
+    "ano": 2019,
+    "genero": "suspense",
+    "duracao": "100 min"
   }
 }

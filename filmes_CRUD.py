@@ -1,6 +1,6 @@
 # CRUD -> Create Read Update Delete
 import json
-#from pydantic import BaseModel
+from pydantic import BaseModel
 
 from requests import delete
 
@@ -31,7 +31,7 @@ class Filme():
         ret_dict = {self.__id: {'nome': self.__nome, 'ano': self.__ano, 'genero': self.__genero, 'duracao': self.__duracao}}
         return ret_dict
     
-class crud():
+class Crud():
 
     def create(self, id: int, nome: str, ano: int, genero: str, duracao: str):
         filme = Filme(id, nome, ano, genero, duracao)
@@ -56,7 +56,7 @@ class crud():
             dict_atual = json.load(f)
             f.close()
         if str(id) not in dict_atual:
-            return "id desconhecida"
+            return {"Falha": "id desconhecida"}
         else:
             return dict_atual[str(id)]
             
@@ -71,12 +71,13 @@ class crud():
             dict_atual = json.load(f)
             if str(id) in dict_atual:
                 dict_atual.pop(str(id))
-            f.close()     
+                f.close()
+            else:
+                f.close()
+                return {"Falha": "id inexistente no banco de dados"}         
         with open('db.json', 'w+') as f:
             dict_novo = json.dumps(dict_atual, indent=2)
             f.write(dict_novo)
-            f.close()    
-
-if __name__ == '__main__':
-    c = crud()
-    print(c.read_by_id())                                                
+            f.close() 
+        return {"Sucesso": "filme deletado com sucesso"}       
+                                              
