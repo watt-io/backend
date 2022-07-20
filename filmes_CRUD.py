@@ -1,5 +1,6 @@
 # CRUD -> Create Read Update Delete
 import json
+#from pydantic import BaseModel
 
 from requests import delete
 
@@ -54,35 +55,28 @@ class crud():
         with open('db.json', 'r') as f:
             dict_atual = json.load(f)
             f.close()
-        for ids in dict_atual:
-            if ids == id:
-                return ids[id]
+        if str(id) not in dict_atual:
+            return "id desconhecida"
+        else:
+            return dict_atual[str(id)]
             
-    def update(self, id: int):
+    def update(self, id: int, nome: str, ano: int, genero: str, duracao: str):
         with open('db.json', 'r') as f:
             dict_atual = json.load(f)
             f.close()
-        for ids in dict_atual:
-            if ids == id:
-                pass
+        
     
     def delete(self, id: int):
         with open('db.json', 'r') as f:
             dict_atual = json.load(f)
-            f.close()
-        for ids in dict_atual:
-            if ids == id:
-                del ids[id]
-                del ids
-                break 
+            if str(id) in dict_atual:
+                dict_atual.pop(str(id))
+            f.close()     
         with open('db.json', 'w+') as f:
             dict_novo = json.dumps(dict_atual, indent=2)
             f.write(dict_novo)
             f.close()    
-                                 
-            
+
 if __name__ == '__main__':
-    c = crud()  
-    #c.create(6, 'jdjd', 2012, 'acao', '120 min')
-    #c.create(7, 'lolo', 2014, 'acao', '156 min') 
-    c.delete(5)                
+    c = crud()
+    print(c.read_by_id())                                                
