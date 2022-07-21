@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from cria_json import Json_manager
-from filmes_CRUD import Crud, Filme, FilmeEnum
+from app.cria_json import Json_manager
+from app.filmes_CRUD import Crud, Filme, FilmeEnum
 
 
 

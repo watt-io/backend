@@ -1,8 +1,8 @@
 FROM python
 WORKDIR /app
 COPY ./requirements.txt .
-ADD /app/cria_json.py /app/
-ADD /app/filmes_CRUD.py /app/
+ADD ./app/cria_json.py /app/
+ADD ./app/filmes_CRUD.py /app/
 RUN pip install -r ./requirements.txt
 COPY . .
 EXPOSE 8000
