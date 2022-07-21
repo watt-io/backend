@@ -1,14 +1,8 @@
 from fastapi import FastAPI
 from cria_json import Json_manager
-from filmes_CRUD import Crud, Filme
-from enum import Enum
+from filmes_CRUD import Crud, Filme, FilmeEnum
 
 
-class FilmeEnum(str, Enum):
-    nome = "nome"
-    ano = "ano"
-    genero = "genero"
-    duracao = "duracao"
 
 db = Json_manager()
 db.cria_json('db.json')
@@ -29,8 +23,7 @@ async def mostra_filmes_id(id_filme: str):
 
 @app.post('/filmes')
 async def cria_filme(id: str, nome: str, ano: int, genero: str, duracao: str):
-    crud.create(id, nome, ano, genero, duracao)
-    return True
+    return crud.create(id, nome, ano, genero, duracao)
 
 @app.delete('/filmes/{id_filme}')
 async def exclui_filme(id_filme: str):

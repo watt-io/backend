@@ -2,7 +2,14 @@
 import json
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
+from enum import Enum
 
+
+class FilmeEnum(str, Enum):
+    nome = "nome"
+    ano = "ano"
+    genero = "genero"
+    duracao = "duracao"
 
 class Filme(BaseModel):
     id: str 
@@ -24,6 +31,7 @@ class Crud():
         with open('db.json', 'w+') as file:
             file.write(dict_novo)
             file.close()
+        return True 
     
     def read(self):
         with open('db.json', 'r') as f:
