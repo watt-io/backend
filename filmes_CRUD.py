@@ -1,6 +1,6 @@
 # CRUD -> Create Read Update Delete
 import json
-from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException, status
 
 from requests import delete
 
@@ -56,20 +56,24 @@ class Crud():
             dict_atual = json.load(f)
             f.close()
         if id not in dict_atual:
-            return {"Falha": "id desconhecida"}
+           raise HTTPException(status_code=404, detail="Id não encontrada")
         else:
             return dict_atual[id]
             
-    def update(self, id: str, nome: str, ano: int, genero: str, duracao: str):
+    def update(self, id: str, oq_mudar: str, conteudo):
         with open('db.json', 'r') as f:
             dict_atual = json.load(f)
             f.close()
-        dict_atual[id] = {'nome': nome, 'ano': ano, 'genero': genero, 'duracao': duracao} 
+        if id not in dict_atual:
+            raise HTTPException(status_code=404, detail="Id não encontrada")
+        if oq_mudar not in dict_atual[id]:
+            raise HTTPException(status_code=404, detail="campo não encontrado")
+        dict_atual[id][oq_mudar] = conteudo
         with open('db.json', 'w+') as f:
-            dict_atualizado = json.dumps(dict_atual, indent=2)
-            f.write(dict_atualizado)
+            json_string = json.dumps(dict_atual, indent=2)
+            f.write(json_string)
             f.close()
-        return "ok"    
+        return dict_atual[id]     
         
     
     def delete(self, id: str):
@@ -80,7 +84,7 @@ class Crud():
                 f.close()
             else:
                 f.close()
-                return {"Falha": "id inexistente no banco de dados"}         
+                raise HTTPException(status_code=404, detail="Id não encontrada")         
         with open('db.json', 'w+') as f:
             dict_novo = json.dumps(dict_atual, indent=2)
             f.write(dict_novo)

@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
 import json
 from cria_json import Json_manager
 from filmes_CRUD import Crud, Filme
@@ -8,7 +7,7 @@ from filmes_CRUD import Crud, Filme
 db = Json_manager()
 db.cria_json('db.json')
 crud = Crud()
-app = FastAPI()
+app = FastAPI(title='WattFlix++')
 
 @app.get('/')
 def home():
@@ -32,6 +31,9 @@ def exclui_filme(id_filme: str):
     return crud.delete(id_filme)
 
 @app.put('/filmes/{id_filme}')
-def atualiza_filme(id_filme: str):
-    pass
+def atualiza_filme(id_filme: str, oq_mudar: str, conteudo_desejado):
+    """ 
+        No campo oq_mudar digite: nome, ano, genero ou duracao!! DIGITE EXATAMENTE DESSA FORMA!
+    """
+    return crud.update(id_filme, oq_mudar, conteudo_desejado)
     
