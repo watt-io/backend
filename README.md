@@ -17,8 +17,10 @@ Rotas da API:
 
 #### Manual de uso
 **Para usuários com Docker instalado no computador**
+
     Basta utilizar o comando ``` docker-compose up ```!
 
 **Para usuários sem Docker instalado no computador**
+
     Primeiramente, você deverá instalar duas bibliotecas ``` pip install fastapi ``` e ``` pip install uvicorn ```. Após isso, será necessário ir até o diretório onde o arquivo ``` app_api.py ``` está localizado, logo após será necessário digitar o seguinte comando no terminal ``` uvicorn app_api:app --reload ```.
 
