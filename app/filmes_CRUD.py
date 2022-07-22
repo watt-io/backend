@@ -26,7 +26,7 @@ class Crud():
         with open('db.json', 'r+') as f:
             dict_atual = json.load(f)
             if id in dict_atual:
-                f.close
+                f.close()
                 raise HTTPException(status_code=412, detail="Id já existente")
             dict_atual.update(dict_filme_novo)
             dict_novo = json.dumps(dict_atual, indent=2)
