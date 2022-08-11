@@ -5,9 +5,22 @@ class ItemBase(BaseModel):
     title: str
     description: str | None = None
 
+class MovieBase(BaseModel):
+    title: str
+    description: str
+
+
+
+class Movie(MovieBase):
+    id: int
+
+class MovieCreate(MovieBase):
+    pass
 
 class ItemCreate(ItemBase):
     pass
+
+
 
 
 class Item(ItemBase):
@@ -33,3 +46,5 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+

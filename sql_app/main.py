@@ -1,3 +1,4 @@
+from urllib import response
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
@@ -16,6 +17,40 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+#@app.get("/filmes/{id}", response_model=schemas.User)
+#def read_movies(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+ #   movies = crud.get_movies
+
+
+
+@app.post("/filmes/", response_model=schemas.Movie)
+def create_movie(movie: schemas.MovieCreate, db: Session = Depends(get_db)):
+    db_movie = crud.get_movie_by_name(db, nome=movie.title)
+    if db_movie:
+        raise HTTPException(status_code=400, detail="Filme ja existente")
+    resultado = crud.create_movie(db=db, movie=movie)
+    print("Main :")
+    print(resultado)
+    return resultado.__dict__
+
+
+
+
+@app.get("/filmes/{id}", response_model=schemas.Movie)
+def read_movie(movie_id: int, db: Session = Depends(get_db)):
+    db_movie = crud.get_movie(db, movie_id=movie_id)
+    if movie_id is None:
+        raise HTTPException(status_code=404, detail="Filme nao encontrado")
+    return db_movie.__dict__
+
+#, response_model=list[schemas.Movie]
+@app.get("/filmes/")
+def read_movies(db: Session = Depends(get_db)):
+    movies = crud.get_movies(db=db)
+    return movies
+
 
 
 @app.post("/users/", response_model=schemas.User)
