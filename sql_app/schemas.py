@@ -1,50 +1,20 @@
+from typing import Optional
 from pydantic import BaseModel
 
 
-class ItemBase(BaseModel):
-    title: str
-    description: str | None = None
-
-class MovieBase(BaseModel):
+class MovieCreate(BaseModel):
     title: str
     description: str
-
-
-
-class Movie(MovieBase):
-    id: int
-
-class MovieCreate(MovieBase):
-    pass
-
-class ItemCreate(ItemBase):
-    pass
-
-
-
-
-class Item(ItemBase):
-    id: int
-    owner_id: int
-
+    
     class Config:
         orm_mode = True
 
 
-class UserBase(BaseModel):
-    email: str
-
-
-class UserCreate(UserBase):
-    password: str
-
-
-class User(UserBase):
-    id: int
-    is_active: bool
-    items: list[Item] = []
-
+class Movie(BaseModel):
+    id: Optional[int] = None
+    title: str
+    description: str
+    
     class Config:
         orm_mode = True
-
 
