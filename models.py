@@ -8,7 +8,7 @@ class Filme(Base):
 
     id: int = Column(Integer, primary_key=True, index=True)
     type: str = Column(String(50))
-    title: str = Column(String(100), nullable=False)
-    director: str = Column(String(100), nullable=False)
-    description: str = Column(String(300), nullable=False)
+    title: str = Column(String(100))
+    director: str = Column(String(100))
+    description: str = Column(String(300))
     

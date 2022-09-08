@@ -1,4 +1,6 @@
 from sqlalchemy.orm import Session
+from fastapi import HTTPException, status
+
 
 from models import Filme
 
@@ -12,11 +14,13 @@ class FilmeRepository:
     def findAll(db: Session) -> list[Filme]:
         return db.query(Filme).all()
 
-    # cria um novo filme ou atualiza um filme existente
+    # cria um novo filme
     @staticmethod
     def create(db: Session, filme: Filme) -> Filme:
         if filme.id:
-            db.merge(filme)
+            raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Filme já existe"
+        )
         else:
             db.add(filme)
         db.commit()
