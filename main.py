@@ -1,7 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException, status, Response, UploadFile, File
 from sqlalchemy.orm import Session
-import pandas as pd
-from fastapi_csv import FastAPI_CSV
 
 from models import Filme
 from db import engine, Base, get_db
