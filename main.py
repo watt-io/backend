@@ -12,6 +12,24 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 
+import pandas as pd
+filmes = pd.read_csv('amazon_prime_titles.csv', header=None, index_col=0, squeeze=True)
+
+@app.post("/api/upload", response_model=FilmeResponse, status_code=status.HTTP_201_CREATED)
+def uploadCSV(db: Session = Depends(get_db)):
+    for filme in filmes.values:
+        filme_up = {
+            "type": filme[0],
+            "title": filme[1],
+            "director": filme[2],
+            "description": filme[10]	
+        }
+        if filme_up['type'] != 'Movie':
+            continue
+        filme = FilmeRepository.create(db, Filme(**filme_up))
+    return FilmeResponse.from_orm(filme)
+        
+    
 
 # requisição POST para criação de um novo filme
 @app.post("/api/filmes", response_model=FilmeResponse, status_code=status.HTTP_201_CREATED)
