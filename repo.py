@@ -31,14 +31,14 @@ class FilmeRepository:
     def findById(db: Session, id: int) -> Filme:
         return db.query(Filme).filter(Filme.id == id).first()
 
-    # @staticmethod
-    # def exists_by_id(db: Session, id: int) -> bool:
-    #     return db.query(Filme).filter(Filme.id == id).first() is not None
+    @staticmethod
+    def exists(db: Session, id: int) -> bool:
+        return db.query(Filme).filter(Filme.id == id).first() is not None
 
     # deleta um filme pelo id
     @staticmethod
     def delete(db: Session, id: int) -> None:
-        filme = db.query(filme).filter(filme.id == id).first()
+        filme = db.query(Filme).filter(Filme.id == id).first()
         if filme is not None:
             db.delete(filme)
             db.commit()

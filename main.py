@@ -1,3 +1,4 @@
+from email import message
 from fastapi import FastAPI, Depends, HTTPException, status, Response, UploadFile, File
 from sqlalchemy.orm import Session
 
@@ -36,11 +37,12 @@ def findById(id: int, db: Session = Depends(get_db)):
 
 # requisição DELETE para deletar um filme pelo id
 @app.delete("/api/filmes/{id}", status_code=status.HTTP_204_NO_CONTENT)
-def deletById(id: int, db: Session = Depends(get_db)):
+def delete(id: int, db: Session = Depends(get_db)):
     try:
         FilmeRepository.delete(db, id)
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
     except:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Filme não encontrado"
         )
-    return Response(status_code=status.HTTP_204_NO_CONTENT)
+    
