@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE trash
+.DS_Store
+../.idea/
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Environments
+.env
+.venv
+./
+env/
+../.venv/
+ENV/
+../.DS_Store
+../.idea/
+../.venv/
+./
