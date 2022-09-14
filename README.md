@@ -1,6 +1,6 @@
 # Desafio API Filmes CRUD
 
-![PostmanPrint](https://github.com/LewisDamy/FilmesAPI_backend/blob/main/PrintScreen%20Postman.png)
+![PostmanPrint](https://github.com/LewisDamy/backend/blob/feature/luis/PrintScreen%20Postman.png)
 
 #### Descrição
 
