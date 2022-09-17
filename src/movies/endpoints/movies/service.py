@@ -23,3 +23,6 @@ class MoviesService:
         movie = await self.movies_rep.filter_by_if_movie_exists({'id': movie_id})
         return movie
 
+    async def get_all_movies(self) -> List[Movies]:
+        movies = await self.movies_rep.get_all()
+        return movies
