@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=filmes
+      - POSTGRES_PASSWORD=filmes
+      - POSTGRES_DB=filmes
+  api_rest:
+    build: .
+    command: bash -c "alembic upgrade head && python app.py"
+    volumes:
+      - .:/src
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
