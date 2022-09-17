@@ -1,20 +1,18 @@
-from typing import Optional
 from pydantic import BaseModel
 
 
-class MovieCreate(BaseModel):
-    title: str
-    description: str
-    
+class MovieBase(BaseModel):
+    titulo: str
+    descricao: str
+    avaliacao: int
+
+
+class MovieRequest(MovieBase):
+    ...
+
+
+class MovieResponse(MovieBase):
+    id: int
+
     class Config:
         orm_mode = True
-
-
-class Movie(BaseModel):
-    id: Optional[int] = None
-    title: str
-    description: str
-    
-    class Config:
-        orm_mode = True
-
