@@ -1,23 +1,20 @@
-from filmes.endpoints.filmes.repository import MoviesRepository
+from typing import Dict, List
+
+from exception import RepositoryException
+from movies.endpoints.movies.repository import MoviesRepository
+from movies.infrastructure.database.models.movies import Movies
 
 
 class MoviesService:
     def __init__(self, movies_repository: MoviesRepository):
-        self.movies_repository = movies_repository
+        self.movies_rep = movies_repository
 
-    def get_all(self):
-        return self.movies_repository.get_all()
+    async def check_if_movie_already_exists(self, movie_name: str):
+        movie = await self.movies_rep.filter_by({'name': movie_name})
+        if movie:
+            raise RepositoryException('Movie already exists')
 
-    def get_by_id(self, id: int):
-        return self.movies_repository.get_by_id(id)
-
-    def create(self, name: str, description: str):
-        return self.movies_repository.create(name=name, description=description)
-
-    def update(self, id: int, name: str, description: str):
-        return self.movies_repository.update(id=id, name=name, description=description)
-
-    def delete(self, id: int):
-        return self.movies_repository.delete(id=id)
-
-    
+    async def create_movie(self, movie_date: Dict):
+        await self.check_if_movie_already_exists(movie_name=movie_date.get('name'))
+        movie = await self.movies_rep.create(movie_date)
+        return movie
