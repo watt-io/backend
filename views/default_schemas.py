@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class home(BaseModel):
+class Base(BaseModel):
     messge: str
     time_request: str
     status: str
