@@ -3,12 +3,6 @@ from sqlalchemy.orm import Session
 from ..movie_models import Movie
 from views.movie_schemas import Movie as movie_schemas
 
-def get_movies(db: Session, skip: int = 0, limit: int = 20):
-    cursor = db.query(Movie).offset(skip).limit(limit).all()
-    data = [Movie.getMovies() for Movie in cursor]
-    return data
-
-
 def add_movies(db: Session, movie: movie_schemas):
     add_movie = Movie(
         
@@ -30,3 +24,13 @@ def add_movies(db: Session, movie: movie_schemas):
         "id": add_movie.id,
         "title": add_movie.title
     }
+
+def get_movies(db: Session, skip: int = 0, limit: int = 20):
+    cursor = db.query(Movie).offset(skip).limit(limit).all()
+    data = [Movie.getMovies() for Movie in cursor]
+    return data
+
+def getbyid_movies(db: Session, id: str):
+    data = db.query(Movie).filter(Movie.id == id)
+    data = [Movie.getById() for Movie in data]
+    return data

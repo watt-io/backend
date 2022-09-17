@@ -12,7 +12,7 @@ from models.db_conn.sqlite import get_db, metadata, engine
 api = FastAPI()
 metadata.create_all(bind=engine)
 
-@api.get("/", response_model=Schemas)
+@api.get("/home", response_model=Schemas)
 async def home():
     msg = "Api connection successfully"
     return build_toJson(200,msg)
@@ -37,5 +37,14 @@ async def get_all_movies(skip: int =0, limit: int = 10, db: Session =  Depends(g
         return build_toJson(200, content=query ,alert=msg)
     else:
         msg = "Not found movies"
-        return build_toJson(200, msg)
+        return build_toJson(401, msg)
 
+@api.get("/v1/api/movies/{id_movie}", response_model=Movie)
+async def get_by_id(id_movie: str, db: Session = Depends(get_db)):
+    query = orm_movies.getbyid_movies(db, id_movie)
+    if (query):
+        msg = "return user by id"
+        return build_toJson(200, query, msg)
+    else: 
+        msg = "user not found"
+        return build_toJson(401, alert=msg)
