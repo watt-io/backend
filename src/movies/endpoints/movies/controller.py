@@ -35,6 +35,11 @@ async def update_movie(request: Request, movie_id: int, update_movie: UpdateMovi
     return await movies_service.update_movie(movie_id=movie_id, movie_data=update_movie.dict(exclude_none=True))
 
 
+@router.delete("/movies/{movie_id}", status_code=status.HTTP_204_NO_CONTENT)
+@inject
+async def delete_movie(request: Request, movie_id: int,
+                       movies_service: MoviesService = Depends(Provide[Container.movies_services])):
+    return await movies_service.delete_movie(movie_id=movie_id)
 
 
 def configure(app: FastAPI):

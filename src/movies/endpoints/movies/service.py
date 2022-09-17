@@ -29,3 +29,7 @@ class MoviesService:
 
     async def update_movie(self, movie_id, movie_data):
         await self.movies_rep.update(movie_id, movie_data)
+
+    async def delete_movie(self, movie_id):
+        movie = await self.movies_rep.filter_by_if_movie_exists({'id': movie_id})
+        await self.movies_rep.delete(movie)
