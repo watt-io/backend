@@ -1,12 +1,12 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String
 
-from .database import Base
+from database import Base
 
 
 class Movie(Base):
-    __tablename__ = "filme"
-    
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, unique=True)
-    descreption = Column(String, unique=True)
+    __tablename__ = "filmes"
+
+    id: int = Column(Integer, primary_key=True, index=True)
+    titulo: str = Column(String(100), nullable=False)
+    descricao: str = Column(String(255), nullable=False)
+    avaliacao: int = Column(Integer, nullable=False)
