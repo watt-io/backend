@@ -26,3 +26,6 @@ class MoviesService:
     async def get_all_movies(self) -> List[Movies]:
         movies = await self.movies_rep.get_all()
         return movies
+
+    async def update_movie(self, movie_id, movie_data):
+        await self.movies_rep.update(movie_id, movie_data)
