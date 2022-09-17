@@ -18,3 +18,8 @@ class MoviesService:
         await self.check_if_movie_already_exists(movie_name=movie_date.get('name'))
         movie = await self.movies_rep.create(movie_date)
         return movie
+
+    async def get_movie_by_id(self, movie_id: int) -> Movies:
+        movie = await self.movies_rep.filter_by_if_movie_exists({'id': movie_id})
+        return movie
+
