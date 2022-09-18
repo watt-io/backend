@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
 import uuid
+
+
 from ..movie_models import Movie
 from views.movie_schemas import Movie as movie_schemas
 
@@ -36,13 +38,6 @@ def getbyid_movies(db: Session, id: str):
     data = [Movie.getById() for Movie in data]
     return data
 
-def delete(db: Session, id: str):
-    movie = db.query(Movie).filter(Movie.id == id).one()
-    db.delete(movie)
-    db.commit()
-    msg = "Deleted success."
-    return msg
-
 def update(db: Session, id: str(uuid.uuid1), movie: movie_schemas):
     data = db.query(Movie).filter(Movie.id == id).one()
     
@@ -56,8 +51,14 @@ def update(db: Session, id: str(uuid.uuid1), movie: movie_schemas):
     data.price = movie.price
     data.year = movie.year
         
-
     db.merge(data)
     db.commit()
     msg = "Update movies success."
+    return msg
+
+def delete(db: Session, id: str):
+    movie = db.query(Movie).filter(Movie.id == id).one()
+    db.delete(movie)
+    db.commit()
+    msg = "Deleted success."
     return msg
