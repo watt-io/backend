@@ -17,7 +17,7 @@ Rotas da API:
 
 #### **Forma para rodar o projetos**
 
-Nas raiz do projeto rode o comando ``` docker-compose build ``` para gerar a imagem da aplicação juntamente com o banco de dados após isso deverá rodar ``` docker-compose up ``` ou ``` docker-compose up -d ``` fica a sua escolha, neste momento ele ir iniciar o banco de dados e aplicação e irá aplicar as migrações do banco de dados
+Na raiz do projeto rode o comando ``` docker-compose build ``` para gerar a imagem da aplicação juntamente com o banco de dados após isso deverá rodar ``` docker-compose up ``` ou ``` docker-compose up -d ``` fica a sua escolha, neste momento ele ir iniciar o banco de dados e aplicação e irá aplicar as migrações do banco de dados
 
 #### **Documentação**
 
