@@ -21,10 +21,10 @@ async def home():
 async def post_movies(movie: Movie, db: Session = Depends(get_db)):
     movie = orm_movies.add_movies(db, movie)
     if (movie):
-        msg = "User created successfully"
+        msg = "Movie created successfully"
         return build_toJson(status=200, content=movie, alert=msg)
     else:
-        msg = "User not created"
+        msg = "Movie not created"
     return build_toJson(status=400, content=None, alert=msg)   
 
 @api.get("/v1/api/movies/", response_model=DefaultSchemas)
@@ -41,10 +41,10 @@ async def get_all_movies(skip: int =0, limit: int = 10, db: Session =  Depends(g
 async def get_by_id(id_movie: str, db: Session = Depends(get_db)):
     query = orm_movies.getbyid_movies(db, id_movie)
     if (query):
-        msg = "return user by id"
+        msg = "Return user by id"
         return build_toJson(200, query, msg)
     else: 
-        msg = "user not found"
+        msg = "Movie not found"
         return build_toJson(400, alert=msg)
 
 @api.put("/v1/api/movies/{id_movie}", response_model=Movie) 

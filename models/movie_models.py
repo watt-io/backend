@@ -1,6 +1,4 @@
-from email.policy import default
-import string
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Column, Integer, String, Float
 import uuid
 
 
@@ -8,15 +6,16 @@ from .db_conn.sqlite import Base, engine, metadata
 
 class Movie(Base):
     __tablename__ = "movie"
-    id = Column(String(60), primary_key=True, default=uuid.uuid1)
+    id = Column(String(60), primary_key=True, default=uuid.uuid4)
     title = Column(String(60))
     abstract = Column(String(255))
+    genre = Column(String(60))
     main_actor = Column(String(60))
     director = Column(String(60))
     producion = Column(String(60))
     editions = Column(String(60))
     streaming = Column(String(60))
-    price = Column(Integer)
+    price = Column(Float)
     year = Column(Integer)
     
     def getMovies(self):
@@ -41,13 +40,8 @@ class Movie(Base):
         }
 
 
-
-
-
-#########____CREATETABLE____###########
 """
 Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
-
 """
 

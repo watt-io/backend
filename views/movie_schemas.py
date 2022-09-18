@@ -4,6 +4,7 @@ class Movie(BaseModel):
 
     title: str
     abstract: str
+    genre: str
     main_actor: str
     director: str
     producion: str

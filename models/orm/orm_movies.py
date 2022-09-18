@@ -43,6 +43,7 @@ def update(db: Session, id: str(uuid.uuid1), movie: movie_schemas):
     
     data.title = movie.title
     data.abstract = movie.abstract
+    data.genre = movie.genre
     data.main_actor = movie.main_actor
     data.director = movie.director
     data.producion = movie.producion
@@ -53,7 +54,7 @@ def update(db: Session, id: str(uuid.uuid1), movie: movie_schemas):
         
     db.merge(data)
     db.commit()
-    msg = "Update movies success."
+    msg = "Updated movies success."
     return msg
 
 def delete(db: Session, id: str):
