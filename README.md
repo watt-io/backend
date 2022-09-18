@@ -9,7 +9,7 @@ Install ```docker```, ```docker-compose```
 
 In terminal: ```cd ./backend```, start aplication: ```docker-compose up```
 
-#### Application route: ```localhost:8000/docs```
+#### Application route: ```localhost:8000``` and documentation in path: `/docs`
 
 ##### Routes:
 
