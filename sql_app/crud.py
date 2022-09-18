@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from models import Movie
+from .models import Movie
 
 class MovieRepository:
  

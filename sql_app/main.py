@@ -1,10 +1,10 @@
 from fastapi import FastAPI, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
 
-from models import Movie
-from database import engine, Base, get_db
-from crud import MovieRepository
-from schemas import MovieRequest, MovieResponse
+from .models import Movie
+from .database import engine, Base, get_db
+from .crud import MovieRepository
+from .schemas import MovieRequest, MovieResponse
 
 
 Base.metadata.create_all(bind=engine)
