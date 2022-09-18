@@ -12,7 +12,7 @@ from models.db_conn.sqlite import get_db, metadata, engine
 api = FastAPI()
 metadata.create_all(bind=engine)
 
-@api.get("/home", response_model=DefaultSchemas)
+@api.get("/v1/api/home/", response_model=DefaultSchemas)
 async def home():
     msg = "Api connection successfully"
     return build_toJson(200,msg)
