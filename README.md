@@ -27,3 +27,6 @@ built with :
 - SQLAlchemy 
 - SQLite 
 
+#### Aditional automated test: in repository ./FastAPI.postman_collection.json 
+
+Import collection in Postman and run collection or folder. 
