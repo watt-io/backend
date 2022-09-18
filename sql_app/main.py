@@ -1,40 +1,43 @@
-from typing import List
-
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
 
-from . import crud, models, schemas
-from .database import SessionLocal, engine
+from models import Movie
+from database import engine, Base, get_db
+from crud import MovieRepository
+from schemas import MovieRequest, MovieResponse
 
-models.Base.metadata.create_all(bind=engine)
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-@app.post("/filmes/")
-def create_movie(movie: schemas.MovieCreate, db: Session = Depends(get_db)):
+#Adiciona um filme ao BD, se o titulo for diferente
+@app.post("/filmes", response_model=MovieResponse, status_code=status.HTTP_201_CREATED)
+def create(request: MovieRequest, db: Session = Depends(get_db)):
     
-    res = crud.RepositorioFilmes(db).consultar(movie.title)
-    if res:
-        raise HTTPException(status_code=400, detail="Filme ja registrado")
-    new_movie = crud.RepositorioFilmes(db).inserir(movie)
-    return new_movie
+    movie = MovieRepository.find_by_title(db, Movie(**request.dict()))# Verifica se o filme ja existe
+    if not movie:
+        movie = MovieRepository.save(db, Movie(**request.dict()))#Se o filme nao existir eh criado
+        return MovieResponse.from_orm(movie)
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_406_NOT_ACCEPTABLE, detail="Filme ja existente"
+        )
+    
+#Retornar uma lista com todos os filmes
+@app.get("/filmes", response_model=list[MovieResponse])
+def find_all(db: Session = Depends(get_db)):
+    movies = MovieRepository.find_all(db)
+    return [MovieResponse.from_orm(movie) for movie in movies]
 
-@app.get("/filmes/")
-def show_movies(db: Session = Depends(get_db)):
-    return crud.RepositorioFilmes(db).exibir()
+#Retorna um filme pelo id (caso houver)
+@app.get("/filmes/{id}", response_model=MovieResponse)
+def find_by_id(id: int, db: Session = Depends(get_db)):
+    movie = MovieRepository.find_by_id(db, id)
+    if not movie:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Filme não encontrado"
+        )
+    return MovieResponse.from_orm(movie)
 
-@app.get("/filmes/{id}")
-def search_movie(id: str,  db: Session = Depends(get_db)):
-    filme = crud.RepositorioFilmes(db).consultar(id)
-    if filme is None:
-        raise HTTPException(status_code=404, detail="Movie not found")
-    return filme
+
