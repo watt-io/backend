@@ -3,7 +3,7 @@
 ##### Requeriments:
 Install ```docker```, ```docker-compose```
 
-##### Clone:
+#### Clone:
 
 ``` -git clone -b feature/raian-barbosa https://github.com/raianb-dev/backend.git ```
 
@@ -27,7 +27,7 @@ built with :
 - SQLAlchemy 
 - SQLite 
 
-#### Aditional automated test: 
+##### Aditional automated test: 
 
 start test:
 
