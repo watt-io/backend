@@ -30,3 +30,6 @@ Pipfile
 .coverage
 coverage.json
 htmlcov
+
+# test
+.pytest_cache
