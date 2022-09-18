@@ -1,20 +1,20 @@
-#### Descrição
+### Quick started
 
-Requeriments:
+##### Requeriments:
 ```docker```, ```docker-compose```
 
--git clone: https://github.com/raianb-dev/backend.git
+-git clone -b feature/raian-barbosa https://github.com/raianb-dev/backend.git
 
 In terminal: ```cd ./backend```
 
 Start aplication: ```docker-compose up```
 
-Application route: ```localhost:3000/docs```
+#### Application route: ```localhost:3000/docs```
 
-Rotas da API:
+#### Rotas da API:
 
- - `/filmes` - GET deve retornar todos os filmes cadastrados.
- - `/filmes` - POST deve cadastrar um novo filme.
- - `/filmes/{id}` -  GET deve retornar o filme com ID especificado.
+ - `/filmes` -  Methods GET
+ - `/filmes` - Methods POST 
+ - `/filmes/{id}` - Methods GET * get by id
 
 

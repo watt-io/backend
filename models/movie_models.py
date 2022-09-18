@@ -1,3 +1,4 @@
+from email.policy import default
 import string
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 import uuid
@@ -5,10 +6,9 @@ import uuid
 
 from .db_conn.sqlite import Base, engine, metadata
 
-
 class Movie(Base):
     __tablename__ = "movie"
-    id = Column(String(60), primary_key=True )
+    id = Column(String(60), primary_key=True, default=uuid.uuid1)
     title = Column(String(60))
     abstract = Column(String(255))
     main_actor = Column(String(60))
@@ -43,8 +43,11 @@ class Movie(Base):
 
 
 
-#########____CREATETABLE____###########
 
-#Base.metadata.drop_all(engine)
-#Base.metadata.create_all(engine)
+#########____CREATETABLE____###########
+"""
+Base.metadata.drop_all(engine)
+Base.metadata.create_all(engine)
+
+"""
 

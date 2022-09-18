@@ -1,7 +1,7 @@
-
 from pydantic import BaseModel
 
 class Movie(BaseModel):
+
     title: str
     abstract: str
     main_actor: str

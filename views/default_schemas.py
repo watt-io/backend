@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class Schemas(BaseModel):
+class DefaultSchemas(BaseModel):
     messge: str
     time_request: str
     status: str
