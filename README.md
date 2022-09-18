@@ -5,7 +5,7 @@ Requeriments:
 
 -git clone: https://github.com/raianb-dev/backend.git
 
-In terminarl: ```cd ./backend```
+In terminal: ```cd ./backend```
 
 Start aplication: ```docker-compose up```
 
