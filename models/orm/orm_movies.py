@@ -4,7 +4,7 @@ from ..movie_models import Movie
 from views.movie_schemas import Movie as movie_schemas
 
 def add_movies(db: Session, movie: movie_schemas):
-    uuidOne = str(uuid.uuid1())
+    uuidOne = str(uuid.uuid4())
     add_movie = Movie(
         id = uuidOne,
         title = movie.title,
