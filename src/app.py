@@ -3,8 +3,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from httpx import HTTPStatusError
 
-from exception import ValidationException, RepositoryException
-from movies.middlewares.exception_handler import generic_request_exception_handler
+from exception import ValidationException, RepositoryException, RepositoryNotFoundException
+from movies.middlewares.exception_handler import generic_request_exception_handler, exception_repository, \
+    exception_repository_not_found
 
 
 def create_app() -> False:
@@ -21,7 +22,8 @@ def create_app() -> False:
                        allow_headers=['*'])
 
     app.add_exception_handler(ValidationException, handler=generic_request_exception_handler)
-    app.add_exception_handler(RepositoryException, handler=generic_request_exception_handler)
+    app.add_exception_handler(RepositoryException, handler=exception_repository)
+    app.add_exception_handler(RepositoryNotFoundException, handler=exception_repository_not_found)
     app.add_exception_handler(HTTPStatusError, handler=generic_request_exception_handler)
 
     return app

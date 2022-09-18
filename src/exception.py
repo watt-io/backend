@@ -5,3 +5,6 @@ class ValidationException(Exception):
 class RepositoryException(Exception):
     pass
 
+
+class RepositoryNotFoundException(Exception):
+    pass
