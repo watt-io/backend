@@ -1,20 +1,29 @@
 ### Quick started
 
 ##### Requeriments:
-```docker```, ```docker-compose```
+Install ```docker```, ```docker-compose```
 
--git clone -b feature/raian-barbosa https://github.com/raianb-dev/backend.git
+##### Clone:
 
-In terminal: ```cd ./backend```
+``` -git clone -b feature/raian-barbosa https://github.com/raianb-dev/backend.git ```
 
-Start aplication: ```docker-compose up```
+In terminal: ```cd ./backend```, start aplication: ```docker-compose up```
 
-#### Application route: ```localhost:3000/docs```
+#### Application route: ```localhost:8000/docs```
 
-#### Rotas da API:
+##### Routes:
 
- - `/filmes` -  Methods GET
- - `/filmes` - Methods POST 
- - `/filmes/{id}` - Methods GET * get by id
+ - `/v1/api/home` -  Methods GET
+ - `/v1/api/movie` - Methods POST 
+ - `/v1/api/movie/{id_movie}` - Methods GET * get by id
+ - `/v1/api/movie/{id_movie}` -  Methods PUT
+ - `/v1/api/movie/{id_movie}` -  Methods DELETE
 
+##### About:
+
+built with :
+
+- FastAPI
+- SQLAlchemy 
+- SQLite 
 
