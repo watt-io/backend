@@ -13,8 +13,8 @@ Application route: ```localhost:3000/docs```
 
 Rotas da API:
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+ - `/filmes` - GET deve retornar todos os filmes cadastrados.
+ - `/filmes` - POST deve cadastrar um novo filme.
+ - `/filmes/{id}` -  GET deve retornar o filme com ID especificado.
 
 
