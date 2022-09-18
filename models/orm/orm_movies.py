@@ -1,11 +1,12 @@
 from sqlalchemy.orm import Session
-
+import uuid
 from ..movie_models import Movie
 from views.movie_schemas import Movie as movie_schemas
 
 def add_movies(db: Session, movie: movie_schemas):
+    uuidOne = str(uuid.uuid1())
     add_movie = Movie(
-        
+        id = uuidOne,
         title = movie.title,
         abstract = movie.abstract,
         main_actor = movie.main_actor,

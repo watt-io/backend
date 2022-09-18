@@ -8,7 +8,7 @@ from .db_conn.sqlite import Base, engine, metadata
 
 class Movie(Base):
     __tablename__ = "movie"
-    id = Column(String(60), primary_key=True, default=uuid.uuid4 )
+    id = Column(String(60), primary_key=True )
     title = Column(String(60))
     abstract = Column(String(255))
     main_actor = Column(String(60))
