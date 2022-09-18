@@ -2,6 +2,7 @@
 #### Como começar?
 
 - Após baixar os arquivos, na mesma pasta abrir o terminal
+- git clone https://github.com/Thenrique351/backend.git
 - Executar o comando docker-compose up
 - Acessar o link fornecido ou uma das opções abaixo:
     http://127.0.0.1:8000/docs
