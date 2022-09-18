@@ -26,6 +26,8 @@ def create_app() -> False:
     app.add_exception_handler(RepositoryNotFoundException, handler=exception_repository_not_found)
     app.add_exception_handler(HTTPStatusError, handler=generic_request_exception_handler)
 
+    app.container = container
+
     return app
 
 

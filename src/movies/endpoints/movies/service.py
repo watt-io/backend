@@ -14,7 +14,7 @@ class MoviesService:
         if movie:
             raise RepositoryException('Movie already exists')
 
-    async def create_movie(self, movie_date: Dict):
+    async def create_movie(self, movie_date: Dict) -> Movies:
         await self.check_if_movie_already_exists(movie_name=movie_date.get('name'))
         movie = await self.movies_rep.create(movie_date)
         return movie
@@ -27,7 +27,7 @@ class MoviesService:
         movies = await self.movies_rep.get_all()
         return movies
 
-    async def update_movie(self, movie_id, movie_data):
+    async def update_movie(self, movie_id: int, movie_data: Dict):
         await self.movies_rep.update(movie_id, movie_data)
 
     async def delete_movie(self, movie_id):
