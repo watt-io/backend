@@ -41,8 +41,8 @@ async def get_all_movies(skip: int =0, limit: int = 10, db: Session =  Depends(g
 async def get_by_id(id_movie: str, db: Session = Depends(get_db)):
     query = orm_movies.getbyid_movies(db, id_movie)
     if (query):
-        msg = "Return user by id"
-        return build_toJson(200, query, msg)
+        msg = "Return movie by id"
+        return build_toJson(200, content=query, alert=msg)
     else: 
         msg = "Movie not found"
         return build_toJson(400, alert=msg)
