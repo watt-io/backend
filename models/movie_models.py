@@ -26,7 +26,6 @@ class Movie(Base):
     
     def getById(self):
         return {
-            
             "id": self.id,
             "title": self.title,
             "abstract": self.abstract,

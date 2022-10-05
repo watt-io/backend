@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "dc8d60a3-0b04-418b-8287-dd63f99fc6a4",
-		"name": "FastAPI",
+		"name": "Movie Api Wattio",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "19182629"
 	},
