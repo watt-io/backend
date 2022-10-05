@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Float
 import uuid
 
 
-from .db_conn.sqlite import Base, engine, metadata
+from .db_conn.sqlite import Base, metadata, engine
 
 class Movie(Base):
     __tablename__ = "movie"
@@ -37,10 +37,8 @@ class Movie(Base):
             "price": self.price,
             "year": self.year
         }
-
-
-"""
-Base.metadata.drop_all(engine)
-Base.metadata.create_all(engine)
-"""
-
+    
+if (Base):
+    pass
+    Base.metadata.create_all(engine)
+    
