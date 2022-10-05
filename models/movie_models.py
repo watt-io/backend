@@ -38,7 +38,9 @@ class Movie(Base):
             "year": self.year
         }
     
-if (Base):
-    pass
+if not (Base):
+    print('Não possui base')
     Base.metadata.create_all(engine)
+else: 
+    print('Base Ja criada')
     
