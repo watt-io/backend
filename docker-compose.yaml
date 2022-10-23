@@ -1,0 +1,6 @@
+services:
+
+  crud:
+    build: .
+    command: python main.py
+    network_mode: 'host'
