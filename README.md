@@ -35,3 +35,13 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
 
 Salve!
+
+
+##Comando para instalar as bibliotecas que foram usadas:
+- pip install fastapi
+- pip install uvicorn
+- pip install sqlalchemy
+- pip install pydantic
+
+##Como subir a aplicação:
+- python -m uvicorn main:app --reload
