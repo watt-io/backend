@@ -5,7 +5,7 @@ from modelos import Filme
 class RepositorioFilme:
     # busca todos os filmes cadastrados
     @staticmethod
-    def find_all(db: Session) -> list[Filme]:
+    def find_all(db: Session):
         return db.query(Filme).all()
 
     # cadastra ou edita um filme

@@ -22,7 +22,7 @@ def create(request: FilmeRequest, db: Session = Depends(get_db)):
 # rota de listagem de filmes
 
 
-@app.get("/api/filmes", response_model=list[FilmeResponse])
+@app.get("/api/filmes")
 def find_all(db: Session = Depends(get_db)):
     filmes = RepositorioFilme.find_all(db)
     return [FilmeResponse.from_orm(filme) for filme in filmes]
