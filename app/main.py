@@ -26,13 +26,13 @@ def create_movie(movie: schemas.MovieBase, db: Session = Depends(get_db)):
     return crud.create_movie(db=db, movie=movie)
 
 
-@app.get("/filmes/", response_model=list[schemas.Movie])
+@app.get("/filmes/", response_model=list[schemas.Movie], tags=["filmes"])
 def read_movies(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     movies = crud.get_movies(db, skip=skip, limit=limit)
     return movies
 
 
-@app.get("/filmes/{filme_id}", response_model=schemas.Movie)
+@app.get("/filmes/{filme_id}", response_model=schemas.Movie, tags=["filmes"])
 def read_movie(filme_id: int, db: Session = Depends(get_db)):
     db_movie = crud.get_movie(db, movie_id=filme_id)
     if db_movie is None:
@@ -40,7 +40,7 @@ def read_movie(filme_id: int, db: Session = Depends(get_db)):
     return db_movie
 
 
-@app.put("/filmes/{filme_id}", response_model=schemas.Movie)
+@app.put("/filmes/{filme_id}", response_model=schemas.Movie, tags=["filmes"])
 def update_movie(filme_id: int, movie: schemas.MovieBase, db: Session = Depends(get_db)):
     db_movie = crud.get_movie(db, movie_id=filme_id)
     if db_movie is None:
@@ -48,7 +48,7 @@ def update_movie(filme_id: int, movie: schemas.MovieBase, db: Session = Depends(
     return crud.update_movie(db=db, movie=movie, movie_id=filme_id)
 
 
-@app.delete("/filmes/{filme_id}", response_model=schemas.Movie)
+@app.delete("/filmes/{filme_id}", response_model=schemas.Movie, tags=["filmes"])
 def delete_movie(filme_id: int, db: Session = Depends(get_db)):
     db_movie = crud.get_movie(db, movie_id=filme_id)
     if db_movie is None:
