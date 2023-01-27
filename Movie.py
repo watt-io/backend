@@ -1,53 +1,16 @@
+from pydantic import BaseModel, Field
+from typing import Optional
 from  Client import *
 
+class MovieBase(BaseModel): 
+        movieName : str = Field(min_length = 1, max_length = 100)
+        movieLength : str = Field(min_length = 1, max_length = 100)
+        movieGenre : str = Field(min_length = 1, max_length = 100)
+        movieRelease : int
+        
+class Movie(MovieBase): 
+        movieRentedBy : Optional[Client] = None # optional atributte
+        
+        class Config():
+                orm_mode = True
 
-class Movie(): 
-    def __init__(self, id): # Movie class constructor
-        self.movieId = id
-        self.movieName = None
-        self.movieLength = None
-        self.movieGenre = None
-        self.movieRelease = None
-        self.movieRentedBy = None
-
-#region gets n sets
-    
-    # Movie id   
-    def getMovieId(self):
-        return self.movieId
-    
-    # Movie name
-    def setMovieName(self, movieName:str):
-        self.movieName = movieName
-        
-    def getMovieName(self):
-        return self.movieName
-    
-    # Movie length
-    def setMovieLength(self, movieLength:str):
-        self.movieLength = movieLength
-        
-    def getMovieLength(self):
-        return self.movieLength
-    
-    # Movie genre
-    def setMovieGenre(self, movieGenre:str):
-        self.movieGenre = movieGenre
-        
-    def getMovieGenre(self):
-        return self.movieGenre
-    
-    # Movie release
-    def setMovieRelease(self, movieRelease:str):
-        self.movieRelease = movieRelease
-        
-    def getmovieRelease(self):
-        return self.movieRelease
-    
-    # Movie rented by
-    def setMovieRentedBy(self, movieRentedBy:Client):
-        self.movieRentedBy = movieRentedBy
-    
-    def getMovieRentedBy(self):
-        return self.movieRentedBy
-#endregion
