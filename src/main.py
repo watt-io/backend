@@ -7,10 +7,18 @@ app = FastAPI()
 @app.get("/filmes")
 def getFilmes():
     try:
-        data = models.filmes_collection.find({},{"_id":0})
+        f_data = models.filmes_collection.find().sort("Title",)
+        g_data = models.generos_collection.find().sort("_id", 1)
         filmes = []
-        for doc in data:
-            filmes.append(doc)
+        generos = []
+        for gen in g_data:
+            generos.append(gen.get("Name"))
+        for doc in f_data:
+            f_gen = []
+            for gen in doc.get("Genres"):
+                f_gen.append(generos[gen.get("G_id")-1])
+            filme = Filmes(doc.get("Title"), doc.get("Duration"), doc.get("Link"), f_gen)
+            filmes.append(filme)
         return {"Data": filmes}
     except:
         return {"Data": "Tivemos um erro inesperado"}
