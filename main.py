@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Path # Importing framework for API use
+from fastapi import FastAPI, Path, HTTPException # Importing framework for API use
 from pydantic import BaseModel
 from Movie import * 
 from Client import * 
@@ -35,7 +35,7 @@ movies = {
 
 @app.get('/')
 def homePage():
-    return {'Filmes No Catálogo:' : len(movies)} # API works with Python dictionaries and translate to JSON format
+    return {"Filmes No Catálogo:" : len(movies)} # API works with Python dictionaries and translate to JSON format
 
 
 @app.get('/filmes')
@@ -44,11 +44,11 @@ def getMovies():
         return movies
 
 @app.get('/filmes/{id}')
-def getmovies(id: int = Path(None, description = 'O identificador do item que deseja consultar', gd = 0)):
+def getMovies(id: int = Path(None, description = 'O identificador do item que deseja consultar', gd = 0)):
     if(id in movies):
         return movies[id] # If movie Id is in the list, it returns the movie
     else:
-        return {'Filme não está na lista'}
+        raise HTTPException(status_code=404,detail=f'Filme com a id: {id}, não está na lista')
     
 @app.post('/filmes')
 def postMovie(name: str = Path(description = 'Nome do Filme'), length: str = Path(description = ' Valor da duração em minutos do filme'), genre: str = Path(description = 'Genero do Filme'), release: str = Path(description = 'Ano de estréia do Filme')):
@@ -60,26 +60,35 @@ def postMovie(name: str = Path(description = 'Nome do Filme'), length: str = Pat
     newMovie.setMovieRelease(release)
     movies[newMovie.getMovieId()] = newMovie
     
+@app.delete('/filmes/{id}')
+def deleteMovie(id: int = Path(None, description = 'O identificador do item que deseja deletar', gd = 0)):
+    if(id in movies):
+        del movies[id] # If movie Id is in the list, it returns the movie
+        return {"Filme removido da lista"}
+    else:
+        # In a error case, a HTTP exception will be created to improve the communication with the user
+        raise HTTPException(status_code=404,detail=f'Filme com a id: {id}, não está na lista') 
+    
 @app.put('/alugar/{id}')
 def rentMovie(client: Client, id: int):
     if(id not in movies):
-        return {'Filme não está na lista'}
+        raise HTTPException(status_code=404,detail=f'Filme com a id: {id}, não está na lista')
     elif(movies[id].getMovieRentedBy() == None):
         # Pydantic needs to know which key the variable provides a value to
         newClient = Client(clientName = client.clientName, clientPremium= client.clientPremium, clientAdress = client.clientAdress) 
         movies[id].setMovieRentedBy(newClient)
         return movies[id]
     else:
-        return {'Filme já alugado'}
+        raise HTTPException(status_code=417,detail=f'Filme com a id: {id}, já foi alugado')
 
 @app.put('/Devolver/{id}')
 def returnMovie(id: int):
     if(id not in movies):
-        return {'Filme não está na lista'}
+        raise HTTPException(status_code=404,detail=f'Filme com a id: {id}, não está na lista')
     elif(movies[id].getMovieRentedBy() == None):
-        return {'Filme não foi alugado'}
+        raise HTTPException(status_code=417,detail=f'Filme com a id: {id}, não foi alugado')
     else:
         movies[id].setMovieRentedBy(None)
-        return {'Filme Devolvido'}
+        return {"Filme Devolvido"}
         
 
