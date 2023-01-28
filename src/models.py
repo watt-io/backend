@@ -8,6 +8,7 @@ except:
 
 filmes_collection = db.Filmes
 generos_collection = db.Generos
+control_collection = db.Control
 
 filmes_schema = {
     "Title": {"type": "string", "required": "true"},
@@ -18,4 +19,9 @@ filmes_schema = {
 
 generos_schema = {
     "Name": {"type": "string", "required": "true"}
+}
+
+control_schema = {
+    "Type": {"type": "string", "required": "true"},
+    "Number": {"type": "int32", "required": "true"}
 }
