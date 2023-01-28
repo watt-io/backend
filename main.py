@@ -19,8 +19,7 @@ def get_db():
     finally:
         db.close
 
-# Dictionary to handle movies
-movies = {}
+
 
 # Route Definition to define app functionalities
 @app.get('/')
@@ -115,3 +114,8 @@ def returnMovie(id: int, db: Session = Depends(get_db)):
 @app.get('/clientes')
 def getClients(db: Session = Depends(get_db)):
     return db.query(Models.ClientDBModel).all()
+
+@app.get('/clientes/filmes')
+def getClients(db: Session = Depends(get_db)):
+    for cliente in db.query(Models.ClientDBModel).all():
+        return cliente.filme
