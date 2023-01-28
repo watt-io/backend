@@ -5,13 +5,15 @@ from Movie import *
 from Client import * 
 import Models
 
-
+# Dictionaries to manipulate movies
+    
 # Creating API ( uvicorn [File name]:[API Object name] --reload)
 app = FastAPI()
 
 # Creates a database and a table if it already not exists
 Models.Base.metadata.create_all(bind = engine)
 
+# function to start and close the db in the app methods
 def get_db():
     try:
         db = SessionLocal()
@@ -33,7 +35,7 @@ def getMovies(db: Session = Depends(get_db)):
 
 @app.get('/filmes/{id}')
 def getMovies(id: int = Path(None, description = 'O identificador do item que deseja consultar', gd = 0), db: Session = Depends(get_db)):
-    getMovie = db.query(Models.MovieDBModel).filter(Models.MovieDBModel.id == id).first()
+    getMovie = db.query(Models.MovieDBModel).filter(Models.MovieDBModel.id == id).first() # Seeks the movie with the especified id in the list
     if getMovie is None:
         # In a error case, a HTTP exception will be created to improve the communication with the user
         raise HTTPException(status_code=404,detail=f'Filme com a id: {id}, não está na lista')
@@ -56,7 +58,7 @@ def postMovie(movie: MovieBase, db: Session = Depends(get_db)):
 
 @app.put('/filmes/{id}')
 def updateMovie(movie: MovieBase, id: int = Path(None, description = 'O identificador do item que deseja alterar', gd = 0), db: Session = Depends(get_db)):
-    newMovie = db.query(Models.MovieDBModel).filter(Models.MovieDBModel.id == id).first()
+    newMovie = db.query(Models.MovieDBModel).filter(Models.MovieDBModel.id == id).first() # Seeks the movie with the especified id in the list
     if newMovie is None:
         raise HTTPException(status_code=404,detail=f'Filme com a id: {id}, não está na lista')
     else:
@@ -71,8 +73,9 @@ def updateMovie(movie: MovieBase, id: int = Path(None, description = 'O identifi
     
 @app.delete('/filmes/{id}')
 def deleteMovie(id: int = Path(None, description = 'O identificador do item que deseja deletar', gd = 0), db: Session = Depends(get_db)):
-    newMovie = db.query(Models.MovieDBModel).filter(Models.MovieDBModel.id == id).first()
+    newMovie = db.query(Models.MovieDBModel).filter(Models.MovieDBModel.id == id).first() # Seeks the movie with the especified id in the list
     if newMovie is None:
+        # Movie was not found in the list
         raise HTTPException(status_code=404,detail=f'Filme com a id: {id}, não está na lista')
     else:
         db.query(Models.MovieDBModel).filter(Models.MovieDBModel.id == id).delete()
@@ -81,9 +84,12 @@ def deleteMovie(id: int = Path(None, description = 'O identificador do item que 
     
 @app.post('/alugar/{id}')
 def rentMovie(client: ClientBase, id: int, db: Session = Depends(get_db)):
+    # Seeks the movie with the especified id in the list
     rentMovie = db.query(Models.MovieDBModel).filter(Models.MovieDBModel.id == id).first()
-    auxClient = db.query(Models.ClientDBModel).filter(Models.ClientDBModel.movie_id == id).first() #procura se alguém já alugou esse filme
+    # Seeks the client associated with the movie
+    auxClient = db.query(Models.ClientDBModel).filter(Models.ClientDBModel.movie_id == id).first() 
     if rentMovie is None:
+        # Movie was not found in the list
         raise HTTPException(status_code=404,detail=f'Filme com a id: {id}, não está na lista')
     elif auxClient is None:
         # Pydantic needs to know which key the variable provides a value to
@@ -96,6 +102,7 @@ def rentMovie(client: ClientBase, id: int, db: Session = Depends(get_db)):
         db.commit()
         return db.query(Models.MovieDBModel).filter(Models.MovieDBModel.id == id).first()
     else:
+        # Movie has a client associated with, so it was already rented
         raise HTTPException(status_code=417,detail=f'Filme com a id: {id}, já foi alugado')
 
 @app.delete('/Devolver/{id}')
@@ -103,9 +110,11 @@ def returnMovie(id: int, db: Session = Depends(get_db)):
     rentMovie = db.query(Models.MovieDBModel).filter(Models.MovieDBModel.id == id).first()
     returnClient = db.query(Models.ClientDBModel).filter(Models.ClientDBModel.movie_id == id).first()
     if rentMovie is None:
-        raise HTTPException(status_code=404,detail=f'Filme com a id: {id}, não está na lista')
+        # Movie was not found in the list
+        raise HTTPException(status_code=404,detail=f'Filme com a id: {id}, não está na lista') 
     elif returnClient is None:
-        raise HTTPException(status_code=417,detail=f'O Filme com a id: {id}, não foi alugado')
+        # Movie has no client associated with, so it was not rented
+        raise HTTPException(status_code=417,detail=f'O Filme com a id: {id}, não foi alugado') 
     else:
         db.query(Models.ClientDBModel).filter(Models.ClientDBModel.movie_id == id).delete()
         db.commit()
@@ -116,6 +125,9 @@ def getClients(db: Session = Depends(get_db)):
     return db.query(Models.ClientDBModel).all()
 
 @app.get('/clientes/filmes')
-def getClients(db: Session = Depends(get_db)):
-    for cliente in db.query(Models.ClientDBModel).all():
-        return cliente.filme
+def getRentedMovies(db: Session = Depends(get_db)):
+    rentedMovies = {}
+    clients = db.query(Models.ClientDBModel).all() # Receives all the clients
+    for client in clients:
+        rentedMovies[len(rentedMovies)] = client.filme # Access all clients movies 
+    return rentedMovies
