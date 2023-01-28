@@ -80,3 +80,22 @@ def getFilme(id: int):
         generos.append(g_data.get("Name"))
     filme = Filmes(Title=data.get("Title"), Duration=data.get("Duration"), Link=data.get("Link"), Genres=generos)
     return {"Data": filme}
+
+@app.get("/generos")
+def getGenero():
+    g_data = models.generos_collection.find().sort("_id", 1)
+    generos = []
+    for genero in g_data:
+        generos.append(genero.get("Name"))
+    return {"Data": generos}
+
+@app.post("/generos")
+def postGenero(genero: Generos):
+    g_data = list(models.generos_collection.find({"Name": genero.Name}))
+    for genero in g_data:
+        return {"Data": "Genero já cadastrado"}
+    c_data = list(models.control_collection.find({"Type": "genero"}))[0].get("Number")
+    new_genero = dict(genero.set_id(c_data+1))
+    models.generos_collection.insert_one(new_genero)
+    models.control_collection.find_one_and_update({"Type": "genero"}, {"$set":{"Number": c_data+1}})
+    return {"Data": "Genero " + genero.Name + " cadastrado com sucesso"}
