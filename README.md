@@ -7,7 +7,7 @@
 O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
 
 Rotas da API:
- - `/` - [GET] retorna a quantidade de filmes disponiveis.
+ - `/` - [GET] retorna a quantidade de filmes disponíveis.
  - `/filmes` - [GET] retorna todos os filmes cadastrados.
  - `/filmes` - [POST] cadastra um novo filme.
  - `/filmes/{id}` -  [GET] retorna o filme com ID especificado.
@@ -48,5 +48,5 @@ O comando irá retornar um link para o acesso do usuário a API:
 
 ![Link API](/assets/Screenshot_uvicorn.png)
 
-Ao acessar o link uma página no navagador será aberta na rota base da API, para uma maior noção das funcionabilidades disponíveis basta acessar a documentação auto gerada pela API, que pode ser acessada por __"Link API"/docs.__
+Ao acessar o link uma página no navegador será aberta na rota base da API, para uma maior noção das funcionabilidades disponíveis basta acessar a documentação autogerada pela API, que pode ser acessada por __"Link API"/docs.__
 
