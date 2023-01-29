@@ -9,12 +9,17 @@ except:
 filmes_collection = db.Filmes
 generos_collection = db.Generos
 control_collection = db.Control
+filmes_generos_collection = db.FilmesGeneros
 
 filmes_schema = {
     "Title": {"type": "string", "required": "true"},
     "Duration": {"type": "string", "required": "true"},
-    "Link": {"type": "string", "required": "true"},
-    "Genres": {"type": "array", "required": "true"}
+    "Link": {"type": "string", "required": "true"}
+}
+
+filmes_generos_schema ={
+    "Movie": {"yype": "int32", "required": "true"},
+    "Genre": {"yype": "int32", "required": "true"}
 }
 
 generos_schema = {
