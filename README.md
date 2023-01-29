@@ -1,37 +1,26 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+### Sobre a API
 
-#### Descrição
+A API, desenvolvida com FASTAPI e pymongo, possui nove rotas:
+- ```/filmes``` - [GET] retorna todos os filmes do banco de dados
+- ```/filmes/{id}``` - [GET] retorna o filme com a id {id}
+- ```/filmes/``` - [POST] adiciona um filme ao banco de dados
+- ```/filmes/{id}``` - [PUT] altera informações sobre um filme no banco de dados
+- ```/filmes/{id}``` - [DELETE] remove o filme de id {id} do banco de dados
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+- ```/generos``` - [GET] retorna todos os generos do banco de dados
+- ```/generos``` - [POST] adiciona um gênero ao banco de dados
+- ```/generos/{id}``` - [PUT] altera informações sobre um gênero no banco de dados
+- ```/generos/{id}``` - [DELETE] remove o gênero de id {id} do banco de dados
 
-Rotas da API:
+Atualmente ela roda apenas localmente. Para rodá-la, basta abrir a pasta do repositório e executar os seguintes comandos:
+- ```pip install -r requirements.txt``` - para instalar os pacotes necessários
+- ```cd src``` - para entrar na pasta do código fonte
+- ```uvicorn main:app``` 
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+### Sobre o Banco de Dados
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
-
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
-
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
-
-
-#### Como começar?
-
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
-
-#### Dúvidas?
-
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
-
-Salve!
+O Banco de Dados escolhido para esse desafio foi o MongoDB, principalmente pela possibilidade de acesso à nuvem. A API possui conexão constante e aberta ao banco de dados. Apesar de tal abordagem não ser recomendada pelos riscos à segurança do banco, optei visando a facilidade de observação do mesmo. O banco de dados conta com quatro tabelas:
+- Control - Tabela de controle que visa quantificar e facilitar o controle dos filmes e gêneros
+- Filmes - Tabela dos filmes; arquiva os seguintes dados: [ID], [Título], [Duração] e [Link]
+- Generos - Tabela dos gêneros; arquiva os seguintes dados: [ID] e [Nome]
+- FilmesGeneros - Tabela que arquiva a relação entre os filmes e generos
