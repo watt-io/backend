@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import models
 
@@ -32,7 +33,7 @@ app = FastAPI()
 
 @app.get("/filmes")
 def getFilmes():
-    f_data = models.filmes_collection.find().sort("Title",)
+    f_data = models.filmes_collection.find().sort("Title", 1)
     g_data = models.generos_collection.find().sort("_id", 1)
     filmes = []
     generos = []
@@ -43,43 +44,49 @@ def getFilmes():
         for gen in doc.get("Genres"):
             f_gen.append(generos[int(gen)-1])
         filme = Filmes(Title=doc.get("Title"), Duration=doc.get("Duration"), Link=doc.get("Link"), Genres=f_gen)
-        filmes.append(filme)
-    return {"Data": filmes}
+        filmes.append(dict(filme))
+    return JSONResponse(content={"Data": filmes}, status_code=200)
 
 @app.post("/filmes")
 def postFilmes(filme: Filmes):
-    try:
-        f_data = models.filmes_collection.find({"Title": filme.Title})
-        for filme in f_data:
-            return {"Data": "Filme já cadastrado"}
-        g_data = list(models.generos_collection.find().sort("_id", 1))
-        c_data = list(models.control_collection.find({"Type": "filme"}))[0].get("Number")
-        size = len(g_data)
-        g_array = []
-        for genre in filme.Genres:
-            for i in range(size):
-                if genre == g_data[i].get("Name"):
-                    g_array.append(str(g_data[i].get("_id")))
-                    break
-        if len(filme.Genres) == len(g_array):
-            new_filme = dict(filme.set_id(c_data+1, g_array))
-            models.filmes_collection.insert_one(new_filme)
-            models.control_collection.find_one_and_update({"Type": "filme"}, {"$set":{"Number": c_data+1}})
-            return {"Data": "Filme " + filme.Title + " cadastrado com sucesso"}
-        else:
-            return {"Data": "Generos não cadastrados"}
-    except:
-        return {"Data": "houve algum problema com o banco dados"}
+    f_data = models.filmes_collection.find({"Title": filme.Title})
+    for filme in f_data:
+        return JSONResponse(content={"Data": "Filme já cadastrado"}, status_code=406)
+    g_data = list(models.generos_collection.find().sort("_id", 1))
+    c_data = list(models.control_collection.find({"Type": "filme"}))[0].get("Number")
+    size = len(g_data)
+    g_array = []
+    for genre in filme.Genres:
+        for i in range(size):
+            if genre == g_data[i].get("Name"):
+                g_array.append(str(g_data[i].get("_id")))
+                break
+    if len(filme.Genres) == len(g_array):
+        new_filme = dict(filme.set_id(c_data+1, g_array))
+        models.filmes_collection.insert_one(new_filme)
+        models.control_collection.find_one_and_update({"Type": "filme"}, {"$set":{"Number": c_data+1}})
+        return JSONResponse(content={"Data": "Filme " + filme.Title + " cadastrado com sucesso"}, status_code=201)
+    else:
+        return JSONResponse(content = {"Data": "Gêneros não cadastrados"}, status_code=404)
 
 @app.get("/filmes/{id}")
 def getFilme(id: int):
     data = models.filmes_collection.find_one({"_id": id}, {"_id":0})
+    if not data:
+        return JSONResponse(content={"Data": "Filme não encontrado"}, status_code=404)
     generos = []
     for gen in data.get("Genres"):
-        g_data = models.generos_collection.find_one({"_id": gen.get("G_id")}, {"_id": 0})
+        g_data = models.generos_collection.find_one({"_id": int(gen)}, {"_id": 0})
         generos.append(g_data.get("Name"))
     filme = Filmes(Title=data.get("Title"), Duration=data.get("Duration"), Link=data.get("Link"), Genres=generos)
-    return {"Data": filme}
+    return JSONResponse(content={"Data": dict(filme)}, status_code=200)
+
+@app.delete("/filmes/{id}")
+def deleteFilmes(id: int):
+    f_data = models.filmes_collection.find_one_and_delete({"_id": id})
+    if not f_data:
+        return JSONResponse(content={"Data": "Filme não encontrado"}, status_code=404)
+    return JSONResponse(content={"Data": "Filme " + f_data.get("Title") + " foi deletado"}, status_code=200)
 
 @app.get("/generos")
 def getGenero():
@@ -87,15 +94,15 @@ def getGenero():
     generos = []
     for genero in g_data:
         generos.append(genero.get("Name"))
-    return {"Data": generos}
+    return JSONResponse(content={"Data": generos}, status_code=200)
 
 @app.post("/generos")
 def postGenero(genero: Generos):
     g_data = list(models.generos_collection.find({"Name": genero.Name}))
     for genero in g_data:
-        return {"Data": "Genero já cadastrado"}
+        return JSONResponse(content={"Data": "Genero já cadastrado"}, status_code=406)
     c_data = list(models.control_collection.find({"Type": "genero"}))[0].get("Number")
     new_genero = dict(genero.set_id(c_data+1))
     models.generos_collection.insert_one(new_genero)
     models.control_collection.find_one_and_update({"Type": "genero"}, {"$set":{"Number": c_data+1}})
-    return {"Data": "Genero " + genero.Name + " cadastrado com sucesso"}
+    return JSONResponse(content={"Data": "Genero " + genero.Name + " cadastrado com sucesso"}, status_code=201)
