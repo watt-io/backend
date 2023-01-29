@@ -45,8 +45,20 @@ def getFilmes():
         filmes.append(dict(filme))
     return JSONResponse(content={"Data": filmes}, status_code=200)
 
+@app.get("/filmes/{id}")
+def getFilme(id: int):
+    data = models.filmes_collection.find_one({"_id": id}, {"_id":0})
+    if not data:
+        return JSONResponse(content={"Data": "Filme não encontrado"}, status_code=404)
+    generos = []
+    for gen in data.get("Genres"):
+        g_data = models.generos_collection.find_one({"_id": int(gen)}, {"_id": 0})
+        generos.append(g_data.get("Name"))
+    filme = Filmes(Title=data.get("Title"), Duration=data.get("Duration"), Link=data.get("Link"), Genres=generos)
+    return JSONResponse(content={"Data": dict(filme)}, status_code=200)
+
 @app.post("/filmes")
-def postFilmes(filme: Filmes, generos: list[str]):
+def postFilme(filme: Filmes, generos: list[str]):
     f_data = models.filmes_collection.find({"Title": filme.Title})
     for filme in f_data:
         return JSONResponse(content={"Data": "Filme já cadastrado"}, status_code=406)
@@ -71,20 +83,8 @@ def postFilmes(filme: Filmes, generos: list[str]):
     else:
         return JSONResponse(content = {"Data": "Gêneros não cadastrados"}, status_code=404)
 
-@app.get("/filmes/{id}")
-def getFilme(id: int):
-    data = models.filmes_collection.find_one({"_id": id}, {"_id":0})
-    if not data:
-        return JSONResponse(content={"Data": "Filme não encontrado"}, status_code=404)
-    generos = []
-    for gen in data.get("Genres"):
-        g_data = models.generos_collection.find_one({"_id": int(gen)}, {"_id": 0})
-        generos.append(g_data.get("Name"))
-    filme = Filmes(Title=data.get("Title"), Duration=data.get("Duration"), Link=data.get("Link"), Genres=generos)
-    return JSONResponse(content={"Data": dict(filme)}, status_code=200)
-
 @app.delete("/filmes/{id}")
-def deleteFilmes(id: int):
+def deleteFilme(id: int):
     f_data = models.filmes_collection.find_one_and_delete({"_id": id})
     if not f_data:
         return JSONResponse(content={"Data": "Filme não encontrado"}, status_code=404)
@@ -109,6 +109,13 @@ def postGenero(genero: Generos):
     models.generos_collection.insert_one(new_genero)
     models.control_collection.find_one_and_update({"Type": "Genero"}, {"$set":{"Number": c_data+1}})
     return JSONResponse(content={"Data": "Genero " + genero.Name + " cadastrado com sucesso"}, status_code=201)
+
+@app.put("/generos/{id}")
+def updateGenero(id: int, genero: str):
+    updatedGenero = models.generos_collection.find_one_and_update({"_id":id}, {"$set":{"Name":genero}})
+    if updatedGenero:
+        return JSONResponse(content={"Data": "Gênero " + genero + " atualizado com sucesso"}, status_code=200)
+    return JSONResponse(content={"Data": "Gênero não encontrado"}, status_code=404)
 
 @app.delete("/generos/{id}")
 def deleteGenero(id: int):
