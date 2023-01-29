@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+
 try:
     client = MongoClient("mongodb+srv://LucasOliveira:8GNEticXJDrGMBcR@cluster0.kwor4wz.mongodb.net/?retryWrites=true&w=majority")
     db = client.Backend

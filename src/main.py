@@ -83,6 +83,29 @@ def postFilme(filme: Filmes, generos: list[str]):
     else:
         return JSONResponse(content = {"Data": "Gêneros não cadastrados"}, status_code=404)
 
+@app.put("/filmes/{id}")
+def updateFilme(id: int, filme: Filmes, generos: list[str] = [""]):
+    updatedFilme = models.filmes_collection.find_one_and_replace({"_id": id}, filme.set_id(id))
+    if not generos[0] == "":
+        g_data = list(models.generos_collection.find().sort("_id", 1))
+        size = len(g_data)
+        g_array = []
+        for genre in generos:
+            for i in range(size):
+                if genre == g_data[i].get("Name"):
+                    g_array.append(g_data[i].get("_id"))
+                    break
+        if len(generos) != len(g_array):
+            return JSONResponse(content = {"Data": "Gêneros não cadastrados"}, status_code=404)
+        models.filmes_generos_collection.delete_many({"Movie": id})
+        relations = []
+        for gen in g_array:
+            relations.append({"Movie": id, "Genre": gen})
+        models.filmes_generos_collection.insert_many(relations)
+    if not updatedFilme:
+        return JSONResponse(content={"Data": "Filme não encontrado"}, status_code=404)
+    return JSONResponse(content={"Data": "Filme " + filme.Title + " atualizado com sucesso"}, status_code=200)
+
 @app.delete("/filmes/{id}")
 def deleteFilme(id: int):
     f_data = models.filmes_collection.find_one_and_delete({"_id": id})
