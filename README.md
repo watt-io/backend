@@ -1,3 +1,6 @@
+## Para subir a aplicação
+Necessário baixar o Flask e o flask_restx, (pip install flask e pip install flask_restx), após isso no terminal rodar o comando python main.py
+
 ![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
 
 #### Descrição
