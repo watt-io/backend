@@ -20,6 +20,6 @@ Rotas da API:
 #### Como subir a aplicação?
 
 - Faça o clone do repositório
-- Execute o comando ``` docker-compose up -d --build ```
+- Execute o comando ``` docker-compose up -d ```
 - Acesse a aplicação em <http://localhost:8000>
 - Acesse a documentação da API em <http://localhost:8000/docs>
