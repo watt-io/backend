@@ -33,4 +33,10 @@ class FilmesRepository:
         db.commit()
         return True
     
+    @staticmethod
+    def delete_all(db: Session):
+        db.query(Filme).delete()
+        db.commit()
+        return True
+    
     

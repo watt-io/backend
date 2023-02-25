@@ -50,3 +50,8 @@ def update_filme(id: int, request: FilmesRequest, db: Session = Depends(get_db))
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Filme não encontrado")
     filme = FilmesRepository.update(db, Filme(id=id , **request.dict()))
     return FilmesResponse.from_orm(filme)
+
+@app.delete("/filmes", response_model=FilmesResponse)
+def delete_all_filmes(db: Session = Depends(get_db)):
+    FilmesRepository.delete_all(db)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
