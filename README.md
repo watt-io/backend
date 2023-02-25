@@ -5,6 +5,8 @@ Rotas da API:
 - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
 - `/filmes` - [POST] deve cadastrar um novo filme.
 - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+- `/filmes/{id}` -  [DELETE] deve deletar o filme com ID especificado.
+- `/filmes/{id}` -  [PUT] deve atualizar o filme com ID especificado.
 
 #### Tecnologias
 
@@ -12,6 +14,8 @@ Rotas da API:
 - [FastAPI]
 - [Docker]
 - [Docker-compose]
+- [SQLAlchemy]
+- [SQLite]
 
 #### Como subir a aplicação?
 

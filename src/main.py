@@ -40,4 +40,13 @@ def delete_filme(id: int, db: Session = Depends(get_db)):
     if not filme:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Filme não encontrado")
     FilmesRepository.delete(db, id)
-    return Response(status_code=status.HTTP_204_NO_CONTENT)
+    return FilmesResponse.from_orm(filme)
+
+# Atualiza um filme do banco de dados usando o método PUT passando o id do filme como parâmetro
+
+@app.put("/filmes/{id}", response_model=FilmesResponse)
+def update_filme(id: int, request: FilmesRequest, db: Session = Depends(get_db)):
+    if not FilmesRepository.find_by_id(db, id):
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Filme não encontrado")
+    filme = FilmesRepository.update(db, Filme(id=id , **request.dict()))
+    return FilmesResponse.from_orm(filme)

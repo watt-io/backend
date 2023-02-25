@@ -19,8 +19,11 @@ class FilmesRepository:
         return filme
     
     @staticmethod
-    def update(db: Session, id: int, filme: Filme):
-        db.query(Filme).filter(Filme.id == id).update(filme)
+    def update(db: Session, filme: Filme):
+        if filme.id:
+            db.merge(filme)
+        else:
+            db.add(filme)
         db.commit()
         return filme
     
