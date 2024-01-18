@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS movie;
+USE movie;
+
+CREATE TABLE IF NOT EXISTS movies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    year INT,
+    genre VARCHAR(255)
+);

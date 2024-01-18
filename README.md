@@ -6,32 +6,35 @@ O desafio consiste em implementar um CRUD de filmes, utilizando [python](https:/
 
 Rotas da API:
 
+ - `/` - [GET] rota de teste para verificar se está tudo certo
  - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
  - `/filmes` - [POST] deve cadastrar um novo filme.
  - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+ - `/filmes/` - [PUT] deve atualizar o filme com ID especificado
+ - `/filmes/{id}` - [DELETE] deve deletar o filme com ID especificado
 
 O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+#### Ferramentas 
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+- Orientação a objetos
+- FastAPI
+- Docker
+- MySQL
 
+#### Como executar
 
-#### Como começar?
-
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+- Clone a branch e sincronize todos os arquivos
+- Abra o terminal e na pasta raiz execute o comando ```docker-compose up --build -d``` que realizará o build e inicializará o mesmo
+- A aplicação deverá rodar na porta 80, enquanto o banco de dados na porta 3306 (portas padrões)
+- A pasta collections contém arquivos referentes à collection e ao environment do postman que foram utilizados para testar a aplicação
 
 #### Dúvidas?
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para samuelmangia@gmail.com | samuel.mangia@geb.inatel.br
+
+### Observação
+
+O arquivo .env foi commitado apenas para facilitar o processo de execução. Comumente, é enviado um env.example e não as credenciais originais.
 
 Salve!
