@@ -1,0 +1,6 @@
+defaults:
+  platform:
+    linux/amd64
+platforms:
+  - name: linux/amd64
+
