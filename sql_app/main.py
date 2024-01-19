@@ -63,7 +63,7 @@ def update_filme(filme_id: int, updated_filme: Filme, response: Response, sessio
     filme = session.get(FilmeModelo, filme_id)
 
     if filme is None:
-        response.status_code = 404
+        response.status_code = 204
         return "Filme não encontrado!"
 
     filme = session.get(FilmeModelo, filme_id)
@@ -80,7 +80,7 @@ def update_filme(filme_id: int, response: Response, session: Session = Depends(g
 
     filme = session.get(FilmeModelo, filme_id)
     if filme is None:
-        response.status_code = 404
+        response.status_code = 204
         return "Filme não encontrado!"
 
     session.delete(filme)
