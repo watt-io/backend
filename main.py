@@ -1,9 +1,10 @@
 from typing import Optional
 from fastapi import Depends, FastAPI
 from pydantic import BaseModel
-from sqlalchemy.orm import Session
 import models
 from database import engine, get_db
+from sqlalchemy.orm import Session
+
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -25,9 +26,10 @@ async def root(db: Session = Depends(get_db)):
         [dict]: {"data": [Filme]}
     """
     try:
-        filmes = db.query(models.Filme).all()
+        filmes = models.Filme.listar(db=db)
         return {"data": filmes}
     except Exception as e:
+        breakpoint()
         return {"message": "Erro ao buscar filmes"}
 
 
@@ -42,15 +44,13 @@ async def get_movie(id: int, db: Session = Depends(get_db)):
         filme: Filme
     """
     try:
-        filme = db.query(models.Filme).filter(models.Filme.id == id).first()
-        if not filme:
-            return {"error": "Filme não encontrado!"}
+        filme = models.Filme.buscar(filme_id=id, db=db)
         return {"data": filme}
     except Exception as e:
         return {"message": "Erro ao buscar filme"}
 
 
-@app.post("/filmes")
+@app.post("/filmes", status_code=201)
 async def create_movie(filme: Filme, db: Session = Depends(get_db)):
     """cria um novo filme
 
@@ -67,9 +67,7 @@ async def create_movie(filme: Filme, db: Session = Depends(get_db)):
             genero=filme.genero,
             descricao=filme.descricao,
         )
-        db.add(new_filme)
-        db.commit()
-        db.refresh(new_filme)
+        models.Filme.criar(filme=new_filme, db=db)
 
         return {"message": "Filme criado com sucesso!"}
     except Exception as e:
@@ -88,18 +86,7 @@ async def update_movie(id: int, filme_modificado: Filme, db: Session = Depends(g
         _type_: _description_
     """
     try:
-        filme = db.query(models.Filme).filter(models.Filme.id == id).first()
-        if not filme:
-            return {"error": "Filme não encontrado!"}
-        if filme_modificado.nome:
-            filme.nome = filme_modificado.nome
-        if filme_modificado.ano:
-            filme.ano = filme_modificado.ano
-        if filme_modificado.genero:
-            filme.genero = filme_modificado.genero
-        if filme_modificado.descricao:
-            filme.descricao = filme_modificado.descricao
-        db.commit()
+        models.Filme.atualizar(filme_id=id, filme_modificado=filme_modificado, db=db)
         return {"message": "Filme atualizado com sucesso!"}
     except Exception as e:
         return {"message": "Erro ao atualizar filme"}
@@ -116,9 +103,7 @@ async def delete_movie(id: int, db: Session = Depends(get_db)):
         str: mensagem de sucesso ou erro
     """
     try:
-        filme = db.query(models.Filme).filter(models.Filme.id == id).first()
-        db.delete(filme)
-        db.commit()
+        models.Filme.deletar(filme_id=id, db=db)
 
         return {"message": "Filme deletado com sucesso!"}
     except Exception as e:
