@@ -1,0 +1,20 @@
+[
+  {
+      "id": 1,
+      "titulo": "O Poderoso Chefão",
+      "diretor": "Francis Ford Coppola",
+      "ano": 1972
+  },
+  {
+      "id": 2,
+      "titulo": "Interestelar",
+      "diretor": "Christopher Nolan",
+      "ano": 2014
+  },
+  {
+      "id": 3,
+      "titulo": "Cidadão Kane",
+      "diretor": "Orson Welles",
+      "ano": 1941
+  }
+]
