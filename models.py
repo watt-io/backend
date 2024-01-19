@@ -1,8 +1,12 @@
-from fastapi import FastAPI
+from sqlalchemy import TIMESTAMP, Column, Integer, String
+from database import Base
 
-app = FastAPI()
 
+class Filme(Base):
+    __tablename__ = "filmes"
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    nome = Column(String, index=True)
+    genero = Column(String, index=True, nullable=True)
+    ano = Column(Integer, index=True, nullable=True)
+    descricao = Column(String, index=True, nullable=True)
