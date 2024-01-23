@@ -30,7 +30,7 @@ Clone o repositório:
 bash
 Copy code
 git clone https://github.com/watt-io/backend.git
-cd seu_projeto
+cd backend
 Crie e ative um ambiente virtual (opcional, mas recomendado):
 
 bash
@@ -55,7 +55,7 @@ Clone o repositório:
 bash
 Copy code
 git clone https://github.com/watt-io/backend.git
-cd seu_projeto
+cd backend
 Construa a imagem Docker:
 
 bash
