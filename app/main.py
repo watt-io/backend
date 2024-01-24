@@ -41,9 +41,9 @@ def read_movies_list(db: Session = Depends(get_db)):
     return movies
 
 
-@app.get("/filmes/{id}")
-def read_movie(movie_id: int, db: Session = Depends(get_db)):
-    movie = db.query(Movie).filter(Movie.id == movie_id).first()
+@app.get("/filmes/{filme_id}")
+def read_movie(filme_id: int, db: Session = Depends(get_db)):
+    movie = db.query(Movie).filter(Movie.id == filme_id).first()
     if movie is None:
         raise HTTPException(status_code=404, detail="Movie not found")
     return movie
