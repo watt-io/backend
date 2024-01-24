@@ -26,7 +26,7 @@ class MovieSchema(BaseModel):
     year: int
 
 
-@app.post("/movies/")
+@app.post("/filmes/")
 def create_movie(movie: MovieSchema, db: Session = Depends(get_db)):
     new_movie = Movie(title=movie.title, director=movie.director, year=movie.year)
     db.add(new_movie)
@@ -35,13 +35,13 @@ def create_movie(movie: MovieSchema, db: Session = Depends(get_db)):
     return new_movie
 
 
-@app.get("/movieslist/")
+@app.get("/filmes/")
 def read_movies_list(db: Session = Depends(get_db)):
     movies = db.query(Movie).all()
     return movies
 
 
-@app.get("/movies/{movie_id}")
+@app.get("/filmes/{id}")
 def read_movie(movie_id: int, db: Session = Depends(get_db)):
     movie = db.query(Movie).filter(Movie.id == movie_id).first()
     if movie is None:
