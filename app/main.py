@@ -20,14 +20,14 @@ def get_db():
         db.close()
 
 
-class FilmeSchema(BaseModel):
+class MovieSchema(BaseModel):
     title: str
     director: str
     year: int
 
 
 @app.post("/movies/")
-def create_movie(movie: FilmeSchema, db: Session = Depends(get_db)):
+def create_movie(movie: MovieSchema, db: Session = Depends(get_db)):
     new_movie = Movie(title=movie.title, director=movie.director, year=movie.year)
     db.add(new_movie)
     db.commit()
@@ -40,13 +40,10 @@ def read_movies_list(db: Session = Depends(get_db)):
     movies = db.query(Movie).all()
     return movies
 
+
 @app.get("/movies/{movie_id}")
 def read_movie(movie_id: int, db: Session = Depends(get_db)):
     movie = db.query(Movie).filter(Movie.id == movie_id).first()
     if movie is None:
-        raise HTTPException(status_code=404, detail="Filme não encontrado")
+        raise HTTPException(status_code=404, detail="Movie not found")
     return movie
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
