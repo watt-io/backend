@@ -35,3 +35,31 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
 
 Salve!
+
+# Projeto CRUD de Filmes
+
+Esta é uma aplicação CRUD para gerenciamento de filmes, utilizando FastAPI e SQLAlchemy, contêinerizada com Docker.
+
+## Pré-requisitos
+
+Antes de iniciar, você precisa ter instalado em sua máquina:
+
+- Docker
+- Docker Compose
+
+## Instruções de Configuração e Execução
+
+### Com Docker Compose
+
+#### Construir e Executar a Aplicação
+
+1. **Navegue até o diretório raiz do projeto** onde o arquivo `docker-compose.yml` está localizado.
+
+2. **Execute o seguinte comando** para construir e iniciar a aplicação:
+
+   ```bash
+   docker-compose up
+
+### Acessando a Documentação da API
+
+Após iniciar a aplicação, acesse `http://localhost:8000/docs` para visualizar a documentação interativa da API, onde você pode testar os endpoints diretamente pelo navegador.
