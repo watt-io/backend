@@ -1,7 +1,8 @@
 import sqlalchemy
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column, Integer, String
-engine = sqlalchemy.create_engine('sqlite:///filmes.db', echo=True)
+from sqlalchemy.orm import sessionmaker
+engine = sqlalchemy.create_engine('sqlite:///filmes.db')
 Base = declarative_base()
 
 class Filme(Base):
@@ -12,4 +13,13 @@ class Filme(Base):
     ano = Column(Integer(), nullable=True)
     genero = Column(String(15), nullable=True)
 
-Base.metadata.create_all(engine)   
+
+Session = sessionmaker(bind=engine)
+
+def get_db():
+    db = Session()
+    try:
+        yield db
+
+    finally:
+        db.close()
