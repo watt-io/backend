@@ -1,37 +1,38 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+## Features
 
-#### Descrição
+- é possivel realizar todas as operações CRUD na API
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+## API endpoints
 
-Rotas da API:
+<!--
+    API endpoints: This will be a list of all created endpoints and expected responses.
+ -->
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+### filmes
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+| HTTP Verbs | Endpoints          | Action                            |
+| ---------- | ------------------ | --------------------------------- |
+| GET        | /filmes            | listar todos os filmes     |
+| GET        | /filmes            | buscar apenas um filme  |
+| POST       | /filmes/{id}       | criar um novo filme |
+| PUT        | /filmes/{id}       | atualizar um filme |
+| DELETE     | /filmes/{id}       | deletar um filme |
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+## Technologies used
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+<!--
+    Technologies used: This will list all the technologies the application is built with.
+ -->
+
+- [python](https://www.python.org/ "python")
+- [SQLAlchemy](https://www.sqlalchemy.org/)
+- [Flask](https://flask.palletsprojects.com/)
 
 
-#### Como começar?
+## Authors
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+<!--
+    Authors: A list of authors and contributors to this project.
+ -->
 
-#### Dúvidas?
-
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
-
-Salve!
+- [Joao Victor Assis](https://github.com/joaovicassis)
