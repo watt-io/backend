@@ -35,3 +35,11 @@ Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um di
 Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
 
 Salve!
+
+#### Como subir a aplicação?
+
+docker-compose up
+
+### Inserir dados
+
+http://localhost:5000/inserthost
