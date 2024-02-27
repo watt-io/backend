@@ -11,7 +11,7 @@ from sqlalchemy.orm import sessionmaker
 app = FastAPI()
 
 
-SQLALCHEMY_DATABASE_URL = "mysql://root:jamaica@localhost/banco_locadora"
+SQLALCHEMY_DATABASE_URL = "mysql://root:jamaica@localhost/banco_locadora" # Mudar de localhost para db posteriormente
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
@@ -32,9 +32,6 @@ def get_filmes():
     filmes_list = [{'id': filme.id, 'titulo': filme.titulo} for filme in filmes]
     db.close()
     return filmes_list
-
-    # /filmes - [POST] deve cadastrar um novo filme.
-    # Cadastrando um novo filme
 
 if __name__ == "__main__":
     import uvicorn
