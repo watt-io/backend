@@ -1,9 +1,9 @@
 # Descrição de como executar o código:
 
-### 1. Para executar diretamento o arquivo main.py com o Python é necessário instalar os pacotes listados em requirements.txt
+### 1. Para executar diretamente o arquivo main.py com o Python é necessário instalar os pacotes listados em requirements.txt
     - pip install -r requirements.txt
 
-### 2. Para executar pelo Docker, foi utilizado o Python na versão 3.11, e configurdo o docker-compose.yml
+### 2. Para executar pelo Docker, foi utilizado o Python na versão 3.11, e configurado o docker-compose.yml
     - Obs. está utilizando a porta 8000
     - docker-compose up
 
