@@ -1,7 +1,11 @@
 from fastapi import FastAPI
 import uvicorn
 from app.routers import filmes_routers
+from app.db.database import *
 
+
+# Criando as tabelas no banco de dados, se não existirem
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 

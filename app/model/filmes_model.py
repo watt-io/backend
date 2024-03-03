@@ -11,8 +11,6 @@ class Filme(Base):
     titulo = Column(String)
     lancamento = Column(Integer)
 
-# Criando as tabelas no banco de dados, se não existirem
-Base.metadata.create_all(bind=engine)
 
 # Criando classe de modelo para receber dados de entrada no POST
 class FilmeCreate(BaseModel):
