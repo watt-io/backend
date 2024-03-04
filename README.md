@@ -1,3 +1,15 @@
+# Descrição de como executar o código:
+
+### 1. Para executar diretamente o arquivo main.py com o Python é necessário instalar os pacotes listados em requirements.txt
+    - pip install -r requirements.txt
+
+### 2. Para executar pelo Docker, foi utilizado o Python na versão 3.11, e configurado o docker-compose.yml
+    - Obs. está utilizando a porta 8000
+    - docker-compose up
+
+### 3. Após executar basta abrir o navegador em localhost:8000/docs para ter acesso aos get e post para listar e cadastrar filmes
+
+
 ![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
 
 #### Descrição
