@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123mudar  
+      MYSQL_DATABASE: locadora                       
+    ports:
+      - "3306:3306"                      
+    volumes:
+      - mysql-data:/var/lib/mysql   
+
+  fastapi:
+    build: .
+    container_name: fastapi
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql     
+    environment:
+      - DATABASE_URL=mysql+pymysql://root:123mudar@mysql-db:3306/locadora
+
+
+volumes:
+  mysql-data:                      
