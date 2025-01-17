@@ -4,13 +4,13 @@ from app.crud import listar_filmes, criar_filme, obter_filme_por_id
 
 app = FastAPI()
 
-
+# Rotas get
 @app.get("/filmes")
 def get_filmes():
     filmes = listar_filmes()
     return [filme.to_dict() for filme in filmes]
 
-
+# Rotas post
 @app.post("/filmes")
 def post_filme(request: Request):
     data = request.json()  # Dados recebidos no corpo da requisição
@@ -25,7 +25,7 @@ def post_filme(request: Request):
         raise HTTPException(status_code=400, detail=f"Campo obrigatório ausente: {e}")
     return criar_filme(novo_filme).to_dict()
 
-
+# Rotas get com parâmetro
 @app.get("/filmes/{id}")
 def get_filme_por_id(id: int):
     filme = obter_filme_por_id(id)

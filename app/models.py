@@ -5,6 +5,7 @@ class Filme:
         self.diretor = diretor
         self.ano = ano
 
+        # Métodos para conversão de dados
         def to_dict(self):
             """"Converte o objeto Filme em um dicionário"""
             return {
@@ -14,6 +15,7 @@ class Filme:
                 "ano": self.ano,
             }
 
+        # Método estático para criar um objeto Filme a partir de um dicionário
         @staticmethod
         def from_dict(data: dict):
             """Cria um objeto Filme a partir de um dicionário."""

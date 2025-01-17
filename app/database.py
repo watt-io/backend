@@ -4,6 +4,7 @@ from app.models import Filme
 
 DATABASE = "filmes.json"
 
+# Função para carregar os dados do arquivo JSON
 def carregar_dados() -> List[Filme]:
     try:
         with open(DATABASE, "r") as f:
@@ -11,7 +12,8 @@ def carregar_dados() -> List[Filme]:
             return [Filme.from_dict(filme) for filme in filmes]
     except FileNotFoundError:
         return []
-    
+
+# Função para salvar os dados no arquivo JSON    
 def salvar_dados(filmes: List[Filme]) -> None:
     with open(DATABASE, "w") as f:
         json.dump([filme.to.dict() for filme in filmes], f, indent=4)
