@@ -1,37 +1,113 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+# Filmes API
 
-#### Descrição
+Esta é uma API desenvolvida em Python com o framework FastAPI, projetada para gerenciar informações sobre filmes. A aplicação utiliza um banco de dados SQLite para armazenar os dados e pode ser executada em um ambiente Docker.
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+## Recursos da API
 
-Rotas da API:
+A API suporta as seguintes operações:
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+- **Listar todos os filmes**: `GET /Filmes`
+- **Obter detalhes de um filme pelo ID**: `GET /Filmes/{id}`
+- **Adicionar um novo filme**: `POST /Filmes`
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+## Requisitos
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+Certifique-se de ter instalado os seguintes componentes:
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+- [Python 3.9+](https://www.python.org/)
+- [Docker](https://www.docker.com/)
+- [Git](https://git-scm.com/)
 
+## Instalação e Execução do Projeto
 
-#### Como começar?
+1. Clone este repositório:
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+```bash
+git clone <URL_DO_REPOSITORIO>
+cd WATTIO-TESTE
+```
 
-#### Dúvidas?
+2. Construa e inicie os containers Docker:
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+```bash
+docker-compose up --build
+```
 
-Salve!
+3. Acesse a documentação interativa da API no navegador:
+
+```
+http://localhost:8000/docs
+```
+
+4. As rotas da API estão detalhadas abaixo:
+
+### Listar todos os filmes
+
+**Requisição:**
+
+```bash
+GET /Filmes
+```
+
+**Resposta:**
+
+```json
+[
+  {
+    "id": 1,
+    "titulo": "Scarface",
+    "diretor": "Brian de Palma"
+  },
+  {
+    "id": 2,
+    "titulo": "Bastardos Inglórios",
+    "diretor": "Quentin Tarantino"
+  }
+]
+```
+
+### Obter detalhes de um filme pelo ID
+
+**Requisição:**
+
+```bash
+GET /Filmes/{id}
+```
+
+**Resposta:**
+
+```json
+{
+  "id": 1,
+  "titulo": "Scarface",
+  "diretor": "Brian de Palma"
+}
+```
+
+### Adicionar um novo filme
+
+**Requisição:**
+
+```bash
+POST /Filmes
+```
+
+**Corpo da Requisição:**
+
+```json
+{
+  "titulo": "Matrix",
+  "diretor": "Lana Wachowski e Lilly Wachowski"
+}
+```
+
+**Resposta:**
+
+```json
+{
+  "id": 4,
+  "titulo": "Matrix",
+  "diretor": "Lana Wachowski e Lilly Wachowski"
+}
+```
+
