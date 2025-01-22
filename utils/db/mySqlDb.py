@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 import os
 
-def criar_conexao():
+def criar_conexao_mySql():
     """
     Cria uma conex o com o banco de dados mySql.
 
