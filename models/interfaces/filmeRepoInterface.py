@@ -1,5 +1,5 @@
 from typing import List
-from filmeModel import FilmeModel
+from models.filmeModel import FilmeModel
 
 class FilmeRepoInterface:
     def get_filmes(self) -> List[FilmeModel]:

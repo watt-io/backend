@@ -1,6 +1,6 @@
 from typing import List
 from models.interfaces.filmeRepoInterface import FilmeRepoInterface
-from models.filmeModel import FilmeModel
+from models.filmeModel import FilmeModel, FilmeResponse
 
 class FilmeRepoMySQL(FilmeRepoInterface):
     def __init__(self, conexao_mysql):
@@ -12,7 +12,7 @@ class FilmeRepoMySQL(FilmeRepoInterface):
         """
         self.conexao = conexao_mysql
 
-    def get_filmes(self) -> List[FilmeModel]:
+    def get_filmes(self) -> List[FilmeResponse]:
         """
         Retorna todos os filmes
         """
@@ -21,7 +21,7 @@ class FilmeRepoMySQL(FilmeRepoInterface):
         rows = cursor.fetchall()
         filmes = []
         for row in rows:
-            filmes.append(FilmeModel(
+            filmes.append(FilmeResponse(
                 id=row[0],
                 titulo=row[1],
                 diretor=row[2],
@@ -40,7 +40,7 @@ class FilmeRepoMySQL(FilmeRepoInterface):
         self.conexao.commit()
         return filme
 
-    def get_filme_by_id(self, id: int) -> FilmeModel:
+    def get_filme_by_id(self, id: int) -> FilmeResponse:
         """
         Retorna um filme pelo seu id
         """
@@ -49,7 +49,7 @@ class FilmeRepoMySQL(FilmeRepoInterface):
         row = cursor.fetchone()
         if row is None:
             return None
-        return FilmeModel(
+        return FilmeResponse(
             id=row[0],
             titulo=row[1],
             diretor=row[2],

@@ -1,6 +1,6 @@
 import mysql.connector
-from mysql.connector import Error
 import os
+from services.mySqlDbService import mySqlDbService
 
 def criar_conexao_mySql():
     """
@@ -19,13 +19,19 @@ def criar_conexao_mySql():
     try:
         connection = mysql.connector.connect(
             host='localhost',
+            port=3306,
             user=os.getenv('MYSQL_USER'),
-            password=os.getenv('MYSQL_PASSWORD'),
-            database='filmes_db'
+            password=os.getenv('MYSQL_PASSWORD')
         )
         if connection.is_connected():
             print("Conexão com o banco de dados mySql estabelecida com sucesso!")
+
+            dbService = mySqlDbService(connection)
+
+            dbService.criar_banco(os.getenv('MYSQL_DATABASE'))
+            connection.database = os.getenv('MYSQL_DATABASE')
+
             return connection
-    except Error as e:
+    except Exception as e:
         print(f"Erro ao conectar com o banco de dados: {e}")
         raise e
