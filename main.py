@@ -1,13 +1,12 @@
 from fastapi import FastAPI
 from utils.db import mySqlDb
 from controllers.filmeController import FilmeController
-from models.repos.filmeRepoMySQL import FilmeRepoMySQL
+from services.connectionService import determinar_conexao
 
 app = FastAPI()
 
-connectionMySql = mySqlDb.criar_conexao_mySql()
-repoMySql = FilmeRepoMySQL(connectionMySql)
-item_controller = FilmeController(repoMySql)
+repo = determinar_conexao()
+item_controller = FilmeController(repo)
 
 app.include_router(item_controller.router)
 
