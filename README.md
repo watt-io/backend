@@ -1,37 +1,44 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+# FastAPI com MySQL
 
-#### Descrição
+Este é um projeto de exemplo de uma API com FastAPI e persistência em um banco de dados MySQL.
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+## Inicialização com Docker
 
-Rotas da API:
+Para inicializar o projeto com docker, execute os comandos abaixo na raiz do projeto:
+```bash
+docker compose build
+docker compose up
+```
+Após 15 segundos, a aplicação deverá estar rodando.
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+## Estrutura do Projeto
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+- `main.py`: Ponto de entrada da aplicação FastAPI.
+- `controllers/`: Contém os controladores da API.
+- `models/`: Define os modelos de dados e interfaces de repositório.
+- `services/`: Contém serviços auxiliares, como a conexão com o banco de dados.
+- `utils/`: Inclui utilitários, como a configuração do banco de dados.
+- `docker-compose.yml`: Arquivo de configuração para o Docker Compose.
+- `Dockerfile`: Define como a imagem Docker é construída.
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+## Variáveis de Ambiente
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+Certifique-se de definir as variáveis de ambiente necessárias no arquivo `.env` antes de executar o build do projeto:
 
+- `MYSQL_USER`: Usuário do banco de dados MySQL. (padrão: `root` (não recomendado em produção, ajustar docker-compose))
+- `MYSQL_PASSWORD`: Senha do banco de dados MySQL. (padrão: `root` (não recomendado em produção, ajustar docker-compose))
+- `MYSQL_DATABASE`: Nome do banco de dados a ser utilizado. (padrão: `filmesDB`)
+- `DB_TYPE`: Tipo de banco de dados (`mysql` é a única implementação atualmente).
 
-#### Como começar?
+## Testando a API
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+Após iniciar o projeto, você pode acessar a documentação interativa da API em `http://localhost:8000/docs`.
 
-#### Dúvidas?
+## Finalizando o Projeto
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+Para parar e remover os contêineres do Docker, utilize o comando:
 
-Salve!
+```bash
+docker compose down
+```
+

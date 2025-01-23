@@ -1,0 +1,22 @@
+version: '1.0'
+
+services:
+  fastapi:
+    build: .
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+    entrypoint: sh -c "sleep 10 && uvicorn main:app --host 0.0.0.0 --port 8000"
+
+  mysql:
+    container_name: mysqldb
+    image: mysql:8.0
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
