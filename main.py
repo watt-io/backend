@@ -10,3 +10,9 @@ item_controller = FilmeController(repo)
 
 app.include_router(item_controller.router)
 
+@app.get("/")
+def root():
+    """
+    Rota raiz que redireciona para a documentação da API.
+    """
+    return {"message": "Acesse a documentação da API em /docs"}
