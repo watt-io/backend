@@ -18,7 +18,7 @@ def criar_conexao_mySql():
     """
     try:
         connection = mysql.connector.connect(
-            host='localhost',
+            host='mysqldb',
             port=3306,
             user=os.getenv('MYSQL_USER'),
             password=os.getenv('MYSQL_PASSWORD')
