@@ -41,5 +41,4 @@ Para parar e remover os contêineres do Docker, utilize o comando:
 ```bash
 docker compose down
 ```
-```
 
