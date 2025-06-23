@@ -1,6 +1,7 @@
-def main() -> None:
-    print('Hello from watt-io-backend-challenge!')
+from fastapi import FastAPI
 
+from movies.routes import movies
 
-if __name__ == '__main__':
-    main()
+app = FastAPI()
+
+app.include_router(movies.router)
