@@ -1,6 +1,6 @@
-def main():
-    print("Hello from watt-io-backend-challenge!")
+def main() -> None:
+    print('Hello from watt-io-backend-challenge!')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
