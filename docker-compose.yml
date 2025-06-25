@@ -1,0 +1,22 @@
+
+services:
+  api:
+    build: .
+    container_name: movies_api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./movies.db:/app/movies.db
+    restart: always
+
+  redoc:
+    image: redocly/redoc
+    container_name: redocly_doc
+    ports:
+      - "8080:80"
+    environment:
+      SPEC_URL: "http://localhost:8000/openapi.json"
+    depends_on:
+      - api

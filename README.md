@@ -1,37 +1,62 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+# 🎬 API de Filmes
 
-#### Descrição
+Uma API REST para cadastro de filmes, desenvolvida com **FastAPI**, utilizando **SQLAlchemy** para persistência de dados em **SQLite**.
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+Este projeto faz parte de um desafio técnico com o objetivo de implementar um CRUD completo de filmes, expondo uma API REST funcional, organizada e de fácil manutenção.
 
-Rotas da API:
+---
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+## 🚀 Tecnologias utilizadas
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [SQLAlchemy](https://www.sqlalchemy.org/)
+- [SQLite](https://www.sqlite.org/)
+- [Pydantic](https://docs.pydantic.dev/)
+- [Uvicorn](https://www.uvicorn.org/)
+- [Docker](https://www.docker.com/)
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+📚 **Referência complementar**:  
+[Guia sobre ORMs em Python – Real Python](https://realpython.com/python-sql-libraries/#object-relational-mappers-orms)
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+---
 
+## 🗂️ Funcionalidades
 
-#### Como começar?
+- ✅ Criar um novo filme (`POST /filmes/`)
+- ✅ Listar todos os filmes cadastrados (`GET /filmes/`)
+- ✅ Buscar um filme por ID (`GET /filmes/{id}`)
+- ✅ Atualizar um filme (`PUT /filmes/{id}`)
+- ✅ Deletar um filme (`DELETE /filmes/{id}`)
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+---
 
-#### Dúvidas?
+## 📁 Estrutura de diretórios
+movies-api/
+├── app/
+│ ├── api/ # Arquivos de rota (endpoints)
+│ ├── crud/ # Funções de acesso ao banco
+│ ├── db/ # Conexão e base do SQLAlchemy
+│ ├── models/ # Modelos do banco (ORM)
+│ ├── schemas/ # Schemas Pydantic
+│ └── main.py # Ponto de entrada da aplicação
+├── movies.db # Arquivo SQLite com os dados
+├── .env # Variavel de conexão com o banco
+├── dockerfile # Containerização
+├── docker-compose.yml
+└── README.md # Este arquivo
+├── requirements.txt # Dependências do projeto    
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+---
 
-Salve!
+## 🐳 Como rodar com Docker
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/gMoraes1/API-Filmes.git
+cd API-Filmes
+Construa e execute a aplicação com Docker Compose:
+docker compose up 
+A aplicação estará disponível em: http://localhost:8000/docs
+⚠️ Atenção: O arquivo .env foi incluído neste repositório apenas por ser um desafio técnico.
+Nunca suba esse tipo de arquivo em projetos reais, pois ele pode conter informações sensíveis, como senhas e logins.
