@@ -1,0 +1,25 @@
+services:
+
+  db:
+    image: mysql
+    container_name: db-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - rede-sql-python
+  api:
+    build: ./api
+    networks:
+      - rede-sql-python
+    ports:
+      - "8000:8000"
+
+volumes:
+  mysql_data:
+
+networks:
+  rede-sql-python:
