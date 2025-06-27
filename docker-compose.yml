@@ -1,0 +1,34 @@
+services:
+  db:
+    image: mysql
+    container_name: db-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - rede-sql-python
+    command: --port=3306  # força uso da porta correta
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: ./api
+    networks:
+      - rede-sql-python
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy  # aguarda banco estar pronto antes de subir a API
+
+volumes:
+  mysql_data:
+
+networks:
+  rede-sql-python:
