@@ -1,37 +1,92 @@
 ![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
 
-#### Descrição
+# 🎬 Wattio Movie API
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+## 📄 Descrição
 
-Rotas da API:
+Este projeto é parte de um desafio técnico da empresa **Wattio**, que consiste na implementação de uma **API RESTful para cadastro de filmes**. Foi desenvolvido com foco em boas práticas de engenharia de software, utilizando **arquitetura hexagonal (Ports and Adapters)**, com **Python (FastAPI)**, **Docker**, e **PostgreSQL** para persistência de dados.
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+---
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+## 🧱 Arquitetura Hexagonal
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+A aplicação foi estruturada seguindo o padrão de **Arquitetura Hexagonal**, separando claramente:
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+- **Domínio (Regras de negócio)** — `src/core`
+- **Ports (Interfaces)** — `src/core/ports`
+- **Adapters (Implementações)** — `src/adapters/driven` e `src/adapters/driving`
+- **Entrypoint da aplicação** — `app.py` (FastAPI)
+
+Esse modelo promove uma aplicação mais desacoplada, testável e preparada para evoluções futuras.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+- 🐍 Python
+- ⚡ FastAPI
+- 🐘 PostgreSQL
+- 🐳 Docker & Docker Compose
+- 📦 Poetry (gerenciador de dependências)
+- 🔁 SQLAlchemy (ORM)
+
+---
+
+## 📌 Rotas da API
+
+| Método | Rota              | Descrição                                 |
+|--------|-------------------|-------------------------------------------|
+| GET    | `/filmes`         | Retorna todos os filmes cadastrados       |
+| POST   | `/filmes`         | Cadastra um novo filme                    |
+| GET    | `/filmes/{id}`    | Retorna um filme específico pelo ID       |
+| PUT    | `/filmes/{id}`    | Atualiza um filme pelo ID                 |
+| DELETE | `/filmes/{title}` | Deleta um filme pelo título               |
+
+A documentação interativa da API pode ser acessada em:
+
+http://localhost:8000/docs
 
 
-#### Como começar?
+## ▶️ Como rodar a aplicação
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+### 1. Clone o repositório
+```bash
+git clone https://github.com/limagustavo2200/caseWattio.git
+cd caseWatiio
 
-#### Dúvidas?
+2. Suba os containers com Docker Compose
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+docker-compose up --build
 
-Salve!
+Isso irá:
+
+Instanciar o serviço da API com FastAPI
+
+Criar um banco de dados PostgreSQL via Docker
+
+3. Criar as tabelas no banco de dados
+
+Com os containers em execução, execute o script de criação de tabelas:
+
+docker-compose exec app poetry run python src/adapters/driven/database/create_tables.py
+
+Esse script cria as tabelas definidas no ORM, conectando-se ao banco PostgreSQL.
+```
+
+
+## 🧪 Testando a API
+
+Com a aplicação rodando, você pode acessar:
+
+📘 Documentação Swagger:
+http://localhost:8000/docs
+
+📗 Redoc (documentação alternativa):
+http://localhost:8000/redoc
+
+
+## 📫 Contato
+
+Dúvidas ou sugestões? Entre em contato pelo [LinkedIn](https://www.linkedin.com/in/seu-usuario/).
+
+---
