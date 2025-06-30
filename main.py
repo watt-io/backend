@@ -1,17 +1,6 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 
 app = FastAPI()
-
-movies_db = []
-
-class MovieModel(BaseModel):
-    id: int
-    movie_name: str
-    synopsis: str
-    duration: int
-    year_release: int
-    movie_genre: str
 
 @app.post('/filmes')
 def register_movie(movie: MovieModel):
