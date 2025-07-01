@@ -6,8 +6,8 @@ services:
     container_name: postgres_movies
     restart: always
     environment:
-      POSTGRES_USER: user_movie
-      POSTGRES_PASSWORD: senha123
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: moviesdb
     volumes:
       - postgres_data:/var/lib/postgresql/data
