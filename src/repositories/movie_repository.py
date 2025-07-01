@@ -2,9 +2,11 @@ from src.database.connection import get_connection
 from src.models.movie import MovieModel
 
 class MovieRepository:
+    def __init__(self):
+        self.conn = get_connection()
+
     def get_all(self):
-        conn = get_connection()
-        cur = conn.cursor()
+        cur = self.conn.cursor()
 
         cur.execute('''
             SELECT id, movie_name, synopsis, duration, year_release, movie_gender
@@ -13,7 +15,6 @@ class MovieRepository:
 
         rows = cur.fetchall()
         cur.close()
-        conn.close()
 
         movies = []
         for row in rows:
@@ -29,8 +30,7 @@ class MovieRepository:
         return movies
     
     def get_by_id(self, id: int):
-        conn = get_connection()
-        cur = conn.cursor()
+        cur = self.conn.cursor()
 
         cur.execute('''
             SELECT id, movie_name, synopsis, duration, year_release, movie_gender
@@ -40,7 +40,6 @@ class MovieRepository:
 
         row = cur.fetchone()
         cur.close()
-        conn.close()
 
         if row:
             return {
@@ -54,14 +53,16 @@ class MovieRepository:
         return None
     
     def create(self, movie: MovieModel):
-        conn = get_connection()
-        cur = conn.cursor()
+        cur = self.conn.cursor()
 
         cur.execute('''
             INSERT INTO movies (movie_name, synopsis, duration, year_release, movie_gender)
             VALUES (%s, %s, %s, %s, %s);
         ''', (movie.movie_name, movie.synopsis, movie.duration, movie.year_release, movie.movie_gender))
 
-        conn.commit()
+        self.conn.commit()
         cur.close()
-        conn.close()
+    
+    def __del__(self):
+        if self.conn:
+            self.conn.close()
