@@ -10,11 +10,10 @@ def register_movie(movie: MovieModel):
     cur = conn.cursor()
 
     cur.execute('''
-    INSERT INTO movies (movieName, synopsis, duration, yearRelease, movie_gender)
-    VALUES (%s, %s, %s, %s, %s);
+        INSERT INTO movies (movie_name, synopsis, duration, year_release, movie_gender)
+        VALUES (%s, %s, %s, %s, %s);
     ''', (movie.movie_name, movie.synopsis, movie.duration, movie.year_release, movie.movie_gender))
 
-    movie.id = cur.fetchone()[0]
     conn.commit()
     cur.close()
     conn.close()

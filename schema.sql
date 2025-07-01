@@ -1,10 +1,8 @@
-CREATE DATABASE IF NOT EXISTS movie_db;
-
 CREATE TABLE IF NOT EXISTS movies(
     id SERIAL PRIMARY KEY,
-    movieName TEXT NOT NULL,
+    movie_name TEXT NOT NULL,
     synopsis TEXT,
     duration INT,
-    yearRelease INT,
+    year_release INT,
     movie_gender TEXT
 );
