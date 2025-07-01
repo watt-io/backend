@@ -19,6 +19,18 @@ Para executar a aplicação, siga os seguintes passos:
     ```
 A API estará disponível em `http://localhost:8000/`
 
+4. **Cadastrar um filme**
+Ao fazer uma requisição [POST] para `/filmes`, envie o seguinte JSON no corpo da requisição:
+
+    ```json
+    {
+    "movie_name": "O Senhor dos Anéis: O Retorno do Rei",
+    "synopsis": "Gandalf e Aragorn lideram o Mundo dos Homens contra o exército de Sauron para desviar o olhar de Frodo e Sam quando eles se aproximam á Montanha da Perdição com o Um Anel.",
+    "duration": 201,
+    "year_release": 2003,
+    "movie_gender": "Fantasia"
+    }
+    ```
 ---
 
 #### Descrição
