@@ -1,5 +1,5 @@
-from src.model import MovieModel
-from src.db import get_connection
+from models.movie import MovieModel
+from database.connection import get_connection
 from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
