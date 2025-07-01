@@ -64,5 +64,8 @@ class MovieRepository:
         cur.close()
     
     def __del__(self):
-        if self.conn:
-            self.conn.close()
+        try:
+            if hasattr(self, 'conn') and self.conn:
+                self.conn.close()
+        except:
+            pass
