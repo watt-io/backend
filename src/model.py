@@ -5,4 +5,4 @@ class MovieModel(BaseModel):
     synopsis: str
     duration: int
     year_release: int
-    movie_genre: str
+    movie_gender: str
