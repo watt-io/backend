@@ -1,0 +1,37 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    tty: true
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - database
+    restart: always
+    networks:
+      - app
+
+  database:
+    image: mysql:8.0
+    container_name: database-wattio
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: database-wattio
+    volumes:
+      - database_volume:/var/lib/mysql
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  database_volume:

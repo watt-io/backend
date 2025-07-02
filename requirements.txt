@@ -1,0 +1,6 @@
+fastapi[standard]==0.115.6
+cryptography
+python-dotenv
+pydantic-settings
+sqlalchemy
+pymysql
