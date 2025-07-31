@@ -1,16 +1,20 @@
-from typing import List
-from src.schemas import FilmCreate, Film
+from sqlalchemy.orm import Session
+from src.schemas import FilmCreate
+from src.models.film import FilmModel
 
 class FilmService:
-    def __init__(self):
-        self._films = []
-        self._id_counter = 1
+    def __init__(self, db: Session):
+        self.db = db
 
-    def get_all_films(self) -> List[Film]:
-        return self._films
+    def get_all_films(self):
+        return self.db.query(FilmModel).all()
 
-    def create_film(self, film_create: FilmCreate) -> Film:
-        film = Film(id=self._id_counter, **film_create.dict())
-        self._films.append(film)
-        self._id_counter += 1
+    def create_film(self, film_create: FilmCreate):
+        film = FilmModel(**film_create.dict())
+        self.db.add(film)
+        self.db.commit()
+        self.db.refresh(film)
         return film
+    
+    def get_film(self, id: int):
+        return self.db.query(FilmModel).filter(FilmModel.id == id).first()
