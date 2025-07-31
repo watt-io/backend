@@ -39,3 +39,17 @@ async def test_get_films():
     assert isinstance(data, list)
     assert len(data) >= 1
 
+@pytest.mark.asyncio
+async def test_get_film_by_id():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        # Cria um filme para garantir que existe
+        film_data = {"title": "Matrix", "director": "Wachowski", "year": 1999}
+        post_response = await ac.post("/filmes/", json=film_data)
+        id = post_response.json()["id"]  # sobrescrevendo apenas aqui
+
+        # Busca pelo ID
+        get_response = await ac.get(f"/filmes/{id}")
+        assert get_response.status_code == 200
+
+
