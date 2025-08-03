@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  watt-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./data:/app/data
+    environment:
+      - DATABASE_URL=sqlite:///./data/watt_filmes.db
+    command: ./start.sh
+    restart: unless-stopped
+
+  watt-tests:
+    build: .
+    volumes:
+      - .:/app
+      - ./data:/app/data
+    environment:
+      - DATABASE_URL=sqlite:///./data/watt_filmes.db
+    command: python -m pytest -v
+    depends_on:
+      - watt-api 
