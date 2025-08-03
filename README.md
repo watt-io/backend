@@ -1,37 +1,109 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+# Filmes API
 
-#### Descrição
-
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
-
-Rotas da API:
-
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
-
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
-
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
-
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+API REST para cadastro e consulta de filmes, desenvolvida com FastAPI e SQLAlchemy, para desafio proposto por Watt-io.
 
 
-#### Como começar?
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+## Pré-requisitos
 
-#### Dúvidas?
+- Python 3.8 ou superior
+- pip (gerenciador de pacotes do Python)
+- Banco de dados SQLite (padrão)
+- (Opcional) Docker e Docker Compose
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
 
-Salve!
+
+## Instalação
+
+1. **Clone o repositório**
+   ```sh
+   git clone <URL_DO_REPOSITORIO>
+   cd filmes_api
+   ```
+
+2. **Crie e ative um ambiente virtual**
+   ```sh
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+
+3. **Instale as dependências**
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+4. **Sobre o banco de dados**
+   - Por padrão, a API usa SQLite. Se quiser usar outro banco, ajuste a string de conexão no arquivo de configuração.
+
+
+
+## Execução
+
+Rode a aplicação com Docker, usando o comando dentro da pasta raíz do projeto:
+```sh
+docker run -d -p 8000:8000 filmes_api
+```
+
+ou
+
+Execute pelo servidor de desenvolvimento, usando o comando dentro da pasta raíz do projeto:
+```sh
+uvicorn app.main:app --reload
+```
+
+Acesse a documentação auto-gerada com swagger em: [http://localhost:8000/docs]
+
+
+
+## Estrutura do Projeto
+
+```
+filmes_api/
+├── app/
+│   ├── api/
+|     ├── v1/
+|        ├── routes_movies.py
+│   ├── core/
+|     ├── config.py
+│   ├── crud/
+|     ├── movie.py
+│   ├── data/
+│   ├── db/
+|     ├── base.py
+|     ├── init_db.py
+|     ├── session.py
+│   ├── models/
+|     ├── movie.py
+│   ├── schemas/
+|     ├── movie.py
+│   ├── __init__.py
+│   └── main.py
+├── data/
+├── docker-compose.yml
+├── Dockerfile
+├── README.md
+└── requirements.txt
+```
+
+
+
+## Endpoints Principais
+
+- `GET /api/v1/routes_movies` — Lista todos os filmes
+- `GET /api/v1/routes_movies/{id}` — Consulta filme por ID
+- `GET /api/v1/routes_movies/title/{title}` — Lista filmes cujo o titulo contem string passada em {title}
+- `POST /api/v1/routes_movies` — Cria um novo filme
+- `PUT /api/v1/routes_movies/{id}` — Atualiza filme pelo ID
+- `DELETE /api/v1/routes_movies/{id}` — Remove filme pelo ID
+
+Consulte a documentação do Swagger para detalhes e exemplos.
+
+
+
+## Observações
+
+- Escrevi o código todo em ingles, por padrão pessoal.
+- Adicionei rotas para Update e Delete (na descrição do desafio era obrigatório apenas rotas para retornar todos filmes | retornar um especifico | inserir), fiz dessa maneira para atender os requisitos de [C]reate [R]ead [U]pdate [D]elete. 
+- Para dúvidas ou comentários, contate-me via email (jmpvboas@gmail.com) ou celular (+5535984325692).
+
+---
