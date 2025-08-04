@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d database"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    restart: always
+    environment:
+      POSTGRES_DB: wattiodb
+      POSTGRES_USER: wattio
+      POSTGRES_PASSWORD: wattio
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data:cached
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.yaml
+    command: python /backend/app/main.py
+    environment:
+      PYTHONPATH: .
+      DATABASE_URL: "postgresql://wattio:wattio@postgres:5432/wattiodb"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - 8000:8000
+
+volumes:
+  db_data:
