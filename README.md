@@ -1,37 +1,57 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
 
-#### Descrição
+# Desafio CRUD de Filmes - Backend Python
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+Este projeto implementa um CRUD de filmes utilizando FastAPI, SQLAlchemy e PostgreSQL, com suporte a Docker e pgAdmin para gerenciamento do banco de dados.
 
-Rotas da API:
+## Como rodar o projeto
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+### Pré-requisitos
+- Docker e Docker Compose instalados
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+### Passos
+1. Clone o repositório e acesse a pasta `backend`.
+2. Crie um arquivo chamado `.env` na raiz da pasta `backend` com o seguinte conteúdo:
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+```
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=pedro12
+POSTGRES_DB=filmes
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+```
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+3. Execute o comando abaixo para subir todos os serviços (API, banco de dados e pgAdmin):
 
+```
+docker-compose up --build
+```
 
-#### Como começar?
+4. Acesse a documentação da API em: [http://localhost:8000/docs](http://localhost:8000/docs)
+	- Aqui você pode testar as rotas `/filmes` (GET, POST) e `/filmes/{id}` (GET).
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+5. Acesse o pgAdmin em: [http://localhost:5050](http://localhost:5050)
+	- Login: `admin@admin.com`
+	- Senha: `pedro12`
+	- Para conectar ao banco, use:
+	  - Host: `db`
+	  - Usuário: `postgres`
+	  - Senha: `pedro12`
+	  - Database: `filmes`
 
-#### Dúvidas?
+6. Para parar todos os serviços, use:
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+```
+docker-compose down
+```
 
-Salve!
+## Estrutura dos arquivos principais
+- `main.py`: API FastAPI com as rotas do CRUD
+- `models.py`: Modelos ORM e schemas Pydantic
+- `database.py`: Configuração da conexão com PostgreSQL
+- `docker-compose.yml`: Orquestração dos serviços
+- `Dockerfile`: Build do backend
+- `.env`: Variáveis de ambiente do banco
+
+## Observações
+- O banco de dados é criado automaticamente ao subir os containers.
+- As tabelas são criadas automaticamente pelo SQLAlchemy.
