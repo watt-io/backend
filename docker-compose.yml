@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: api_filmes_crud
+    ports:
+      - "8000:8000"
+    volumes:
+      # Cria um volume nomeado 'api_data' e o monta no diretório /app/data dentro do container. É aqui que o nosso arquivo 'filmes.db' (SQLite) será armazenado.
+      - api_data:/app/data
+
+volumes:
+  api_data:

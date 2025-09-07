@@ -1,37 +1,55 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+# Desafio CRUD de Filmes com FastAPI
 
-#### Descrição
+Esta é uma implementação do desafio de CRUD de Filmes utilizando Python, FastAPI, SQLAlchemy (com SQLite) e Docker/Docker-compose.
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+A aplicação expõe uma API REST para criar e listar filmes, garantindo a persistência dos dados através de um volume Docker.
 
-Rotas da API:
+## Tecnologias Utilizadas
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+* **Python 3.10**
+* **FastAPI**: Para a construção da API e documentação automática (Swagger/ReDoc).
+* **Uvicorn**: Servidor ASGI para rodar o FastAPI.
+* **SQLAlchemy**: ORM para interação com o banco de dados.
+* **SQLite**: Banco de dados relacional file-based para persistência.
+* **Docker & Docker-compose**: Para containerização da aplicação e gerenciamento da persistência de dados.
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+## Como Subir a Aplicação
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+### Pré-requisitos
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+* [Docker](https://www.docker.com/get-started) instalado.
+* [Docker Compose](https://docs.docker.com/compose/install/) instalado (geralmente vem com o Docker Desktop).
+
+### Passos para Execução
+
+1.  Clone este repositório (ou o fork que você criou).
+2.  Navegue até o diretório raiz do projeto (onde o arquivo `docker-compose.yml` está localizado).
+3.  Execute o seguinte comando no seu terminal:
+
+    ```bash
+    docker-compose up --build
+    ```
+
+    * O comando `--build` força o Docker a construir a imagem a partir do `Dockerfile` na primeira execução (ou se houver mudanças nos arquivos).
+    * Se preferir rodar em modo "detached" (em segundo plano), use `docker-compose up -d --build`.
+
+4.  Pronto! A API estará rodando.
+
+### Acessando a API
+
+Após executar o `docker-compose up`, a API estará acessível nos seguintes endereços:
+
+* **API (Raiz)**: [http://localhost:8000/](http://localhost:8000/):
+<img src="evidencias/localhost.png" alt="" />
+
+* **Documentação Interativa (Swagger UI)**: [http://localhost:8000/docs](http://localhost:8000/docs):
+<img src="evidencias/endpoints.png" alt="" />
+
+* **Documentação Alternativa (ReDoc)**: [http://localhost:8000/redoc](http://localhost:8000/redoc):
 
 
-#### Como começar?
+### Endpoints Disponíveis
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
-
-#### Dúvidas?
-
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
-
-Salve!
+* `POST /filmes`: Cadastra um novo filme.
+* `GET /filmes`: Retorna todos os filmes cadastrados.
+* `GET /filmes/{id}`: Retorna um filme específico pelo seu ID.
