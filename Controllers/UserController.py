@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 from DTOs.UserDTOs import UserCreate, UserResponse
 from Services.UserService import UserService
 from Data.session import get_db
-from fastapi.security import OAuth2PasswordRequestForm
-
+# from fastapi.security import OAuth2PasswordRequestForm
+from DTOs.LoginDTO import LoginUser
 router_user = APIRouter(prefix="/users", tags=["Users"])
 
 @router_user.post("/", response_model=UserResponse)
@@ -21,12 +21,12 @@ def create_user(user_create: UserCreate, db: Session = Depends(get_db)):
     return user
 
 @router_user.post("/login")
-def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def login(form_data: LoginUser = Depends(), db: Session = Depends(get_db)):
     """
-    Login usando OAuth2PasswordRequestForm
+    Login usando LoginUser
     """
     service = UserService(db)
-    token = service.authenticate(form_data.username, form_data.password)
+    token = service.authenticate(form_data.email, form_data.password)
     if not token:
         raise HTTPException(status_code=401, detail="Credenciais inválidas")
     return {"access_token": token, "token_type": "bearer"}
