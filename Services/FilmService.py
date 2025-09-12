@@ -2,16 +2,28 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from Repositories.FilmRepository import FilmRepository
 from DTOs.FilmDTOs import FilmCreate
-
+from Repositories.CategoryRepository import CategoryRepository
+from Repositories.DirectorRepository import DirectorRepository
 class FilmService:
     def __init__(self, db: Session):
-        self.repo = FilmRepository(db)
+        self.repofilm = FilmRepository(db)
+        self.repocatory = CategoryRepository(db)
+        self.repodirector = DirectorRepository(db)
 
     def create_film(self, film_data: FilmCreate):
         # Exemplo de regra de negócio: duração mínima
         if film_data.duration <= 0:
-            raise ValueError("A duração do filme deve ser maior que zero.")
-        return self.repo.create(film_data)
+            raise HTTPException(status_code=422, detail="A duração do filme deve ser maior que zero.")
+
+        if not self.repocatory.get_by_id(film_data.category_id):
+            raise HTTPException(status_code=404, detail="A categoria selecionada não existe.")
+        
+        if not self.repodirector.get_by_id(film_data.director_id):
+            raise HTTPException(status_code=404, detail="O diretor selecionadol não existe.")
+
+
+
+        return self.repofilm.create(film_data)
 
     def list_films(
         self,
@@ -26,7 +38,7 @@ class FilmService:
         if page_size < 1: page_size = 10
 
         skip = (page - 1) * page_size
-        return self.repo.list_all(
+        return self.repofilm.list_all(
             skip=skip,
             limit=page_size,
             title=title,
@@ -36,19 +48,19 @@ class FilmService:
         )
 
     def get_film(self, film_id: int):
-        book = self.repo.get_by_id(book_id)
+        book = self.repofilm.get_by_id(book_id)
         if not book:
             raise ValueError("Filme não encontrado.")
         return film
 
     def update_film(self, film_id: int, film_data: FilmCreate):
-        film = self.repo.update(film_id, film_data)
+        film = self.repofilm.update(film_id, film_data)
         if not film:
             raise HTTPException(status_code=404, detail="Filme não encontrado.")
         return film
 
     def delete_film(self, film_id: int):
-        film = self.repo.delete(film_id)
+        film = self.repofilm.delete(film_id)
         if not film:
             raise HTTPException(status_code=404, detail="Filme não encontrado")
         return film
