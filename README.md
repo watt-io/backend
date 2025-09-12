@@ -1,37 +1,159 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+# Desafio Watt
 
-#### Descrição
+![Minha imagem](public_readme/swagger_docs.png)
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+## Instalação e Configuração
 
-Rotas da API:
+Para rodar este projeto, você precisará ter o **Docker** e o **Docker Compose** instalados na sua máquina.
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+### Pré-requisitos
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+- **Docker:** Certifique-se de que o Docker esteja instalado e em execução. Você pode baixá-lo e seguir as instruções de instalação em [docs.docker.com/get-docker/](https://docs.docker.com/get-docker/).
+- **Docker Compose:** Geralmente, o Docker Compose já vem incluído na instalação do Docker. Verifique se ele está disponível.
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+---
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+### Como Rodar o Projeto
+
+Siga estes passos para rodar o projeto localmente:
+
+1. **Clone o repositório:**
+
+   ```bash
+   git clone https://github.com/BernardoSaullo/desafio-backend-watt.git
+   cd desafio-backend-watt
+   git checkout -b feature/bernardo-saullo origin/feature/bernardo-saullo
+   ```
+
+2. **Configurar variáveis de ambiente:**
+
+   Antes de iniciar os serviços, crie um arquivo `.env` na raiz do projeto.
+   Você pode usar o arquivo de exemplo `.env.example` como base:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Em seguida, abra o `.env` e adicione suas credenciais e outras configurações necessárias.
+
+   > ⚠️ É importante preencher corretamente as variáveis de ambiente para que a aplicação funcione.
+
+3. **Inicie os serviços com Docker Compose:**
+
+   ```bash
+   docker-compose up --build
+   ```
+
+   Esse comando irá construir as imagens, baixar dependências e iniciar todos os containers.
+
+4. **Acesse a aplicação:**
+
+   * **Swagger:** [http://localhost:8000/docs#/](http://localhost:8000/docs#/)
+   * **ReDoc:** [http://localhost:8000/redoc#/](http://localhost:8000/redoc#/)
+
+---
 
 
-#### Como começar?
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
 
-#### Dúvidas?
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
 
-Salve!
+
+## Como se Autenticar e Usar a API
+
+Para interagir com a API, siga os passos abaixo:
+
+1. Criar um usuário
+
+Acesse o endpoint de cadastro (`POST /users`) e crie sua conta.
+
+2. Realizar login
+
+Use o endpoint de login (`POST /users/login`) com suas credenciais para obter um **token de acesso**.
+
+3. Autorizar no Swagger ou Redoc
+
+    - Copie o token retornado no login.
+    - Clique no botão **Authorize** no Swagger ou Redoc.
+    - Cole o token no campo correspondente e confirme.
+
+> ✅ Após isso, você estará autenticado e poderá usar todos os endpoints protegidos da API.
+
+
+
+---
+
+## Stack utilizada
+
+**Back-end:** FastAPI, SQLAlchemy
+
+**Banco de Dados:** SQLite
+
+---
+
+## Funcionalidades Principais
+
+### Autenticação e Usuários
+
+- Cadastro de novos usuários no sistema
+- Login com **e-mail e senha**
+- Geração e validação de **token JWT** para acesso autenticado às rotas protegidas
+
+### Gestão de Filmes
+
+- Cadastro de filmes com informações como título, categoria, idioma e ano de lançamento
+- Consulta de filmes com **filtros avançados** (título, categoria, idioma, ano de lançamento) e **paginação**
+- Atualização dos dados de um filme existente
+- Exclusão de filmes
+
+### Gestão de Categorias
+
+- Cadastro de categorias de filmes
+- Consulta de categorias com **filtros por nome**
+- Atualização dos dados de uma categoria existente
+- Exclusão de categorias
+
+### Gestão de Diretores
+
+- Cadastro de diretores
+- Consulta de diretores com **filtros por nome**
+- Atualização dos dados de um diretor existente
+- Exclusão de diretores
+
+---
+
+## Funcionalidades de Infraestrutura e Segurança
+
+### Autenticação e Autorização
+
+- Implementação de **JWT (JSON Web Token)** para autenticação segura dos usuários
+- Proteção de endpoints sensíveis, exigindo **token válido** para acesso
+
+### Hash de Senhas no banco de dados
+
+- Utliza da biblioteca Bycript para armazenamento seguro de senhas no banco de dados
+
+### CORS (Cross-Origin Resource Sharing)
+
+- Configuração de CORS para permitir que apenas **origens autorizadas** consumam os endpoints da API
+
+### Logs Estruturados
+
+- Middleware para **registro detalhado de requisições e respostas**
+- Configuração de **sobrescrita/rotação de logs**, evitando crescimento excessivo de arquivos
+
+### Seeds Iniciais
+
+- Inserção automática de **dados padrões** no banco (ex.: categorias, diretores, etc.), facilitando a inicialização do ambiente
+
+### Paginação
+
+- Implementação de **paginação em consultas**, garantindo melhor performance e escalabilidade em cenários com grandes volumes de dados
+
+### Swagger (OpenAPI)
+
+- Documentação automática e interativa da API
+- Possibilidade de **testar endpoints diretamente no navegador**
+- Configuração para **autenticação JWT no Swagger**, permitindo validar rotas protegidas
+
+---
