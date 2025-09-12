@@ -48,8 +48,8 @@ class FilmService:
         )
 
     def get_film(self, film_id: int):
-        book = self.repofilm.get_by_id(book_id)
-        if not book:
+        film = self.repofilm.get_by_id(film_id)
+        if not film:
             raise ValueError("Filme não encontrado.")
         return film
 
@@ -57,6 +57,12 @@ class FilmService:
         film = self.repofilm.update(film_id, film_data)
         if not film:
             raise HTTPException(status_code=404, detail="Filme não encontrado.")
+        
+        if not self.repocatory.get_by_id(film_data.category_id):
+            raise HTTPException(status_code=404, detail="A categoria selecionada não existe.")
+        
+        if not self.repodirector.get_by_id(film_data.director_id):
+            raise HTTPException(status_code=404, detail="O diretor selecionadol não existe.")
         return film
 
     def delete_film(self, film_id: int):
