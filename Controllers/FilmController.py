@@ -20,7 +20,8 @@ def list_films(
     category: str | None = None,
     language: str | None = None,
     release_year: int | None = None,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
 ):
     service = FilmService(db)
     return service.list_films(
@@ -33,11 +34,11 @@ def list_films(
     )
 
 @router_film.put("/{id}", response_model=FilmResponse)
-def update_film(id : int, film: FilmCreate, db: Session = Depends(get_db)):
+def update_film(id : int, film: FilmCreate, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
     service = FilmService(db)
     return service.update_film(id, film)
 
 @router_film.delete("/{id}")
-def delete_film(id: int, db: Session = Depends(get_db)):
+def delete_film(id: int, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
     service = FilmService(db)
     return service.delete_film(id)
