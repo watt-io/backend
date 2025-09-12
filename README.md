@@ -15,28 +15,71 @@ Para rodar este projeto, você precisará ter o **Docker** e o **Docker Compose*
 
 ### Como Rodar o Projeto
 
-Siga estes passos simples para ter o projeto funcionando localmente:
+Siga estes passos para rodar o projeto localmente:
 
-1.  **Clone o repositório:**
+1. **Clone o repositório:**
 
-    ```bash
-    git clone https://github.com/BernardoSaullo/desafio-backend-watt.git
-    cd desafio-backend-watt
-    ```
+   ```bash
+   git clone https://github.com/BernardoSaullo/desafio-backend-watt.git
+   cd desafio-backend-watt
+   git checkout -b feature/bernardo-saullo origin/feature/bernardo-saullo
+   ```
 
-2.  **Inicie os serviços com Docker Compose:**
+2. **Configurar variáveis de ambiente:**
 
-    ```bash
-    docker-compose up --build
-    ```
+   Antes de iniciar os serviços, crie um arquivo `.env` na raiz do projeto.
+   Você pode usar o arquivo de exemplo `.env.example` como base:
 
-    Este comando irá construir as imagens, baixar as dependências e iniciar todos os containers.
+   ```bash
+   cp .env.example .env
+   ```
 
-3.  **Acesse a aplicação:**
-    Após os containers serem inicializados, você pode acessar a aplicação nos seguintes endereços:
+   Em seguida, abra o `.env` e adicione suas credenciais e outras configurações necessárias.
 
-    - **Swagger:** [http://localhost:8000/doc](http://localhost:8000/docs#/)
-    - **ReDoc:** [http://localhost:8000/redoc](http://localhost:8000/redoc#/)
+   > ⚠️ É importante preencher corretamente as variáveis de ambiente para que a aplicação funcione.
+
+3. **Inicie os serviços com Docker Compose:**
+
+   ```bash
+   docker-compose up --build
+   ```
+
+   Esse comando irá construir as imagens, baixar dependências e iniciar todos os containers.
+
+4. **Acesse a aplicação:**
+
+   * **Swagger:** [http://localhost:8000/docs#/](http://localhost:8000/docs#/)
+   * **ReDoc:** [http://localhost:8000/redoc#/](http://localhost:8000/redoc#/)
+
+---
+
+
+
+
+
+
+
+## Como se Autenticar e Usar a API
+
+Para interagir com a API, siga os passos abaixo:
+
+1. Criar um usuário
+
+Acesse o endpoint de cadastro (`POST /users`) e crie sua conta.
+
+2. Realizar login
+
+Use o endpoint de login (`POST /users/login`) com suas credenciais para obter um **token de acesso**.
+
+3. Autorizar no Swagger ou Redoc
+
+    - Copie o token retornado no login.
+    - Clique no botão **Authorize** no Swagger ou Redoc.
+    - Cole o token no campo correspondente e confirme.
+
+> ✅ Após isso, você estará autenticado e poderá usar todos os endpoints protegidos da API.
+
+
 
 ---
 
