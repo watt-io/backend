@@ -2,7 +2,6 @@ from datetime import date
 from Models.CategoryModel import Category
 from Models.DirectorModel import Director
 from Models.FilmModel import Film
-from Models.UserModel import User
 from random import choice, randint, uniform
 from faker import Faker
 
@@ -10,10 +9,11 @@ fake = Faker()
 
 def seed_data(db):
     # ---------- CATEGORIES ----------
-    categories = ["Ação", "Comédia", "Drama", "Terror", "Fantasia"]
+    categories = ["Action", "Funny", "Drama", "Horror"]
     for name in categories:
         if not db.query(Category).filter_by(name=name).first():
             db.add(Category(name=name))
+    db.commit()
 
     # ---------- DIRECTORS ----------
     for _ in range(5):
@@ -22,6 +22,7 @@ def seed_data(db):
         birth_date = fake.date_of_birth(minimum_age=30, maximum_age=80)
         if not db.query(Director).filter_by(name=name).first():
             db.add(Director(name=name, nationality=nationality, birth_date=birth_date))
+    db.commit()
 
   
 
