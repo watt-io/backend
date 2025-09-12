@@ -10,7 +10,7 @@ from Controllers.DirectorController import router_director
 from Controllers.UserController import router_user
 from utils.logs_resgister import log_requests  
 from fastapi.middleware.cors import CORSMiddleware
-
+from Data.seed_if_empty import seed_if_empty
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
@@ -36,3 +36,12 @@ app.include_router(router_film)
 app.include_router(router_category)
 app.include_router(router_director)
 app.include_router(router_user)
+
+
+@app.on_event("startup")
+def startup_event():
+    # Cria as tabelas
+    Base.metadata.create_all(bind=engine)
+
+    # Seed se o banco estiver vazio
+    seed_if_empty()
