@@ -8,7 +8,7 @@ from Controllers.FilmController import router_film
 from Controllers.CategoryController import router_category
 from Controllers.DirectorController import router_director
 from Controllers.UserController import router_user
-
+from utils.logs_resgister import log_requests  
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -28,6 +28,9 @@ app.add_middleware(
     allow_methods=["*"],        # Permite todos os métodos HTTP (GET, POST, etc)
     allow_headers=["*"],        # Permite todos os headers
 )
+
+
+app.middleware("http")(log_requests)
 
 app.include_router(router_film)
 app.include_router(router_category)
