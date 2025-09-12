@@ -1,17 +1,19 @@
+# dependencies/auth_token.py
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.orm import Session
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from Services.JwtService import JWTService
-from Services.UserService import UserService
+from sqlalchemy.orm import Session
 from Data.session import get_db
+from Services.UserService import UserService
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/users/login")  # rota de login
+# Cria um esquema que espera "Authorization: Bearer <token>"
+bearer_scheme = HTTPBearer()
 
-def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
-
-    # Dependência que extrai o usuário logado do token JWT
-    
-    payload = JWTService.decode_access_token(token)
+def get_current_user(token: HTTPAuthorizationCredentials = Depends(bearer_scheme), db: Session = Depends(get_db)):
+    """
+    Extrai o usuário do token JWT enviado no header Authorization
+    """
+    payload = JWTService.decode_access_token(token.credentials)
     if not payload:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token inválido ou expirado")
     
@@ -19,4 +21,5 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     user = user_service.user_repo.get_by_id(payload.get("user_id"))
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Usuário não encontrado")
+    
     return user
