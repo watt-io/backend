@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app            # Mapeia o código local
+      - sqlite_data:/app/db  # Persistência do arquivo SQLite
+    environment:
+      - DATABASE_URL=sqlite:///./db/app.db
+
+volumes:
+  sqlite_data:
