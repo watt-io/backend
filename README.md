@@ -1,37 +1,93 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+# 🎬 Movie API
 
-#### Descrição
+API RESTful para gerenciamento de filmes construída com FastAPI, SQLAlchemy e Docker.
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+## 🚀 Tecnologias
 
-Rotas da API:
+- **FastAPI** - Framework web moderno e rápido
+- **SQLAlchemy** - ORM para Python
+- **SQLite** - Banco de dados
+- **Pydantic** - Validação de dados
+- **Docker** - Containerização
+- **uv** - Gerenciador de pacotes Python ultrarrápido
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+## 📦 Instalação
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+### Com Docker (Recomendado)
+```bash
+docker-compose up
+```
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+### Sem Docker
+```bash
+uv sync
+uv run uvicorn app.main:app --reload --port 8000
+```
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+## 📚 Documentação
+
+Acesse a documentação interativa:
+- Swagger UI: http://localhost:8000/docs
 
 
-#### Como começar?
+## 🧪 Testes Automatizados
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+Foi incrementado testes automatizados utilizando `pytest` e o `TestClient` do FastAPI para garantir a integridade e o funcionamento correto dos endpoints.
 
-#### Dúvidas?
+### Pré-requisitos
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+Antes de rodar os testes, certifique-se de que as dependências de desenvolvimento estão instaladas:
 
-Salve!
+```bash
+uv pip install -e ".[dev]"
+```
+
+Após a instalação as dependências de desenvolvimento executar:
+
+```bash
+uv run pytest
+```
+
+### ⚠️ Observação: 
+Certificar de ter instalado o gerenciador de pacote `uv` para a execução local na máquina.
+
+O instalador pode ser encontrado clicar neste [link](https://docs.astral.sh/uv/getting-started/installation/).
+
+
+## ✨ Qualidade de Código e Padronização
+
+Para garantir um código limpo, legível e padronizado, o projeto utiliza um *pipeline* de qualidade de código com as seguintes ferramentas:
+
+* **Black**: Formatador de código automático e opinativo.
+* **Flake8**: Linter para checagem de estilo (PEP 8) e detecção de erros.
+* **pre-commit**: Ferramenta que gerencia e executa o Black e o Flake8 automaticamente antes de cada `git commit`.
+
+Isso garante que todo o código enviado ao repositório siga os mesmos padrões de qualidade, de forma automatizada.
+
+### 🔧 Ativando os Hooks Localmente
+
+Para que o `pre-commit` valide seu código automaticamente *antes* de cada commit na sua máquina, você precisa ativar os "hooks" do git.
+
+1.  Primeiro, certifique-se de que as dependências de desenvolvimento estão instaladas (o que também instala o pacote `pre-commit`):
+    ```bash
+    uv pip install -e ".[dev]"
+    ```
+
+2.  Em seguida, ative os hooks no seu repositório local:
+    ```bash
+    uv run pre-commit install
+    ```
+
+A partir de agora, a cada `git commit`, as validações rodarão automaticamente baseado nas configurações do arquivo `.pre-commit-config.yaml`.
+
+
+## 📝 Endpoints
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| POST | `/movies/` | Criar filme |
+| GET | `/movies/` | Listar filmes |
+| GET | `/movies/{id}` | Buscar filme |
+| PUT | `/movies/{id}` | Atualizar filme |
+| PATCH | `/movies/{id}` | Atualizar parcialmente filme |
+| DELETE | `/movies/{id}` | Deletar filme |
