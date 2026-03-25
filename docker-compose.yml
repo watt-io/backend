@@ -1,0 +1,19 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - dados_filmes:/app/data
+    environment:
+      - DATABASE_URL=sqlite:///./data/filmes.db
+
+  tests:
+    build: .
+    command: ["pytest", "tests/", "-v"]
+    profiles:
+      - test
+
+volumes:
+  dados_filmes:
+
