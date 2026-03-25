@@ -1,8 +1,10 @@
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-
-DATABASE_URL = "sqlite:///.filmes.db"
+# Configuração da URL do banco e motor de conexão (SQLite)
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./filmes.db")
 
 engine = create_engine(
     DATABASE_URL,
@@ -14,8 +16,10 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 def get_db():
+    """Dependência para obter uma sessão limpa do banco em cada requisição."""
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
