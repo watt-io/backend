@@ -1,37 +1,135 @@
 ![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
 
-#### Descrição
+# API de Filmes - Desafio Wattio
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+API REST para gerenciamento de filmes, desenvolvida com FastAPI, SQLAlchemy e SQLite.
 
-Rotas da API:
+## Tecnologias
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+- Python 3.13
+- FastAPI
+- SQLAlchemy 2.0
+- SQLite
+- Pydantic V2
+- Pytest
+- Docker / Docker Compose
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+## Como Rodar
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+### Com Docker (recomendado)
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+```bash
+docker compose up --build
+```
 
+A API estará disponível em: http://localhost:8000
 
-#### Como começar?
+### Sem Docker
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+```bash
+# Criar e ativar o ambiente virtual (Windows)
+python -m venv .venv
+.venv\Scripts\activate
 
-#### Dúvidas?
+# Instalar dependências
+pip install -r requirements.txt
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+# Iniciar o servidor
+uvicorn app.main:app --reload
+```
 
-Salve!
+## Documentação da API
+
+Com o servidor rodando, acesse a documentação interativa:
+
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
+
+## Endpoints
+
+| Método   | Rota            | Descrição                          |
+|----------|-----------------|------------------------------------|
+| GET      | /filmes         | Listar filmes (com filtros e paginação) |
+| POST     | /filmes         | Cadastrar novo filme               |
+| GET      | /filmes/{id}    | Buscar filme por ID                |
+| PUT      | /filmes/{id}    | Atualizar filme                    |
+| DELETE   | /filmes/{id}    | Remover filme                      |
+
+### Filtros e Paginação
+
+```
+GET /filmes?genero=Drama&diretor=Coppola&ano=1972&skip=0&limit=10
+```
+
+| Parâmetro | Tipo   | Descrição                          |
+|-----------|--------|------------------------------------|
+| genero    | string | Filtra por gênero (case-insensitive) |
+| diretor   | string | Filtra por diretor (case-insensitive) |
+| ano       | int    | Filtra por ano de lançamento       |
+| skip      | int    | Registros a pular (padrão: 0)      |
+| limit     | int    | Máximo de resultados (padrão: 10)  |
+
+### Exemplo de Requisição - Criar Filme
+
+```bash
+curl -X POST http://localhost:8000/filmes \
+  -H "Content-Type: application/json" \
+  -d '{
+    "titulo": "O Poderoso Chefão",
+    "diretor": "Francis Ford Coppola",
+    "ano": 1972,
+    "genero": "Drama"
+  }'
+```
+
+**Resposta (201):**
+```json
+{
+  "titulo": "O Poderoso Chefão",
+  "diretor": "Francis Ford Coppola",
+  "ano": 1972,
+  "genero": "Drama",
+  "id": 1
+}
+```
+
+## Testes
+
+### Localmente
+
+```bash
+pytest tests/ -v
+```
+
+### Com Docker
+
+```bash
+docker compose run --rm tests
+```
+
+**Testes incluídos:**
+- Criação de filmes (campos válidos e inválidos)
+- Listagem com filtros e paginação
+- Busca por ID (existente e inexistente)
+- Atualização parcial de campos
+- Remoção de filmes
+- Validação de dados (422)
+- Tratamento de erros (400, 404)
+
+## Estrutura do Projeto
+
+```
+backend/
+├── app/
+│   ├── database.py     # Configuração do banco de dados (SQLAlchemy)
+│   ├── main.py         # Ponto de entrada e rotas (FastAPI)
+│   ├── models.py       # Definição das tabelas no banco de dados
+│   └── schemas.py      # Validação de dados de entrada/saída (Pydantic)
+├── tests/
+│   └── test_filmes.py  # Testes de integração (Pytest)
+├── Dockerfile          # Configuração da imagem Docker
+├── docker-compose.yml  # Orquestração dos serviços (API e testes)
+├── requirements.txt    # Dependências do projeto
+└── README.md           # Documentação principal
+```
+
