@@ -1,0 +1,8 @@
+services:
+  api:
+    build: .
+    container_name: wattio_filmes_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
