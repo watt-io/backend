@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  api:
+    # Nome amigável para o container
+    container_name: api_movies
+
+    # Diz ao compose para buildar a imagem usando o Dockerfile na mesma pasta
+    build: .
+    # Mapeia a porta 8000 da sua máquina para a porta 8000 do container
+    ports:
+      - "8002:8002"
+    # Monta a pasta atual dentro do container, permitindo ver alterações de código sem rebuildar
+    volumes:
+      - .:/app

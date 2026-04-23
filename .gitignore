@@ -1,0 +1,23 @@
+venv/
+.venv/
+env/
+python/
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+*.db
+*.db-journal
+.docker/
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+# Logs
+*.log
