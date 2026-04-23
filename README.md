@@ -1,37 +1,143 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+# 🎬 API de Filmes
 
-#### Descrição
+API REST para gerenciamento de filmes, desenvolvida com FastAPI, utilizando SQLite para persistência de dados e Docker para containerização.
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+---
 
-Rotas da API:
+## 🚀 Tecnologias utilizadas
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+* Python 3.11
+* FastAPI
+* SQLAlchemy
+* SQLite
+* Docker / Docker Compose
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+---
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+## 📁 Estrutura do projeto
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+```
+filmes-api/
+│
+├── app/
+│   ├── main.py        # Rotas da API
+│   ├── models.py      # Modelos do banco
+│   ├── schemas.py     # Validação de dados
+│   ├── crud.py        # Regras de negócio
+│   └── database.py    # Conexão com banco
+│
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+└── README.md
+```
 
+---
 
-#### Como começar?
+## ⚙️ Como executar o projeto
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+### 🔹 Usando Docker (recomendado)
 
-#### Dúvidas?
+```bash
+docker-compose up --build
+```
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+A aplicação estará disponível em:
 
-Salve!
+```
+http://localhost:8000
+```
+
+---
+
+### 🔹 Executando localmente (sem Docker)
+
+```bash
+# criar ambiente virtual
+python -m venv venv
+
+# ativar ambiente
+venv\Scripts\activate
+
+# instalar dependências
+pip install -r requirements.txt
+
+# rodar aplicação
+uvicorn app.main:app --reload
+```
+
+---
+
+## 📌 Endpoints
+
+### 🔹 Listar todos os filmes
+
+```
+GET /filmes
+```
+
+---
+
+### 🔹 Criar um novo filme
+
+```
+POST /filmes
+```
+
+Exemplo de body:
+
+```json
+{
+  "titulo": "Batman",
+  "descricao": "Filme do Cavaleiro das Trevas"
+}
+```
+
+---
+
+### 🔹 Buscar filme por ID
+
+```
+GET /filmes/{id}
+```
+
+---
+
+## 📄 Documentação da API
+
+A documentação interativa (Swagger) está disponível em:
+
+```
+http://localhost:8000/docs
+```
+
+---
+
+## 💾 Persistência de dados
+
+Os dados são armazenados em um banco SQLite local:
+
+```
+filmes.db
+```
+
+---
+
+## 🐳 Containerização
+
+A aplicação foi containerizada utilizando Docker, garantindo portabilidade e facilidade de execução em qualquer ambiente.
+
+---
+
+## ✨ Melhorias futuras
+
+* Implementar PUT e DELETE (CRUD completo)
+* Adicionar validações mais robustas
+* Implementar testes automatizados
+* Utilizar banco de dados relacional como PostgreSQL
+
+---
+
+## 👨‍💻 Autor
+
+Gabriel Augusto
